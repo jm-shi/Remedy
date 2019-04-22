@@ -12,11 +12,15 @@ Athletes are constantly exerting their bodies to perform at the highest level, b
 <img src="https://github.com/jm-shi/Remedy/blob/master/storyboard2.jpg" alt="storyboard-2" width="500" height="500">
 
 ### Prototype 1:
+Prototype 1 focuses more heavily on sorting injuries based on different categories, in this case being sports.  <br>
+
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1a.png" alt="prototype-1a" >
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1b.png" alt="prototype-1b" >
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1c.png" alt="prototype-1c" >
 
 ### Prototype 2:
+Prototype 2 focuses more heavily on logging user injury information, as well as a progress bar to keep track of their recovery process.    <br>
+
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2a.png" alt="prototype-2a" >
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2b.png" alt="prototype-2b" >
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2c.png" alt="prototype-2c" >
