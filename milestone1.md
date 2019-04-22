@@ -1,4 +1,5 @@
 # Remedy
+Team Name: Remedy <br>
 Team Members: Eric Yang, Nikki Hardiman, Jamie Shi, Lawrence Ngo
 
 ### Proposal:
@@ -8,4 +9,14 @@ Athletes are constantly exerting their bodies to perform at the highest level, b
 <img src="https://github.com/jm-shi/Remedy/blob/master/storyboard1.jpg" alt="storyboard-1" width="500" height="500">
 
 ### Storyboard 2: 
-<img src="https://github.com/jm-shi/Remedy/blob/master/storyboard2.jpg" alt="storyboard-1" width="500" height="500">
+<img src="https://github.com/jm-shi/Remedy/blob/master/storyboard2.jpg" alt="storyboard-2" width="500" height="500">
+
+### Prototype 1:
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1a.png" alt="prototype-1a" >
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1b.png" alt="prototype-1b" >
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1c.png" alt="prototype-1c" height="250" >
+
+### Prototype 2:
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2a.png" alt="prototype-2a" >
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2b.png" alt="prototype-2b" >
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2c.png" alt="prototype-2c" >
