@@ -14,7 +14,7 @@ Athletes are constantly exerting their bodies to perform at the highest level, b
 ### Prototype 1:
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1a.png" alt="prototype-1a" >
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1b.png" alt="prototype-1b" >
-<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1c.png" alt="prototype-1c" height="250" >
+<img src="https://github.com/jm-shi/Remedy/blob/master/prototype-1c.png" alt="prototype-1c" >
 
 ### Prototype 2:
 <img src="https://github.com/jm-shi/Remedy/blob/master/prototype-2a.png" alt="prototype-2a" >
