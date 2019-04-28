@@ -14,16 +14,12 @@ npm install
 npm start
 ```
 
-### Watch
-```
-npm run watch
-```
-
 ### Sass
 To compile Sass to CSS and minify the output, run the following:
 ```
 gulp sass
 ```
+
 To watch for changes in Sass files, run the following:
 ```
 gulp sass-watch

@@ -4,7 +4,10 @@
 @import 'base/typography';
 
 @import 'components/button';
+@import 'components/navbar';
 
 @import 'layout/header';
 
 @import 'pages/home';
+
+@import '../../node_modules/bootstrap/scss/bootstrap';

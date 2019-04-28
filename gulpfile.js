@@ -4,6 +4,8 @@ let cleanCSS = require('gulp-clean-css');
 let rename = require('gulp-rename');
 let sass = require('gulp-sass');
 let sourcemaps = require('gulp-sourcemaps');
+let uglify = require('gulp-uglify-es').default;
+let watch = require('gulp-watch');
 
 const sassOptions = {
   errLogToConsole: true,
@@ -30,4 +32,27 @@ gulp.task('sass-watch', function() {
     .on('change', function(e) {
       console.log(`Modified the file: ${e} `);
     });
+});
+
+gulp.task('minify-js', function() {
+  return gulp
+    .src(['./public/js/*.js', '!./public/js/*.min.js'])
+    .pipe(uglify())
+    .pipe(
+      rename({
+        suffix: '.min'
+      })
+    )
+    .pipe(gulp.dest('./public/js'));
+});
+
+gulp.task('minify-js-watch', function() {
+  return watch(['./public/js/*.js', '!./public/js/*.min.js'])
+    .pipe(uglify())
+    .pipe(
+      rename({
+        suffix: '.min'
+      })
+    )
+    .pipe(gulp.dest('./public/js'));
 });
