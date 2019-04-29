@@ -1,0 +1,25 @@
+.card img {
+  width: 100%;
+  height: 30%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.name {
+  padding: 15px;
+  text-align: center;
+}
+
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 33%;
+}
+
+.card {
+  border-color: #333;
+  border-style: double;
+  border-width: 3px;
+  background-color: inherit;
+}

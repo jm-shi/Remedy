@@ -1,0 +1,18 @@
+<!-- navbar -->
+<h2> Common Injuries: Basketball</h2>
+{{#each sports}}
+  <div class="commonInjuryBox">
+    {{#each injuries}}
+      <a href="/injury-information">
+
+					<div class="cardCommon">
+						<p><h4>{{name}}</h4> </p>
+            <div><img src={{imageURL}} alt={{name}}></div>
+						<div>{{description}}</div>
+						<br>
+					</div>
+
+      </a>
+    {{/each}}
+    </div>
+{{/each}}

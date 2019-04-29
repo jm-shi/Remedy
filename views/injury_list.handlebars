@@ -1,0 +1,15 @@
+
+<div>
+  <button type="button" name="filter" class="btn">Filter</button>
+</div>
+
+{{#each sports}}
+  <div class="responsive">
+    <a href="/common-injuries">
+    <div class="card">
+        <img src={{imageURL}} alt={{name}}>
+        <h4 class="name">{{name}}</h4>
+    </div>
+    </a>
+  </div>
+{{/each}}
