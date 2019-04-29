@@ -1,0 +1,21 @@
+{{> navbar}}
+<div class="topBox">
+  <h2 class="titleName"> Common Injuries: Basketball</h2>
+  <a class="btn btn-primary" href="/injury-list" role="button" id="back-btn">Back</a>
+</div>
+{{#each sports}}
+  <div class="commonInjuryBox">
+    {{#each injuries}}
+      <a href="/injury-information">
+
+					<div class="cardCommon">
+						<p><h4>{{name}}</h4> </p>
+            <div><img src={{imageURL}} alt={{name}}></div>
+						<div>{{description}}</div>
+						<br>
+					</div>
+
+      </a>
+    {{/each}}
+    </div>
+{{/each}}

@@ -12,6 +12,25 @@ app.get('/', (req, res) => {
   });
 });
 
+const injuryList = require('./injury-list.json')
+
+
+
+app.get('/injury-list', (req, res) => {
+  //console.log(injuryList);
+  res.render('injury_list', injuryList);
+});
+
+app.get('/common-injuries', (req, res) => {
+  //console.log(injuryList);
+  res.render('common_injuries', injuryList);
+});
+
+app.get('/injury-information', (req, res) => {
+  //console.log(injuryList);
+  res.render('injury_information', injuryList);
+});
+
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);
 });
