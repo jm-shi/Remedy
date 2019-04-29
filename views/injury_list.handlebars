@@ -1,6 +1,11 @@
+{{> navbar}}
+<div class="topBox">
+  <a class="btn btn-primary" href="/" role="button" id="back-btn">Back</a>
+  <h2 class="titleName"> Injury List </h2>
+</div>
 
 <div>
-  <button type="button" name="filter" class="btn">Filter</button>
+  <button type="button" name="filter" class="btn btn-primary">Filter</button>
 </div>
 
 {{#each sports}}
@@ -8,7 +13,7 @@
     <a href="/common-injuries">
     <div class="card">
         <img src={{imageURL}} alt={{name}}>
-        <h4 class="name">{{name}}</h4>
+        <h6 class="name">{{name}}</h6>
     </div>
     </a>
   </div>
