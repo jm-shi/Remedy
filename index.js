@@ -14,7 +14,23 @@ app.get('/', (req, res) => {
 
 const injuryList = require('./injury-list.json')
 
+app.get('/current-log', (req, res) => {
+  res.render('current_log', {
+    title: 'Current Injury Log'
+  });
+});
 
+app.get('/previous-log', (req, res) => {
+  res.render('previous_log', {
+    title: 'Previous Injury Log'
+  });
+});
+
+app.get('/contact-doctor', (req, res) => {
+  res.render('contact_doctor', {
+    title: 'Contact Doctor'
+  });
+});
 
 app.get('/injury-list', (req, res) => {
   //console.log(injuryList);
