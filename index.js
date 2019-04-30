@@ -12,7 +12,19 @@ app.get('/', (req, res) => {
   });
 });
 
-const injuryList = require('./injury-list.json');
+const injuryList = require('./injury-list.json')
+
+app.get('/login', (req,res) => {
+  res.render('login',{
+    title: 'Login'
+  });
+});
+
+app.get('/profile', (req,res) => {
+  res.render('profile', {
+    title: 'Profile'
+  })
+});
 
 app.get('/injury-list', (req, res) => {
   //console.log(injuryList);
