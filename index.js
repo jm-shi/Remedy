@@ -30,7 +30,21 @@ app.get('/injury-information', (req, res) => {
 });
 
 app.get('/map', (req, res) => {
-  res.render('map');
+  res.render('map', {
+    title: 'Map'
+  });
+});
+
+app.get('/doctor', (req, res) => {
+  res.render('doctor', {
+    title: 'Doctor'
+  });
+});
+
+app.get('/pharmacy', (req, res) => {
+  res.render('pharmacy', {
+    title: 'Pharmacy'
+  });
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {
