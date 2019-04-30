@@ -4,9 +4,11 @@
 @import 'base/typography';
 
 @import 'components/button';
+@import 'components/card';
 @import 'components/navbar';
 
 @import 'layout/header';
+@import 'layout/iframeContainer';
 
 @import 'pages/home';
 @import 'pages/injuryList';
