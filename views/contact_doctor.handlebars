@@ -1,0 +1,38 @@
+{{> navbar}}
+
+<h2 class="titleName"> Contact Doctor </h2>
+
+<form class="container" action='/'>
+
+  <div class="form-group divider">
+    <label for="doctorName">Doctor</label>
+    <select class="form-control" id="doctor">
+      <option>Jamie Lee</option>
+      <option>Eric Wong</option>
+      <option>Nikki Easyman</option>
+      <option>Lawrence Yes</option>
+    </select>
+  </div>
+
+  <div class="form-group divider">
+    <label for="subjectName">Subject</label>
+    <input type="subject" class="form-control" id="subject" placeholder="My ankle hurts">
+  </div>
+
+   <div class="form-group divider">
+    <label for="messageText">Message</label>
+    <textarea class="form-control" id="message" rows="5" placeholder="Hello, my ankle hurts and I think it might be because I was playing soccer and my ankle was kicked. Can you please help me?"></textarea>
+  </div>
+
+
+  <div class="form-group divider">
+    <label for="injuryFile">Injury Log</label>
+    <input type="file" class="form-control-file" id="injuryfile">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+
+
