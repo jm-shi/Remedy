@@ -1,0 +1,38 @@
+<div class="card mt-4">
+  <div class="row no-gutters justify-content-around">
+    <div class="col-md-3 mt-3">
+      {{#if is-doctor}}
+      <a href="/doctor">
+      {{else}}
+      <a href="/pharmacy">
+      {{/if}}
+        <img class="card__thumbnail"
+          src={{image-url}}>
+      </a>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{business-name}}</h5>
+        <img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">
+        {{#if is-doctor}}
+        <p class="card-text">
+          <strong>Specialties</strong><br>
+          Emergency Medicine
+          </p>
+          {{/if}}
+        <p class="card-text">
+          <strong>Address</strong> <br>
+          2505 West Hammer Lane <br>
+          Stockton, California 95209
+        </p>
+        {{#if is-doctor}}
+        <a href="/doctor">
+        {{else}}
+        <a href="/pharmacy">
+        {{/if}}
+          <button class="btn btn-dark">View more</button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,7 @@ app.get('/', (req, res) => {
   });
 });
 
-const injuryList = require('./injury-list.json')
+const injuryList = require('./injury-list.json');
 
 app.get('/current-log', (req, res) => {
   res.render('current_log', {
@@ -31,6 +31,18 @@ app.get('/contact-doctor', (req, res) => {
     title: 'Contact Doctor'
   });
 });
+  
+app.get('/login', (req,res) => {
+  res.render('login',{
+    title: 'Login'
+  });
+});
+
+app.get('/profile', (req,res) => {
+  res.render('profile', {
+    title: 'Profile'
+  })
+});
 
 app.get('/injury-list', (req, res) => {
   //console.log(injuryList);
@@ -45,6 +57,24 @@ app.get('/common-injuries', (req, res) => {
 app.get('/injury-information', (req, res) => {
   //console.log(injuryList);
   res.render('injury_information', injuryList);
+});
+
+app.get('/map', (req, res) => {
+  res.render('map', {
+    title: 'Map'
+  });
+});
+
+app.get('/doctor', (req, res) => {
+  res.render('doctor', {
+    title: 'Doctor'
+  });
+});
+
+app.get('/pharmacy', (req, res) => {
+  res.render('pharmacy', {
+    title: 'Pharmacy'
+  });
 });
 
 const listener = app.listen(process.env.PORT || 3000, () => {

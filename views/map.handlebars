@@ -1,0 +1,51 @@
+{{> navbar}}
+
+<div class="container mt-0 mt-md-5 mb-5">
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <div class="row">
+        <div class="col-12">
+          <form class="mt-4 mb-4">
+            <div class="input-group">
+              <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
+              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+            </div>
+          </form>
+        </div>
+
+        <div class="col-12 d-none d-md-block">
+          {{> card is-doctor="true" business-name="John Burke, MD" image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
+          {{> card business-name="CVS Pharmacy" image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
+          {{> card image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 iframe-container">
+      <div id="map"></div>
+    </div>
+    <div class="col-12 d-md-none">
+          {{> card is-doctor="true" business-name="John Burke, MD" image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
+          {{> card business-name="CVS Pharmacy" image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
+          {{> card image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
+    </div>
+  </div>
+</div>
+
+<script>
+  let map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+      center: { lat: 32.8801, lng: -117.234 },
+      zoom: 8
+    });
+  }
+
+  function loadScript() {
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.defer = true;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    document.body.appendChild(script);
+  }
+  window.onload = loadScript;
+</script>
