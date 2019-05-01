@@ -1,16 +1,18 @@
+<link rel="stylesheet" href="../css/style.min.css" type="text/css">
+
 {{> navbar}}
 
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-sm-12 col-md-6" align="center">
-      <img src="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg">
+      <img id="doctor-image" src="https://asset2.betterdoctor.com/assets/general_doctor_male.png" alt="Doctor image">
     </div>
 
     <div class="col-sm-12 col-md-6">
-      <h1>John Burke, MD</h1>
+      <h1 id="name"></h1>
       <img src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png">
       <h5 class="mt-4">
-        <a href="http://www.sutterhealth.org/dr-ajitpalsingh-s-sethi.html" target="_blank">Visit website</a>
+        <a id="website" href="#" target="_blank">Visit website</a>
       </h5>
     </div>
   </div>
@@ -19,27 +21,17 @@
   <div class="row mt-5">
     <div class="col">
       <h4>Bio</h4>
-      <p>
-        Dr. John Burke, MD sees patients in Berkeley, California, Van nuys, California, and Oakland, California and
-        specializes in emergency medicine.
-      </p>
-      <p>
-        Dr. Burke received his medical degree from Georgetown University School Of Medicine and is licensed to practice medicine at California.
-      </p>
-      <p>
-        In addition to having active medical licenses, Dr. Burke has passed an automated background check which looked at
-        elements including medical license status and malpractice screening (no history found)
-      </p>
+      <div id="bio">
+      </div>
     </div>
   </div>
-  <!-- end bio row --> 
+  <!-- end bio row -->
 
   <div class="row mt-5">
     <div class="col">
       <h4>Specialties</h4>
-      <p>
-        Emergency medicine
-      </p>
+      <div id="specialties">
+      </div>
     </div>
   </div>
   <!-- end specialties row -->
@@ -59,3 +51,41 @@
   <!-- end insurance row -->
 
 </div>
+
+<script src="../js/secrets.js"></script>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/popper.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function (event) {
+    // Last segment of URL is the doctor ID 
+    // ex: /doctor/asdf means doctorId is asdf
+    const url = window.location.href;
+    doctorId = url.substr(url.lastIndexOf('/') + 1);
+
+    $.ajax({
+      url: `https://api.betterdoctor.com/2016-03-01/doctors/${doctorId}?user_key=${BETTER_DOCTOR_API_KEY}`,
+      success: function (result) {
+        const doctor = result.data;
+        const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+        const bio = `${doctor.profile.bio}`
+        const image_url = `${doctor.profile.image_url}`;
+
+        let specialtiesArr = [];
+        doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+        const specialties = specialtiesArr.join(", ");
+
+        const address_street = `${doctor.practices[0].visit_address.street}`;
+        const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+        const website = doctor.practices[0].website;
+
+        $("#name").html(name);
+        $("#bio").html(bio);
+        $("#specialties").html(specialties);
+        $("#doctor-image").attr("src", image_url);
+        $("#website").attr("href", website);
+      }
+    });
+  });
+</script>

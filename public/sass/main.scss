@@ -10,10 +10,11 @@
 @import 'layout/header';
 @import 'layout/iframeContainer';
 
-@import 'pages/home';
-@import 'pages/injuryList';
 @import 'pages/commonInjuries';
 @import 'pages/contact';
+@import 'pages/home';
+@import 'pages/injuryList';
 @import 'pages/log';
+@import 'pages/map';
 
 @import '../../node_modules/bootstrap/scss/bootstrap';

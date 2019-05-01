@@ -1,10 +1,15 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const handlebars = require('handlebars');
 
 app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
+
+handlebars.registerHelper('concat', function(x, y) {
+  return `${x}/${y}`;
+});
 
 app.get('/', (req, res) => {
   res.render('home', {
@@ -31,17 +36,17 @@ app.get('/contact-doctor', (req, res) => {
     title: 'Contact Doctor'
   });
 });
-  
-app.get('/login', (req,res) => {
-  res.render('login',{
+
+app.get('/login', (req, res) => {
+  res.render('login', {
     title: 'Login'
   });
 });
 
-app.get('/profile', (req,res) => {
+app.get('/profile', (req, res) => {
   res.render('profile', {
     title: 'Profile'
-  })
+  });
 });
 
 app.get('/injury-list', (req, res) => {
@@ -68,6 +73,14 @@ app.get('/map', (req, res) => {
 app.get('/doctor', (req, res) => {
   res.render('doctor', {
     title: 'Doctor'
+  });
+});
+
+app.get('/doctor/:id', function(req, res) {
+  const id = req.params.id;
+  res.render('doctor', {
+    title: 'Doctor Details',
+    doctorID: id
   });
 });
 

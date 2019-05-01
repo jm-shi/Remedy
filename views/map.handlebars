@@ -1,51 +1,79 @@
 {{> navbar}}
 
-<div class="container mt-0 mt-md-5 mb-5">
+<div class="">
   <div class="row">
-    <div class="col-sm-12 col-md-6">
-      <div class="row">
-        <div class="col-12">
-          <form class="mt-4 mb-4">
-            <div class="input-group">
-              <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
-              <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-            </div>
-          </form>
+    <div class="col-sm-12 col-md-6 a order-2 order-md-1">
+      <form class="mt-4 mb-4 ml-4">
+        <div class="input-group">
+          <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
+          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
         </div>
+        <button class="btn btn-primary">Filter</button>
+      </form>
 
-        <div class="col-12 d-none d-md-block">
-          {{> card is-doctor="true" business-name="John Burke, MD" image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
-          {{> card business-name="CVS Pharmacy" image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
-          {{> card image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
-        </div>
+      <div class="map-cards">
+        {{> card business-name="CVS Pharmacy" 
+          street-address="7525 Eads Ave"
+          city-state-address="La Jolla, CA 92037"
+          image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
       </div>
+
     </div>
-    <div class="col-sm-12 col-md-6 iframe-container">
+
+    <div class="col-sm-12 col-md-6 iframe-container test order-1 order-md-2">
       <div id="map"></div>
     </div>
-    <div class="col-12 d-md-none">
-          {{> card is-doctor="true" business-name="John Burke, MD" image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
-          {{> card business-name="CVS Pharmacy" image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
-          {{> card image-url="https://asset3.betterdoctor.com/images/5338f7b24214f84b3800026f-1_thumbnail.jpg"}}
-    </div>
   </div>
+
 </div>
+
 
 <script>
   let map;
   function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: 32.8801, lng: -117.234 },
       zoom: 8
     });
   }
 
-  function loadScript() {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
+  function loadMap() {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
     script.defer = true;
     script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
     document.body.appendChild(script);
   }
-  window.onload = loadScript;
+  window.onload = loadMap;
+
+  document.addEventListener("DOMContentLoaded", function (event) {
+    let doctorArr = [];
+    $.ajax({
+      url: `https://api.betterdoctor.com/2016-03-01/doctors?location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${BETTER_DOCTOR_API_KEY}`,
+      success: function (result) {
+        doctorArr = result.data;
+
+        doctorArr.forEach(doctor => {
+          const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+          const image_url = `${doctor.profile.image_url}`;
+          let specialtiesArr = [];
+          doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+          const specialties = specialtiesArr.join(", ");
+          const address_street = `${doctor.practices[0].visit_address.street}`;
+          const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+          const uid = doctor.uid;
+
+          $(".map-cards").append(`{{> card 
+                                      is-doctor="true" 
+                                      image-url="${image_url}" 
+                                      business-name="${name}" 
+                                      specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+        })
+
+      }
+    });
+  });
 </script>
