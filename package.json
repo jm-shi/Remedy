@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "watch": "concurrently \"nodemon index.js\" \"gulp sass-watch\""
   },
   "author": "",
   "license": "ISC",
@@ -15,6 +16,7 @@
     "handlebars": "^4.1.2"
   },
   "devDependencies": {
+    "concurrently": "^4.1.0",
     "gulp": "^4.0.1",
     "gulp-autoprefixer": "^6.1.0",
     "gulp-clean-css": "^4.2.0",
