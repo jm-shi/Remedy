@@ -41,7 +41,7 @@
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.defer = true;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap`;
     document.body.appendChild(script);
   }
   window.onload = loadMap;
@@ -49,7 +49,7 @@
   document.addEventListener("DOMContentLoaded", function (event) {
     let doctorArr = [];
     $.ajax({
-      url: `https://api.betterdoctor.com/2016-03-01/doctors?location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${process.env.BETTER_DOCTOR_API_KEY || BETTER_DOCTOR_API_KEY}`,
+      url: `https://api.betterdoctor.com/2016-03-01/doctors?location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${BETTER_DOCTOR_API_KEY}`,
       success: function (result) {
         doctorArr = result.data;
 
