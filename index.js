@@ -5,6 +5,11 @@ const handlebars = require('handlebars');
 app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
+
+// app.use('/', (req, res, next) => {
+//   console.log('The req url is', req.url);
+//   next();
+// });
 app.use(express.static(__dirname + '/public'));
 
 handlebars.registerHelper('concat', function(x, y) {
@@ -50,18 +55,24 @@ app.get('/profile', (req, res) => {
 });
 
 app.get('/injury-list', (req, res) => {
-  //console.log(injuryList);
-  res.render('injury_list', injuryList);
+  res.render('injury_list', {
+    title: 'Injury List',
+    injuryList
+  });
 });
 
 app.get('/common-injuries', (req, res) => {
-  //console.log(injuryList);
-  res.render('common_injuries', injuryList);
+  res.render('common_injuries', {
+    title: 'Common Injuries',
+    injuryList
+  });
 });
 
 app.get('/injury-information', (req, res) => {
-  //console.log(injuryList);
-  res.render('injury_information', injuryList);
+  res.render('injury_information', {
+    title: 'Injury Information',
+    injuryList
+  });
 });
 
 app.get('/map', (req, res) => {
@@ -70,14 +81,16 @@ app.get('/map', (req, res) => {
   });
 });
 
-app.get('/doctor', (req, res) => {
-  res.render('doctor', {
-    title: 'Doctor'
-  });
-});
+// app.get('/doctor', (req, res) => {
+//   res.render('doctor', {
+//     title: 'Doctor'
+//   });
+// });
 
-app.get('/doctor/:id', function(req, res) {
+app.get('/doctor/:id', (req, res) => {
   const id = req.params.id;
+  app.use('/doctor', express.static(__dirname + '/public'));
+
   res.render('doctor', {
     title: 'Doctor Details',
     doctorID: id

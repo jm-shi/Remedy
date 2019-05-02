@@ -8,13 +8,13 @@
   <button type="button" name="filter" class="btn btn-primary">Filter</button>
 </div>
 
-{{#each sports}}
-  <div class="responsive">
-    <a href="/common-injuries">
+{{#each injuryList.sports}}
+<div class="responsive">
+  <a href="/common-injuries">
     <div class="card">
-        <img src={{imageURL}} alt={{name}}>
-        <h6 class="name">{{name}}</h6>
+      <img src={{imageURL}} alt={{name}}>
+      <h6 class="name">{{name}}</h6>
     </div>
-    </a>
-  </div>
+  </a>
+</div>
 {{/each}}
