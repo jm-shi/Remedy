@@ -1,43 +1,23 @@
-<head>
-  <style>
-    .imageContainer {
-      width: 150px;
-      height: 150px;
-      padding-top: 35%;
-      color: black;
-      text-align: center;
-      margin: 10px;
-      background: rgba(211, 211, 211, 0.7);
-    }
-  </style>
-</head>
+{{> navbar}}
 
-<body>
-  {{> navbar}}
+<div class="mt-4 text-center">
+  <h1>Welcome, {{name}}!</h1>
+  <h4>What would you like to do?</h4>
+</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-sm">
-        <h2>Welcome, {{name}}!</h2>
-        <h5>What would you like to do?</h5>
-        <br>
-      </div>
-    </div>
-    <div class="row">
-      <a href="/current-log">
-        <div class="imageContainer">Injury Logs</div>
-      </a>
-      <a href="/injury-info">
-        <div class="imageContainer">Injury Info</div>
-      </a>
-    </div>
-    <div class="row">
-      <a href="/map">
-        <div class="imageContainer">Map</div>
-      </a>
-      <a href="/contact-doctor">
-        <div class="imageContainer">Contact Doctor</div>
-      </a>
-    </div>
+<div class="container home-menu">
+  <div class="row justify-content-center">
+    <a class="col-xs-12 col-sm-5 home-menu__button" href="/current-log">
+      Injury Logs
+    </a>
+    <a class="col-xs-12 col-sm-5 home-menu__button" href="/injury-info">
+      Injury Info
+    </a>
+    <a class="col-xs-12 col-sm-5 home-menu__button" href="/map">
+      Map
+    </a>
+    <a class="col-xs-12 col-sm-5 home-menu__button" href="/contact-doctor">
+      Contact Doctor
+    </a>
   </div>
-</body>
+</div>
