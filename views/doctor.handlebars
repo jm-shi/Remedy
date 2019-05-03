@@ -57,28 +57,30 @@
     const url = window.location.href;
     doctorId = url.substr(url.lastIndexOf('/') + 1);
 
-    $.ajax({
-      url: `https://api.betterdoctor.com/2016-03-01/doctors/${doctorId}?user_key=${BETTER_DOCTOR_API_KEY}`,
-      success: function (result) {
-        const doctor = result.data;
-        const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
-        const bio = `${doctor.profile.bio}`
-        const image_url = `${doctor.profile.image_url}`;
+    fetch(`/doctor-data/${doctorId}`).then(response => {
+      console.log('Doctor data response:', response);
+      return response.json();
+    }).then(result => {
+      console.log(result);
 
-        let specialtiesArr = [];
-        doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
-        const specialties = specialtiesArr.join(", ");
+      const doctor = result.data;
+      const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+      const bio = `${doctor.profile.bio}`
+      const image_url = `${doctor.profile.image_url}`;
 
-        const address_street = `${doctor.practices[0].visit_address.street}`;
-        const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
-        const website = doctor.practices[0].website;
+      let specialtiesArr = [];
+      doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+      const specialties = specialtiesArr.join(", ");
 
-        $("#name").html(name);
-        $("#bio").html(bio);
-        $("#specialties").html(specialties);
-        $("#doctor-image").attr("src", image_url);
-        $("#website").attr("href", website);
-      }
+      const address_street = `${doctor.practices[0].visit_address.street}`;
+      const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+      const website = doctor.practices[0].website;
+
+      $("#name").html(name);
+      $("#bio").html(bio);
+      $("#specialties").html(specialties);
+      $("#doctor-image").attr("src", image_url);
+      $("#website").attr("href", website);
     });
   });
 </script>

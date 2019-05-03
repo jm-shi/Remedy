@@ -1,10 +1,10 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
-const fetch = require('node-fetch');
 const handlebars = require('handlebars');
 
 // Controllers
 const mapController = require('./controllers/map');
+const doctorController = require('./controllers/doctor');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -52,7 +52,8 @@ app.get('/pharmacy', pharmacy.view);
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
 
-app.get('/map-data', mapController.getMapData);
+app.get('/doctor-data', doctorController.getDoctorData);
+app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);
