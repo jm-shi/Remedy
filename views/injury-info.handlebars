@@ -8,7 +8,18 @@
   <button type="button" name="filter" class="btn btn-primary">Filter</button>
 </div>
 
-{{#each injuryList.sports}}
+<div class="gallery">
+  <div class="row">
+    {{#each injuryList.sports}}
+    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
+      <img height="90%" width="100%" src={{imageURL}} alt={{name}}>
+      <h5 class="gallery__item__caption">{{name}}</h5>
+    </a>
+    {{/each}}
+  </div>
+</div>
+
+{{!-- {{#each injuryList.sports}}
 <div class="responsive">
   <a href="/common-injuries">
     <div class="card">
@@ -17,4 +28,4 @@
     </div>
   </a>
 </div>
-{{/each}}
+{{/each}} --}}

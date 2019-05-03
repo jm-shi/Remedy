@@ -1,0 +1,49 @@
+.gallery {
+  padding: 2rem;
+
+  .row {
+    justify-content: center;
+  }
+
+  &__item {
+    color: $black;
+    font-size: 2rem;
+    margin: 1rem;
+    padding: 1rem;
+    text-align: center;
+
+    & img:hover {
+      opacity: 0.5;
+    }
+
+    &--fat-grey {
+      background-color: rgba($grey, 0.7);
+      padding: 5rem;
+      &:hover {
+        text-decoration: none;
+        background-color: darken(rgba($grey, 0.7), 80%);
+        color: $white;
+      }
+    }
+
+    &__caption {
+      padding: 0.5rem 1rem 1rem 1rem;
+      text-align: center;
+    }
+  }
+
+  &__button {
+    background-color: rgba($grey, 0.7);
+    color: $black;
+    font-size: 2rem;
+    margin: 1rem;
+    padding: 5rem;
+    text-align: center;
+
+    &:hover {
+      text-decoration: none;
+      background-color: darken(rgba($grey, 0.7), 80%);
+      color: $white;
+    }
+  }
+}
