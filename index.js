@@ -1,6 +1,22 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const fetch = require('node-fetch');
 const handlebars = require('handlebars');
+
+// Controllers
+const mapController = require('./controllers/map');
+
+// Routes
+const doctor = require('./routes/doctor');
+const home = require('./routes/home');
+const injuryInfo = require('./routes/injury-info');
+const injuryLog = require('./routes/injury-log');
+const login = require('./routes/login');
+const map = require('./routes/map');
+const pharmacy = require('./routes/pharmacy');
+const profile = require('./routes/profile');
+
+require('dotenv').config();
 
 app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
@@ -16,92 +32,27 @@ handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
 
-app.get('/', (req, res) => {
-  res.render('home', {
-    title: 'Home'
-  });
-});
+app.get('/', home.view);
+app.get('/common-injuries', injuryInfo.viewCommonInjuries);
+app.get('/contact-doctor', doctor.viewContactDoctor);
+app.get('/current-log', injuryLog.viewCurrent);
+app.get(
+  '/doctor/:id',
+  (req, res, next) => {
+    app.use('/doctor', express.static(__dirname + '/public'));
+    next();
+  },
+  doctor.viewDoctorDetails
+);
+app.get('/injury-details', injuryInfo.viewInjuryDetails);
+app.get('/injury-info', injuryInfo.viewAll);
+app.get('/login', login.view);
+app.get('/map', map.view);
+app.get('/pharmacy', pharmacy.view);
+app.get('/previous-log', injuryLog.viewPrevious);
+app.get('/profile', profile.view);
 
-const injuryList = require('./injury-list.json');
-
-app.get('/current-log', (req, res) => {
-  res.render('current_log', {
-    title: 'Current Injury Log'
-  });
-});
-
-app.get('/previous-log', (req, res) => {
-  res.render('previous_log', {
-    title: 'Previous Injury Log'
-  });
-});
-
-app.get('/contact-doctor', (req, res) => {
-  res.render('contact_doctor', {
-    title: 'Contact Doctor'
-  });
-});
-
-app.get('/login', (req, res) => {
-  res.render('login', {
-    title: 'Login'
-  });
-});
-
-app.get('/profile', (req, res) => {
-  res.render('profile', {
-    title: 'Profile'
-  });
-});
-
-app.get('/injury-list', (req, res) => {
-  res.render('injury_list', {
-    title: 'Injury List',
-    injuryList
-  });
-});
-
-app.get('/common-injuries', (req, res) => {
-  res.render('common_injuries', {
-    title: 'Common Injuries',
-    injuryList
-  });
-});
-
-app.get('/injury-information', (req, res) => {
-  res.render('injury_information', {
-    title: 'Injury Information',
-    injuryList
-  });
-});
-
-app.get('/map', (req, res) => {
-  res.render('map', {
-    title: 'Map'
-  });
-});
-
-// app.get('/doctor', (req, res) => {
-//   res.render('doctor', {
-//     title: 'Doctor'
-//   });
-// });
-
-app.get('/doctor/:id', (req, res) => {
-  const id = req.params.id;
-  app.use('/doctor', express.static(__dirname + '/public'));
-
-  res.render('doctor', {
-    title: 'Doctor Details',
-    doctorID: id
-  });
-});
-
-app.get('/pharmacy', (req, res) => {
-  res.render('pharmacy', {
-    title: 'Pharmacy'
-  });
-});
+app.get('/map-data', mapController.getMapData);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);

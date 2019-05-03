@@ -27,8 +27,36 @@
 
 </div>
 
-
 <script>
+  fetch('/map-data').then(response => {
+    console.log('Map data response:', response);
+    return response.json();
+  }).then(result => {
+    console.log(result);
+    let doctorArr = [];
+    doctorArr = result.data;
+
+    doctorArr.forEach(doctor => {
+      const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+      const image_url = `${doctor.profile.image_url}`;
+      let specialtiesArr = [];
+      doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+      const specialties = specialtiesArr.join(", ");
+      const address_street = `${doctor.practices[0].visit_address.street}`;
+      const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+      const uid = doctor.uid;
+
+      $(".map-cards").append(`{{> card 
+                                      is-doctor="true" 
+                                      image-url="${image_url}" 
+                                      business-name="${name}" 
+                                      specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+    });
+  });
+
   let map;
   function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
@@ -41,39 +69,8 @@
     const script = document.createElement("script");
     script.type = "text/javascript";
     script.defer = true;
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY || GOOGLE_MAPS_API_KEY}&callback=initMap`;
+    script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdjbgVLLmAkHyH2dl5wwQQJskaHs3v3E&callback=initMap`;
     document.body.appendChild(script);
   }
   window.onload = loadMap;
-
-  document.addEventListener("DOMContentLoaded", function (event) {
-    let doctorArr = [];
-    $.ajax({
-      url: `https://api.betterdoctor.com/2016-03-01/doctors?location=37.773%2C-122.413%2C100&user_location=37.773%2C-122.413&skip=0&limit=10&user_key=${process.env.BETTER_DOCTOR_API_KEY || BETTER_DOCTOR_API_KEY}`,
-      success: function (result) {
-        doctorArr = result.data;
-
-        doctorArr.forEach(doctor => {
-          const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
-          const image_url = `${doctor.profile.image_url}`;
-          let specialtiesArr = [];
-          doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
-          const specialties = specialtiesArr.join(", ");
-          const address_street = `${doctor.practices[0].visit_address.street}`;
-          const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
-          const uid = doctor.uid;
-
-          $(".map-cards").append(`{{> card 
-                                      is-doctor="true" 
-                                      image-url="${image_url}" 
-                                      business-name="${name}" 
-                                      specialties="${specialties}"
-                                      street-address="${address_street}"
-                                      city-state-address="${address_city_state}"
-                                      uid="${uid}"}}`);
-        })
-
-      }
-    });
-  });
 </script>

@@ -58,7 +58,7 @@
     doctorId = url.substr(url.lastIndexOf('/') + 1);
 
     $.ajax({
-      url: `https://api.betterdoctor.com/2016-03-01/doctors/${doctorId}?user_key=${process.env.BETTER_DOCTOR_API_KEY || BETTER_DOCTOR_API_KEY}`,
+      url: `https://api.betterdoctor.com/2016-03-01/doctors/${doctorId}?user_key=${BETTER_DOCTOR_API_KEY}`,
       success: function (result) {
         const doctor = result.data;
         const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
