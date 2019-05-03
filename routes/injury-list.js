@@ -1,7 +1,7 @@
 const injuryList = require('../injury-list.json');
 
 exports.viewAll = (req, res) => {
-  res.render('injury-info', {
+  res.render('injury-list', {
     title: 'Injury Information',
     injuryList
   });

@@ -9,7 +9,7 @@ const doctorController = require('./controllers/doctor');
 // Routes
 const doctor = require('./routes/doctor');
 const home = require('./routes/home');
-const injuryInfo = require('./routes/injury-info');
+const injuryInfo = require('./routes/injury-list');
 const injuryLog = require('./routes/injury-log');
 const login = require('./routes/login');
 const map = require('./routes/map');
@@ -45,7 +45,7 @@ app.get(
   doctor.viewDoctorDetails
 );
 app.get('/injury-details', injuryInfo.viewInjuryDetails);
-app.get('/injury-info', injuryInfo.viewAll);
+app.get('/injury-list', injuryInfo.viewAll);
 app.get('/login', login.view);
 app.get('/map', map.view);
 app.get('/pharmacy', pharmacy.view);
