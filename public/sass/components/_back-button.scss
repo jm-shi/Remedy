@@ -1,0 +1,9 @@
+.back-button {
+  padding: 1rem;
+  a {
+    color: $black;
+    &:hover {
+      color: $red;
+    }
+  }
+}

@@ -1,4 +1,5 @@
 {{> navbar}}
+{{> back-button destinationURL="/" destinationName="Home"}}
 
 <h2 class="titleName"> Contact Doctor </h2>
 
@@ -19,9 +20,10 @@
     <input type="subject" class="form-control" id="subject" placeholder="My ankle hurts">
   </div>
 
-   <div class="form-group divider">
+  <div class="form-group divider">
     <label for="messageText">Message</label>
-    <textarea class="form-control" id="message" rows="5" placeholder="Hello, my ankle hurts and I think it might be because I was playing soccer and my ankle was kicked. Can you please help me?"></textarea>
+    <textarea class="form-control" id="message" rows="5"
+      placeholder="Hello, my ankle hurts and I think it might be because I was playing soccer and my ankle was kicked. Can you please help me?"></textarea>
   </div>
 
 
@@ -33,6 +35,3 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 
 </form>
-
-
-
