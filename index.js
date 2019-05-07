@@ -1,10 +1,13 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
+const bodyParser = require('body-parser');
 const handlebars = require('handlebars');
+const { Client } = require('pg');
 
 // Controllers
-const mapController = require('./controllers/map');
 const doctorController = require('./controllers/doctor');
+const injuryController = require('./controllers/injury');
+const mapController = require('./controllers/map');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -22,15 +25,33 @@ app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 
-// app.use('/', (req, res, next) => {
-//   console.log('The req url is', req.url);
-//   next();
-// });
 app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
+
+let client;
+const environment = process.env.NODE_ENV || 'development';
+if (environment === 'development') {
+  client = new Client({
+    user: 'jamie',
+    password: 'password',
+    host: 'localhost',
+    port: 5432,
+    database: 'remedy'
+  });
+} else {
+  client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: true
+  });
+}
+client.connect();
+injuryController.client = client;
+injuryLog.client = client;
 
 app.get('/', home.view);
 app.get('/common-injuries', injuryInfo.viewCommonInjuries);
@@ -54,6 +75,9 @@ app.get('/profile', profile.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
+app.get('/injury-log', injuryController.getInjuries);
+app.post('/injury', injuryController.addInjury);
+app.delete('/injury/:id', injuryController.deleteInjury);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);
