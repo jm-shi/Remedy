@@ -76,7 +76,8 @@ app.get('/profile', profile.view);
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
 app.get('/injury-log', injuryController.getInjuries);
-app.post('/injury', injuryController.addInjury);
+app.post('/add-injury', injuryController.addInjury);
+app.post('/update-injury', injuryController.updateInjury);
 app.delete('/injury/:id', injuryController.deleteInjury);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
