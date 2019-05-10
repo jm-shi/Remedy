@@ -17,14 +17,16 @@
 </div>
 
 <div class="gallery">
+  <div class="row">
   {{#each injuryList.sports}}
-    <div class="row" id="myList">
-      <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
-        <img height="90%" width="100%" src={{imageURL}} alt={{name}}>
+    <div  id="myList">
+      <a class="col-xs-6 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
+        <img class="injuryImage" src={{imageURL}} alt={{name}}>
         <h5 class="gallery__item__caption">{{name}}</h5>
       </a>
     </div>
   {{/each}}
+  </div>
 </div>
 
 <!-- <script type="text/javascript">
