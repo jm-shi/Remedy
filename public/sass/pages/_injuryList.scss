@@ -13,14 +13,6 @@
   text-align: center;
 }
 
-.card img {
-  width: 100%;
-  height: 30%;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 .name {
   padding: 5px;
   text-align: center;
@@ -32,9 +24,11 @@
   width: 33%;
 }
 
-.card {
+#myList {
   border-color: #333;
-  border-style: double;
+  border-style: inset;
   border-width: 3px;
   background-color: inherit;
+  text-align: center;
+  margin-bottom: 5px;
 }

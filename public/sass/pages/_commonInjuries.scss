@@ -19,7 +19,9 @@
 
 .cardCommon {
   border-color: #333;
-  border-style: double;
+  border-style: inset;
   border-width: 3px;
   background-color: inherit;
+  text-align: center;
+  margin-bottom: 5px;
 }
