@@ -37,8 +37,8 @@ let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {
   client = new Client({
-    user: 'postgres',
-    password: 'password',
+    user: 'bob',
+    password: 'watermelon',
     host: 'localhost',
     port: 5432,
     database: 'remedy'

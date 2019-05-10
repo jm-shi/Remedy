@@ -14,9 +14,8 @@
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
+    <h6 class="card-subtitle mb-3 text-muted">-{{logs}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted"> {{created_at}} - Current</h6>
         <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal" data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}" data-id="{{injury_id}}">
       <i class="fa fa-edit" aria-hidden="true"></i>
     </button>
@@ -109,6 +108,10 @@
           <div class="form-group">
             <label>Description</label>
             <input type="text" class="form-control" name="description">
+          </div>
+          <div class="form-group">
+            <label>Progress Report 1</label>
+            <input type="text" class="form-control" name="logs">
           </div>
         </div>
         <div class="modal-footer">
