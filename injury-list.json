@@ -38,7 +38,7 @@
     },
     "basketball": {
       "name": "Basketball",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/basketball.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -73,8 +73,8 @@
       ]
     },
     "bicycling": {
-      "name": "Bicycling",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "name": "bike",
+      "imageURL": "/images/bike.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -110,7 +110,7 @@
     },
     "Cheerleading": {
       "name": "Cheerleading",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/pom-pom.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -146,7 +146,7 @@
     },
     "Dance": {
       "name": "Dance",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/ballerina.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -182,7 +182,7 @@
     },
     "Football": {
       "name": "Football",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/american-football.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -218,7 +218,7 @@
     },
     "Golf": {
       "name": "Golf",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/golf.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -254,7 +254,7 @@
     },
     "Gymnastics": {
       "name": "Gymnastics",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/rings.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -290,7 +290,7 @@
     },
     "Hockey": {
       "name": "Hockey",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/hockey.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -326,7 +326,7 @@
     },
     "Lacrosse": {
       "name": "Lacrosse",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/lacrosse.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -398,7 +398,7 @@
     },
     "Motocross": {
       "name": "Motocross",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/motorbike.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -434,7 +434,7 @@
     },
     "Running": {
       "name": "Running",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/jogging.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -470,7 +470,7 @@
     },
     "Skateboarding": {
       "name": "Skateboarding",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/skateboard.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -506,7 +506,7 @@
     },
     "Soccer": {
       "name": "Soccer",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/soccer.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -542,7 +542,7 @@
     },
     "Swimming": {
       "name": "Swimming",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/swimming.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -578,15 +578,10 @@
     },
     "Ultimate Frisbee": {
       "name": "Ultimate Frisbee",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/frisbee.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
-          "description": "Sprains occur when a  ligament is stretched in the associated area. Sprains occur when a  ligament is stretched in the associated area.",
-          "remedies": [
-            "Apply ice everyday for an hour",
-            "Put an icy hot patch in the affected area"
-          ],
           "videoURL": "https://youtu.be/WVootGaWv4M",
           "imageURL": "https://www.health.harvard.edu/media/content/images/LegPain.jpg"
         },
@@ -614,7 +609,7 @@
     },
     "Volleyball": {
       "name": "Volleyball",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/volleyball.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
@@ -628,20 +623,17 @@
         },
         {
           "name": "Back Sprain",
-          "description": "Sprains occur when a  ligament is stretched in the associated area. Sprains occur when a  ligament is stretched in the associated area.",
-          "remedies": [
+    			"description": "Sprains occur when a  ligament is stretched in the associated area. Sprains occur when a  ligament is stretched in the associated area.",
+    			"remedies": [
             "Apply ice everyday for an hour",
             "Put an icy hot patch in the affected area"
-          ],
-          "videoURL": "https://youtu.be/WVootGaWv4M",
-          "imageURL": "https://www.health.harvard.edu/media/content/images/LegPain.jpg"
+          ]
         },
         {
           "name": "Finger Sprain",
-          "description": "Sprains occur when a  ligament is stretched in the associated area. Sprains occur when a  ligament is stretched in the associated area.",
-          "remedies": [
-            "Apply ice everyday for an hour",
-            "Put an icy hot patch in the affected area"
+    			"remedies": [
+              "Apply ice everyday for an hour",
+              "Put an icy hot patch in the affected area"
           ],
           "videoURL": "https://youtu.be/WVootGaWv4M",
           "imageURL": "https://www.health.harvard.edu/media/content/images/LegPain.jpg"
