@@ -3,7 +3,42 @@
 
 <h2 class="titleName"> Current Injuries Log </h2>
 
-<a class="btn btn-primary" style="float:right;" href="/" role="button" id="add">Add new injury</a>
+{{!-- <a class="btn btn-primary" style="float:right;" href="/" role="button" id="add">Add new injury</a> --}}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#injuryModal">
+  Add new injury
+</button>
+
+{{#each currentInjury}}
+<div class="card container">
+  <div class="card-body container">
+    <h5 class="card-title">{{name}}</h5>
+    <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
+    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
+    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
+        <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal" data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}" data-id="{{injury_id}}">
+      <i class="fa fa-edit" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+  </div>
+</div>
+{{/each}}
+
+{{!-- 
+<div class="card container">
+  <div class="card-body container">
+    <h5 class="card-title">Left Hand: Finger Sprain</h5>
+    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
+    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
+    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
+    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+  </div>
+</div>
 
 <div class="card container">
   <div class="card-body container">
@@ -16,7 +51,7 @@
   </div>
 </div>
 
-<div class="card container">
+ <div class="card container">
   <div class="card-body container">
     <h5 class="card-title">Left Leg: Ankle Sprain</h5>
     <h6 class="card-subtitle mb-4 text-muted">Description</h6>
@@ -47,9 +82,101 @@
     <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
     <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
   </div>
-</div>
+</div> --}}
 
 <div class="container bottom-pos">
   <a class="btn btn-primary" href="/current-log" role="button" id="currentLog">Current Injuries</a>
   <a class="btn btn-primary" href="/previous-log" role="button" id="previousLog">Past Injuries</a>
 </div>
+
+<!-- Add injury modal -->
+<div class="modal fade" id="injuryModal" tabindex="-1" role="dialog" aria-labelledby="injuryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="/add-injury">
+        <div class="modal-header">
+          <h5 class="modal-title" id="injuryModalLabel">Create Injury</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update injury modal -->
+<div class="modal fade" id="updateInjuryModal" tabindex="-1" role="dialog" aria-labelledby="updateInjuryModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="/update-injury">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateInjuryModalLabel">Edit Injury</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="id" id="update-id">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="name" id="update-name">
+          </div>
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description" id="update-description">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", event => {
+    $('.delete-injury').on('click', function () {
+      const id = $(this).data('id');
+      console.log('The id of the injury to delete is...', id);
+      const url = `injury/${id}`;
+      if (confirm('Delete this injury?')) {
+        $.ajax({
+          url: url,
+          type: 'DELETE',
+          success: result => {
+            console.log('Deleting injury...');
+            window.location.href = '/current-log';
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      }
+    });
+
+    $('.update-injury').on('click', function() {
+      $('#update-name').val($(this).data('name'));
+      $('#update-description').val($(this).data('description'));
+      $('#update-id').val($(this).data('id'));
+    });
+  });
+</script>

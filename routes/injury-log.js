@@ -1,7 +1,17 @@
 exports.viewCurrent = (req, res) => {
-  res.render('current-log', {
-    title: 'Current Injury Log'
-  });
+  this.client.query(
+    'SELECT * FROM injury WHERE is_current = true ORDER BY created_at',
+    (error, results) => {
+      if (error) {
+        return console.log('Error fetching injury log', error);
+      }
+      console.log('Current injury log results:', results.rows);
+      res.render('current-log', {
+        title: 'Current Injury Log',
+        currentInjury: results.rows
+      });
+    }
+  );
 };
 
 exports.viewPrevious = (req, res) => {
