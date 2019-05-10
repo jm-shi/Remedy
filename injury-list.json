@@ -2,7 +2,7 @@
   "sports": {
     "baseball": {
       "name": "Baseball",
-      "imageURL": "https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg",
+      "imageURL": "/images/baseball.png",
       "injuries": [
         {
           "name": "Ankle Sprain",
