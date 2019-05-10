@@ -1,6 +1,6 @@
 exports.viewCurrent = (req, res) => {
   this.client.query(
-    'SELECT * FROM injury WHERE is_current = true',
+    'SELECT * FROM injury WHERE is_current = true ORDER BY created_at',
     (error, results) => {
       if (error) {
         return console.log('Error fetching injury log', error);

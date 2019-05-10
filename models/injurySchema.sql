@@ -1,5 +1,7 @@
 CREATE TABLE injury (
-    injury_id serial PRIMARY KEY,
+    injury_id SERIAL NOT NULL PRIMARY KEY,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    resolved_at TIMESTAMPTZ,
     name VARCHAR(100) NOT NULL,
     is_current BOOLEAN NOT NULL,
     description TEXT
