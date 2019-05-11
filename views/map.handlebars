@@ -13,13 +13,14 @@
       </form>
 
       <div class="map-cards">
-        {{> card business-name="CVS Pharmacy" 
+        {{> card business-name="CVS Pharmacy"
           street-address="7525 Eads Ave"
           city-state-address="La Jolla, CA 92037"
           image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
       </div>
 
-    </div>
+      <div class="map-cards-pharmacy">
+      </div>
 
     <div class="col-sm-12 col-md-6 iframe-container test order-1 order-md-2">
       <div id="map"></div>
@@ -47,11 +48,39 @@
       const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
       const uid = doctor.uid;
 
-      $(".map-cards").append(`{{> card 
-                                      is-doctor="true" 
-                                      image-url="${image_url}" 
-                                      business-name="${name}" 
+      $(".map-cards").append(`{{> card
+                                      is-doctor="true"
+                                      image-url="${image_url}"
+                                      business-name="${name}"
                                       specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+    });
+  });
+
+  fetch('/pharmacy-data').then(response => {
+    console.log('Pharmacy data response:', response);
+    return response.json();
+  }).then(result => {
+    console.log(result);
+    let pharmacyArr = [];
+    pharmacyArr = result.data;
+
+console.log("HELLO");
+    pharmacyArr.forEach(pharmacy => {
+      const name = `${pharmacy.name}`;
+      const image_url = `${pharmacy.profile.image_url}`;
+      let specialtiesArr = [];
+      const address_street = `${pharmacy.locations}`;
+      console.log(address_street);
+      const address_city_state = `${pharmacy.locations.address.city}, ${pharmacylocations.address.state} ${pharmacy.locations.address.zip}`;
+      const uid = pharmacy.uid;
+
+      $(".map-cards-pharmacy").append(`{{> card
+                                      is-doctor="false"
+                                      image-url="${image_url}"
+                                      business-name="${name}"
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
                                       uid="${uid}"}}`);

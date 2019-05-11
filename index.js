@@ -8,6 +8,7 @@ const { Client } = require('pg');
 const doctorController = require('./controllers/doctor');
 const injuryController = require('./controllers/injury');
 const mapController = require('./controllers/map');
+const pharmacyController = require('./controllers/pharmacy');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -18,6 +19,18 @@ const login = require('./routes/login');
 const map = require('./routes/map');
 const pharmacy = require('./routes/pharmacy');
 const profile = require('./routes/profile');
+const fetch = require('node-fetch');
+const yelp = require('yelp-fusion');
+
+const searchRequest = {
+  term: 'pharmacy',
+  location: 'La Jolla',
+  categories: 'pharmacy'
+};
+
+
+
+//console.log(process.env.YELP_API_KEY);
 
 require('dotenv').config();
 
@@ -28,6 +41,8 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+const yelp_Client = yelp.client(process.env.YELP_API_KEY);
 
 handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
@@ -52,6 +67,9 @@ if (environment === 'development') {
 client.connect();
 injuryController.client = client;
 injuryLog.client = client;
+injuryInfo.client = client;
+
+pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
 app.get('/common-injuries', injuryInfo.viewCommonInjuries);
@@ -69,6 +87,27 @@ app.get('/injury-details', injuryInfo.viewInjuryDetails);
 app.get('/injury-list', injuryInfo.viewAll);
 app.get('/login', login.view);
 app.get('/map', map.view);
+
+app.get('/pharmacy-data', (req, res) => {
+  yelp_Client.search(searchRequest)
+    .then((response) => {
+      //console.log(response.jsonBody);
+      //return response.jsonBody;
+      //res.send(response.jsonBody);
+      // realData = response.jsonBody;
+      // res.json(response);
+      // realData.then(data => {
+      //   res.json(data);
+      // });
+      response.json().then(data => {
+        res.json(data);
+      })
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+});
+
 app.get('/pharmacy', pharmacy.view);
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);

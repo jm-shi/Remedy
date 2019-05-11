@@ -18,11 +18,11 @@
 
 <div class="gallery">
   <div class="row">
-  {{#each injuryList.sports}}
+  {{#each injuryList}}
     <div  id="myList">
-      <a class="col-xs-6 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
-        <img class="injuryImage" src={{imageURL}} alt={{name}}>
-        <h5 class="gallery__item__caption">{{name}}</h5>
+      <a class="col-xs-6 col-sm-5 col-md-3 textTitle" href="/common-injuries">
+        <!-- <img class="injuryImage" src={{imageURL}} alt={{name}}> -->
+        <h5 class="">{{name}}</h5>
       </a>
     </div>
   {{/each}}
