@@ -1,11 +1,7 @@
 <div class="card mt-4">
   <div class="row no-gutters justify-content-around">
     <div class="col-md-3 mt-3">
-      {{#if is-doctor}}
-      <a href={{concat "doctor" uid}}>
-        {{else}}
         <a href={{concat "pharmacy" uid}}>
-          {{/if}}
           <img class="card__thumbnail" src={{image-url}}>
         </a>
     </div>
@@ -13,22 +9,13 @@
       <div class="card-body">
         <h5 class="card-title">{{business-name}}</h5>
         <img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">
-        {{#if is-doctor}}
-        <p class="card-text">
-          <strong>Specialties</strong><br>
-          {{specialties}}
-        </p>
-        {{/if}}
         <p class="card-text">
           <strong>Address</strong> <br>
           {{street-address}} <br>
           {{city-state-address}}
         </p>
-        {{#if is-doctor}}
-        <a id="doctor-id" href={{concat "doctor" uid}}>
-          {{else}}
+
           <a id="pharmacy-id" href={{concat "pharmacy" uid}}>
-            {{/if}}
             <button class="btn btn-dark">View more</button>
           </a>
       </div>

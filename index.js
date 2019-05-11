@@ -86,9 +86,30 @@ app.get('/injury-list', injuryInfo.viewAll);
 app.get('/login', login.view);
 app.get('/map', map.view);
 
+app.get(
+  '/pharmacy/:id',
+  (req, res, next) => {
+    app.use('/pharmacy', express.static(__dirname + '/public'));
+    next();
+  },
+  pharmacy.viewPharmacyDetails
+);
 app.get('/pharmacy-data', (req, res) => {
   yelp_Client
     .search(searchRequest)
+    .then(response => {
+      //console.log(response.body);
+      res.send(response.body);
+    })
+    .catch(error => {
+      console.log(error);
+    });
+});
+app.get('/pharmacy-data/:id', (req, res) => {
+  const pharmacyId = req.params.id;
+
+  yelp_Client
+    .business(pharmacyId)
     .then(response => {
       res.send(response.body);
     })
@@ -97,7 +118,7 @@ app.get('/pharmacy-data', (req, res) => {
     });
 });
 
-app.get('/pharmacy', pharmacy.view);
+//app.get('/pharmacy', pharmacy.view);
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
 

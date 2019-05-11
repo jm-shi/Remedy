@@ -62,12 +62,11 @@
     pharmacyArr.forEach(pharmacy => {
       const name = `${pharmacy.name}`;
       const image_url = `${pharmacy.image_url}`;
-      let specialtiesArr = [];
       const address_street = `${pharmacy.location.address1}`;
       const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
       const uid = pharmacy.id;
 
-      $(".map-cards").append(`{{> card
+      $(".map-cards").append(`{{> card-pharmacy
                                       is-doctor="false"
                                       image-url="${image_url}"
                                       business-name="${name}"
