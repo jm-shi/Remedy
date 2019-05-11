@@ -8,7 +8,7 @@ const { Client } = require('pg');
 const doctorController = require('./controllers/doctor');
 const injuryController = require('./controllers/injury');
 const mapController = require('./controllers/map');
-const pharmacyController = require('./controllers/pharmacy');
+// const pharmacyController = require('./controllers/pharmacy');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -27,8 +27,6 @@ const searchRequest = {
   location: 'La Jolla',
   categories: 'pharmacy'
 };
-
-
 
 //console.log(process.env.YELP_API_KEY);
 
@@ -89,21 +87,12 @@ app.get('/login', login.view);
 app.get('/map', map.view);
 
 app.get('/pharmacy-data', (req, res) => {
-  yelp_Client.search(searchRequest)
-    .then((response) => {
-      //console.log(response.jsonBody);
-      //return response.jsonBody;
-      //res.send(response.jsonBody);
-      // realData = response.jsonBody;
-      // res.json(response);
-      // realData.then(data => {
-      //   res.json(data);
-      // });
-      response.json().then(data => {
-        res.json(data);
-      })
+  yelp_Client
+    .search(searchRequest)
+    .then(response => {
+      res.send(response.body);
     })
-    .catch((error) => {
+    .catch(error => {
       console.log(error);
     });
 });
