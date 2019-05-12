@@ -3,7 +3,7 @@ exports.viewAll = (req, res) => {
     if (error) {
       return console.log('Error fetching injury list', error);
     }
-    console.log('Current injury list results:', results.rows);
+    // console.log('Current injury list results:', results.rows);
 
     res.render('injury-list', {
       title: 'Injury Information',
@@ -29,12 +29,15 @@ exports.viewCommonInjuries = (req, res) => {
       if (error) {
         return console.log('Error fetching injury list', error);
       }
-      console.log('Current injury list results:', results.rows);
+      // console.log('Current injury list results:', results.rows);
+
+      const sport_name =
+        results.rows.length === 0 ? 'Sport' : results.rows[0].sport_name;
 
       res.render('common-injuries', {
         title: 'Common Injuries',
         injuryList: results.rows,
-        sport_name: results.rows[0].sport_name
+        sport_name
       });
     }
   );

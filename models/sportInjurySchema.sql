@@ -2,7 +2,8 @@ CREATE TABLE sport (
   sport_id SERIAL PRIMARY KEY,
   sport_name TEXT NOT NULL,
   sport_overview TEXT,
-  sport_source TEXT
+  sport_source TEXT,
+  sport_image_url TEXT
 );
 
 CREATE TABLE c_injury (
@@ -11,7 +12,8 @@ CREATE TABLE c_injury (
   c_injury_overview TEXT NOT NULL,
   c_injury_symptoms TEXT NOT NULL,
   c_injury_treatment TEXT NOT NULL,
-  c_injury_source TEXT NOT NULL
+  c_injury_source TEXT NOT NULL,
+  c_injury_image_url TEXT
 );
 
 CREATE TABLE sport_c_injury (
