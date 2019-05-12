@@ -1,23 +1,27 @@
 {{> navbar}}
-{{> back-button destinationURL="/common-injuries" destinationName="Common Injuries"}}
+{{> back-button destinationURL="javascript:history.back();" destinationName="Common Injuries"}}
 
-<h2 class="titleName"> Ankle Sprains</h2>
+<h2 class="titleName">{{injuryData.c_injury_name}}</h2>
 
-{{!-- <div class="topBox">
-  <a class="btn btn-primary" href="/common-injuries" role="button" id="back-btn">Back</a>
-  <h2 class="titleName"> Ankle Sprains</h2>
-</div> --}}
+<div class="container">
+  <img src="https://www.health.harvard.edu/media/content/images/LegPain.jpg"
+    style="display:block; margin-left:auto; margin-right:auto; margin-top: 1em; margin-bottom:1em;" alt="Leg Sprain"
+    width="400px">
 
-<img src="https://www.health.harvard.edu/media/content/images/LegPain.jpg" alt="Leg Sprain" width="400px">
+  <h4>Overview</h4>
+  <p>{{injuryData.c_injury_overview}}</p>
 
-<div class="description">
-  <h4>Description</h4>
-  <p>
-    Sprains occur when a ligament is stretched in the associated area. Sprains occur when a ligament is stretched in the
-    associated area.
-  </p>
+  <h4>Symptoms</h4>
+  <p>{{injuryData.c_injury_symptoms}}</p>
+
+  <h4>Treatment</h4>
+  {{injuryData.c_injury_treatment}}
+
+  <p><a href="{{injuryData.c_injury_source}}" target="_blank">Source</a></p>
 </div>
-<br />
+
+
+{{!-- 
 <div class="remedies">
   <h4>Remedies</h4>
   <p>
@@ -25,5 +29,6 @@
     - Put an icy hot patch in the affected area
   </p>
 </div>
-<br />
-<a href="https://youtu.be/WVootGaWv4M"> Video Guide</a>
+<br>
+<a href="https://youtu.be/WVootGaWv4M"> Video Guide</a> 
+--}}
