@@ -1,31 +1,24 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-{{!-- <div class="topBox">
-  <a class="btn btn-primary" href="/" role="button" id="back-btn">Back</a>
-  <h2 class="titleName"> Injury Information </h2>
-</div> --}}
-
 <h2 class="titleName">Injury List</h2>
 
 <!-- <div>
   <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
 </div> -->
 
-<div class="searchBar">
-  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+<div class="container mt-5 searchBar">
+  <input class="form-control" id="myInput" type="text" placeholder="Search">
 </div>
 
 <div class="gallery">
   <div class="row">
-  {{#each injuryList}}
-    <div  id="myList">
-      <a class="col-xs-6 col-sm-5 col-md-3 textTitle" href="/common-injuries">
-        <!-- <img class="injuryImage" src={{imageURL}} alt={{name}}> -->
-        <h5 class="">{{name}}</h5>
-      </a>
-    </div>
-  {{/each}}
+    {{#each injuryList}}
+    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/{{sport_id}}">
+      <img height="90%" width="100%" src="https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg" alt={{name}}>
+      <h5 class="gallery__item__caption">{{sport_name}}</h5>
+    </a>
+    {{/each}}
   </div>
 </div>
 

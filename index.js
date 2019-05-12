@@ -28,8 +28,6 @@ const searchRequest = {
   categories: 'pharmacy'
 };
 
-//console.log(process.env.YELP_API_KEY);
-
 require('dotenv').config();
 
 app = express();
@@ -71,6 +69,14 @@ pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
 app.get('/common-injuries', injuryInfo.viewCommonInjuries);
+app.get(
+  '/common-injuries/:id',
+  (req, res, next) => {
+    app.use('/common-injuries', express.static(__dirname + '/public'));
+    next();
+  },
+  injuryInfo.viewCommonInjuries
+);
 app.get('/contact-doctor', doctor.viewContactDoctor);
 app.get('/current-log', injuryLog.viewCurrent);
 app.get(
@@ -81,7 +87,14 @@ app.get(
   },
   doctor.viewDoctorDetails
 );
-app.get('/injury-details', injuryInfo.viewInjuryDetails);
+app.get(
+  '/injury-details/:id',
+  (req, res, next) => {
+    app.use('/injury-details', express.static(__dirname + '/public'));
+    next();
+  },
+  injuryInfo.viewInjuryDetails
+);
 app.get('/injury-list', injuryInfo.viewAll);
 app.get('/login', login.view);
 app.get('/map', map.view);
