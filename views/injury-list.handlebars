@@ -1,35 +1,40 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-{{!-- <div class="topBox">
-  <a class="btn btn-primary" href="/" role="button" id="back-btn">Back</a>
-  <h2 class="titleName"> Injury Information </h2>
-</div> --}}
-
 <h2 class="titleName">Injury List</h2>
 
-<div>
-  <button type="button" name="filter" class="btn btn-primary">Filter</button>
+<!-- <div>
+  <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
+</div> -->
+
+<div class="container mt-5 searchBar">
+  <input class="form-control" id="myInput" type="text" placeholder="Search">
 </div>
 
 <div class="gallery">
   <div class="row">
+    {{!-- 
     {{#each injuryList.sports}}
     <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
       <img height="120px" width="120px" src={{imageURL}} alt={{name}}>
       <h5 class="gallery__item__caption">{{name}}</h5>
+    --}}
+    {{#each injuryList}}
+    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/{{sport_id}}">
+      <img height="90%" width="100%" src="https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg" alt={{name}}>
+      <h5 class="gallery__item__caption">{{sport_name}}</h5>
     </a>
     {{/each}}
   </div>
 </div>
 
-{{!-- {{#each injuryList.sports}}
-<div class="responsive">
-  <a href="/common-injuries">
-    <div class="card">
-      <img src={{imageURL}} alt={{name}}>
-      <h6 class="name">{{name}}</h6>
-    </div>
-  </a>
-</div>
-{{/each}} --}}
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+$("#myInput").on("keyup", function() {
+  var value = $(this).val().toLowerCase();
+  $("#myList li").filter(function() {
+    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+  });
+});
+});
+</script> -->
