@@ -3,7 +3,7 @@ exports.viewCurrent = (req, res) => {
     'SELECT * FROM injury WHERE is_current = true ORDER BY created_at',
     (error, results) => {
       if (error) {
-        return console.log('Error fetching injury log', error);
+        return console.log('Error fetching current injury log', error);
       }
       console.log('Current injury log results:', results.rows);
       res.render('current-log', {
@@ -15,7 +15,17 @@ exports.viewCurrent = (req, res) => {
 };
 
 exports.viewPrevious = (req, res) => {
-  res.render('previous-log', {
-    title: 'Previous Injury Log'
-  });
+  this.client.query(
+    'SELECT * FROM injury WHERE is_current = false ORDER BY created_at',
+    (error, results) => {
+      if (error) {
+        return console.log('Error fetching previous injury log', error);
+      }
+      console.log('Previous injury log results:', results.rows);
+      res.render('previous-log', {
+        title: 'Previous Injury Log',
+        previousInjury: results.rows
+      });
+    }
+  );
 };

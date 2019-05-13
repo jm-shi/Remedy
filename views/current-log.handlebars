@@ -1,93 +1,78 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<h2 class="titleName"> Current Injuries Log </h2>
+<h2 class="text-center mb-5">Current Injuries Log</h2>
 
 {{!-- <a class="btn btn-primary" style="float:right;" href="/" role="button" id="add">Add new injury</a> --}}
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#injuryModal">
-  Add new injury
-</button>
+<div class="container mb-4">
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <a class="nav-link active" href="/current-log">Current injuries</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/previous-log">Past injuries</a>
+    </li>
+  </ul>
+</div>
+
+<div class="container d-flex flex-row-reverse mb-4">
+  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#injuryModal">
+    Add new injury
+  </button>
+</div>
 
 {{#each currentInjury}}
 <div class="card container">
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-        <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal" data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}" data-id="{{injury_id}}">
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at}}</h6>
+
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
+      {{#if expected_recovery_date}}
+      {{expected_recovery_date}}
+      {{else}}
+      Not specified
+      {{/if}}
+    </h6>
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Treatment plan: </strong>
+      {{#if treatment}}
+      {{treatment}}
+      {{else}}
+      Not specified
+      {{/if}}
+    </h6>
+
+    {{!-- <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
+    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6> --}}
+
+    <h6 class="card-subtitle mb-2 text-muted mb-4">Complete recovery in 5/10 days</h6>
+
+    <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
+      data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"
+      data-treatment="{{treatment}}" data-expected-recvoery-date={{expected_recovery_date}} data-id="{{injury_id}}">
       <i class="fa fa-edit" aria-hidden="true"></i>
     </button>
     <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
       <i class="fa fa-trash" aria-hidden="true"></i>
     </button>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+
+    <button class="btn btn-success complete-injury" data-id={{injury_id}}>
+      <i class="fa fa-check" aria-hidden="true">
+        <span style="font-family:Arial;">I have recovered</span>
+      </i>
+    </button>
+
+    {{!-- <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a> --}}
   </div>
 </div>
 {{/each}}
 
-{{!-- 
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Hand: Finger Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
-
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Right Leg: Ankle Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
-
- <div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Leg: Ankle Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
-
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Hand: Finger Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
-
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Hand: Finger Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div> --}}
-
-<div class="container bottom-pos">
+{{!-- <div class="container bottom-pos">
   <a class="btn btn-primary" href="/current-log" role="button" id="currentLog">Current Injuries</a>
   <a class="btn btn-primary" href="/previous-log" role="button" id="previousLog">Past Injuries</a>
-</div>
+</div> --}}
 
 <!-- Add injury modal -->
 <div class="modal fade" id="injuryModal" tabindex="-1" role="dialog" aria-labelledby="injuryModalLabel"
@@ -110,10 +95,18 @@
             <label>Description</label>
             <input type="text" class="form-control" name="description">
           </div>
+          <div class="form-group">
+            <label>Expected Recovery Date</label>
+            <input type="date" class="form-control" name="expected_recovery_date" id="update-expected-recovery-date">
+          </div>
+          <div class="form-group">
+            <label>Treatment Plan</label>
+            <input type="text" class="form-control" name="treatment" id="update-treatment">
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-primary" value="Save" />
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <input type="submit" class="btn btn-primary" value="Create injury" />
         </div>
       </form>
     </div>
@@ -141,6 +134,14 @@
           <div class="form-group">
             <label>Description</label>
             <input type="text" class="form-control" name="description" id="update-description">
+          </div>
+          <div class="form-group">
+            <label>Expected Recovery Date</label>
+            <input type="date" class="form-control" name="expected_recovery_date" id="update-expected-recovery-date">
+          </div>
+          <div class="form-group">
+            <label>Treatment Plan</label>
+            <input type="text" class="form-control" name="treatment" id="update-treatment">
           </div>
         </div>
         <div class="modal-footer">
@@ -173,9 +174,34 @@
       }
     });
 
-    $('.update-injury').on('click', function() {
+    $('.complete-injury').on('click', function () {
+      const id = $(this).data('id');
+      console.log('The id of the injury to complete is...', id);
+      const url = `complete-injury/${id}`;
+      if (confirm('Did you fully recover from this injury?')) {
+        /*const patch = {
+          is_current: false
+        } */
+        $.ajax({
+          url: url,
+          type: 'POST',
+          /*data: JSON.stringify(patch), */
+          success: result => {
+            console.log('Completing injury...', result);
+            window.location.href = '/current-log';
+          },
+          error: err => {
+            console.log('Error with completing injury', err);
+          }
+        });
+      }
+    });
+
+    $('.update-injury').on('click', function () {
       $('#update-name').val($(this).data('name'));
       $('#update-description').val($(this).data('description'));
+      $('#update-expected-recovery-date').val($(this).data('expected-recovery-date'));
+      $('#update-treatment').val($(this).data('treatment'));
       $('#update-id').val($(this).data('id'));
     });
   });

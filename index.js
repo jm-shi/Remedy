@@ -141,6 +141,7 @@ app.get('/injury-log', injuryController.getInjuries);
 app.post('/add-injury', injuryController.addInjury);
 app.post('/update-injury', injuryController.updateInjury);
 app.delete('/injury/:id', injuryController.deleteInjury);
+app.post('/complete-injury/:id', injuryController.completeInjury);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);

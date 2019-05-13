@@ -2,9 +2,11 @@ CREATE TABLE injury (
     injury_id SERIAL NOT NULL PRIMARY KEY,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     resolved_at TIMESTAMPTZ,
-    name VARCHAR(100) NOT NULL,
     is_current BOOLEAN NOT NULL,
-    description TEXT
+    name TEXT NOT NULL,
+    description TEXT,
+    treatment TEXT,
+    expected_recovery_date DATE
 );
 
 -- INSERT INTO injury (name, is_current, description)
