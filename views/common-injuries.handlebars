@@ -11,7 +11,7 @@
   <div class="row">
     {{#each injuryList}}
     <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/injury-details/{{injury_id}}">
-      <img height="90%" width="100%" src="https://usathss.files.wordpress.com/2017/10/soccer-photo.jpg" alt={{name}}>
+      <img height="90%" width="100%" src={{injury_image_url}} alt={{name}}>
       <h5 class="gallery__item__caption">{{injury_name}}</h5>
     </a>
     {{/each}}
