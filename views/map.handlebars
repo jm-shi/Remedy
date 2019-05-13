@@ -1,39 +1,33 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<div class="">
-  <div class="row">
-    <div class="col-sm-12 col-md-6 a order-2 order-md-1">
-      <form class="mt-4 mb-4 ml-4">
-        <div class="input-group">
-          <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
-          <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-        </div>
-        <button class="btn btn-primary">Filter</button>
-      </form>
 
-      <div class="map-cards">
-        {{> card business-name="CVS Pharmacy" 
-          street-address="7525 Eads Ave"
-          city-state-address="La Jolla, CA 92037"
-          image-url="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"}}
+<div class="row">
+  <div class="col-sm-12 col-md-6 a order-2 order-md-1">
+    <form class="mt-4 mb-4 ml-4">
+      <div class="input-group">
+        <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
       </div>
+      <button class="btn btn-primary">Filter</button>
+    </form>
 
-    </div>
-
-    <div class="col-sm-12 col-md-6 iframe-container test order-1 order-md-2">
-      <div id="map"></div>
+    <div class="map-cards">
     </div>
   </div>
 
+  <div class="col-sm-12 col-md-6 iframe-container test order-1 order-md-2">
+    <div id="map"></div>
+  </div>
 </div>
+
 
 <script>
   fetch('/doctor-data').then(response => {
     console.log('Doctor data response:', response);
     return response.json();
   }).then(result => {
-    console.log(result);
+    console.log('Doctor data', result);
     let doctorArr = [];
     doctorArr = result.data;
 
@@ -47,11 +41,34 @@
       const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
       const uid = doctor.uid;
 
-      $(".map-cards").append(`{{> card 
-                                      is-doctor="true" 
-                                      image-url="${image_url}" 
-                                      business-name="${name}" 
+      $(".map-cards").append(`{{> card
+                                      is-doctor="true"
+                                      image-url="${image_url}"
+                                      business-name="${name}"
                                       specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+    });
+  });
+
+  fetch('/pharmacy-data').then(response => {
+    console.log('Pharmacy data response:', response);
+    return response.json();
+  }).then(result => {
+    console.log('Pharmacy data', result);
+    let pharmacyArr = [];
+    pharmacyArr = result.businesses;
+    pharmacyArr.forEach(pharmacy => {
+      const name = `${pharmacy.name}`;
+      const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
+      const address_street = `${pharmacy.location.address1}`;
+      const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
+      const uid = pharmacy.id;
+
+      $(".map-cards").append(`{{> card
+                                      image-url="${image_url}"
+                                      business-name="${name}"
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
                                       uid="${uid}"}}`);

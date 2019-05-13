@@ -4,7 +4,7 @@
       {{#if is-doctor}}
       <a href={{concat "doctor" uid}}>
         {{else}}
-        <a href="/pharmacy">
+        <a href={{concat "pharmacy" uid}}>
           {{/if}}
           <img class="card__thumbnail" src={{image-url}}>
         </a>
@@ -27,7 +27,7 @@
         {{#if is-doctor}}
         <a id="doctor-id" href={{concat "doctor" uid}}>
           {{else}}
-          <a href="/pharmacy">
+          <a id="pharmacy-id" href={{concat "pharmacy" uid}}>
             {{/if}}
             <button class="btn btn-dark">View more</button>
           </a>

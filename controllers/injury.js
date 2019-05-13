@@ -23,6 +23,9 @@ exports.deleteInjury = (req, res) => {
 };
 
 exports.updateInjury = (req, res) => {
-  this.client.query('UPDATE injury SET name=$1, description=$2 WHERE injury_id = $3', [req.body.name, req.body.description, req.body.id]);
+  this.client.query(
+    'UPDATE injury SET name=$1, description=$2 WHERE injury_id = $3',
+    [req.body.name, req.body.description, req.body.id]
+  );
   res.redirect('/current-log');
 };
