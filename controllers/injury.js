@@ -14,7 +14,7 @@ exports.addInjury = (req, res) => {
       req.body.name,
       true,
       req.body.description,
-      req.body.expected_recovery_date,
+      req.body.expected_recovery_date || null,
       req.body.treatment
     ]
   );
@@ -43,10 +43,9 @@ exports.updateInjury = (req, res) => {
 };
 
 exports.completeInjury = (req, res) => {
-  console.log('the req body of completeINjury', req.body);
-  this.client.query('UPDATE injury SET is_current=$1, resolved_at=$2', [
-    false,
-    new Date()
-  ]);
+  this.client.query(
+    'UPDATE injury SET is_current=$1, resolved_at=$2 WHERE injury_id = $3',
+    [false, new Date(), req.body.injury_id]
+  );
   res.redirect('/current-log');
 };

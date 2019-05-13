@@ -179,13 +179,12 @@
       console.log('The id of the injury to complete is...', id);
       const url = `complete-injury/${id}`;
       if (confirm('Did you fully recover from this injury?')) {
-        /*const patch = {
-          is_current: false
-        } */
         $.ajax({
           url: url,
           type: 'POST',
-          /*data: JSON.stringify(patch), */
+          data: {
+            injury_id: id
+          },
           success: result => {
             console.log('Completing injury...', result);
             window.location.href = '/current-log';
