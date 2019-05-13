@@ -4,8 +4,8 @@
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-sm-12 col-md-6" align="center">
-      <img id="pharmacy-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png" alt="Pharmacy image" class="img-responsive"
-        style="object-fit:contain; width:100%; height:100%:">
+      <img id="pharmacy-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"
+        alt="Pharmacy image" class="img-responsive" style="object-fit:contain; width:100%; height:100%:">
     </div>
 
     <div class="col-sm-12 col-md-6 d-flex flex-column justify-content-center">
@@ -122,7 +122,7 @@
 
   // Converts the 24-hour time to 12-hour time
   function convertTime(time) {
-    if(timeMap.get(time)) {
+    if (timeMap.get(time)) {
       return timeMap.get(time);
     }
     else {
@@ -160,7 +160,7 @@
 
       const name = `${result.name}`;
       const price = `${result.price}`
-      const image_url = `${result.image_url}`;
+      const image_url = `${result.image_url}` || 'images/no-image-available.svg';
       const address_street = `${result.location.address1}`;
       const address_city_state = `${result.location.city}, ${result.location.state} ${result.location.zip_code}`;
       const website = `${result.url}`;
@@ -180,7 +180,7 @@
 
       const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
       //console.log(`${result.hours[0].open}`.split(',').length);
-      for(day = 0; day < `${result.hours[0].open}`.split(',').length; day++) {
+      for (day = 0; day < `${result.hours[0].open}`.split(',').length; day++) {
         days[day] = convertTime(`${result.hours[0].open[day].start}`) + ' - ' + convertTime(`${result.hours[0].open[day].end}`);
       }
 
@@ -194,6 +194,7 @@
       $("#saturday").html(days[5]);
       $("#sunday").html(days[6]);
       $("#pharmacy-image").attr("src", image_url);
+      $("#pharmacy-image").attr("height", "200");
       $("#website").attr("href", website);
     });
   });
