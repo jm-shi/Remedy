@@ -14,7 +14,7 @@
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-3 text-muted">-{{log1}}</h6>
+    <h6 class="card-subtitle mb-3 text-muted">-{{content}}</h6>
     <button class="btn btn-danger add-log" data-id={{injury_id}}>
       <i class="fa fa-trash" aria-hidden="true"></i>
     </button>
@@ -114,7 +114,7 @@
           </div>
           <div class="form-group">
             <label>Progress Report 1</label>
-            <input type="text" class="form-control" name="log1">
+            <input type="text" class="form-control" name="content">
           </div>
         </div>
         <div class="modal-footer">
@@ -184,5 +184,10 @@
       $('#update-description').val($(this).data('description'));
       $('#update-id').val($(this).data('id'));
     });
+
+     $('.add-log').on('click', function() {
+      $('#update-log').val($(this).data('log2'));
+    });
+
   });
 </script>
