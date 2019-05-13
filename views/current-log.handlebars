@@ -14,7 +14,10 @@
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-3 text-muted">-{{logs}}</h6>
+    <h6 class="card-subtitle mb-3 text-muted">-{{log1}}</h6>
+    <button class="btn btn-danger add-log" data-id={{injury_id}}>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
     <h6 class="card-subtitle mb-2 text-muted"> {{created_at}} - Current</h6>
         <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal" data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}" data-id="{{injury_id}}">
       <i class="fa fa-edit" aria-hidden="true"></i>
@@ -111,7 +114,7 @@
           </div>
           <div class="form-group">
             <label>Progress Report 1</label>
-            <input type="text" class="form-control" name="logs">
+            <input type="text" class="form-control" name="log1">
           </div>
         </div>
         <div class="modal-footer">
