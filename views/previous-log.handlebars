@@ -19,15 +19,15 @@
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at}}</h6>
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
     <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
-      {{#if expected_recovery_date}}
-      {{expected_recovery_date}}
+      {{#if expected_recovery_date_string}}
+      {{expected_recovery_date_string}}
       {{else}}
       Not specified
       {{/if}}
     </h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Resolved: </strong>{{resolved_at}}</h6>
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Resolved: </strong>{{resolved_at_string}}</h6>
 
     <h6 class="card-subtitle mb-4 text-muted mb-4"><strong>Treatment plan: </strong>
       {{#if treatment}}
