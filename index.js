@@ -6,7 +6,8 @@ const { Client } = require('pg');
 
 // Controllers
 const doctorController = require('./controllers/doctor');
-const injuryController = require('./controllers/injury');
+const injuryLogController = require('./controllers/injuryLog');
+const injuryListController = require('./controllers/injuryList');
 const mapController = require('./controllers/map');
 // const pharmacyController = require('./controllers/pharmacy');
 
@@ -61,7 +62,8 @@ if (environment === 'development') {
   });
 }
 client.connect();
-injuryController.client = client;
+injuryLogController.client = client;
+injuryListController.client = client;
 injuryLog.client = client;
 injuryInfo.client = client;
 
@@ -137,11 +139,13 @@ app.get('/profile', profile.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
-app.get('/injury-log', injuryController.getInjuries);
-app.post('/add-injury', injuryController.addInjury);
-app.post('/update-injury', injuryController.updateInjury);
-app.delete('/injury/:id', injuryController.deleteInjury);
-app.post('/complete-injury/:id', injuryController.completeInjury);
+app.get('/injury-log', injuryLogController.getInjuries);
+app.post('/add-injury', injuryLogController.addInjury);
+app.post('/update-injury', injuryLogController.updateInjury);
+app.delete('/injury/:id', injuryLogController.deleteInjury);
+app.post('/complete-injury/:id', injuryLogController.completeInjury);
+app.get('/sport', injuryListController.searchSports);
+app.get('/sport/:query', injuryListController.searchSports);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);
