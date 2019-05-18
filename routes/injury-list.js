@@ -34,12 +34,15 @@ exports.viewCommonInjuries = (req, res) => {
 
       const sport_name =
         results.rows.length === 0 ? 'Sport' : results.rows[0].sport_name;
+      const sport_overview =
+        results.rows.length === 0 ? false : results.rows[0].sport_overview;
       console.log('common injuries results', results.rows);
 
       res.render('common-injuries', {
         title: 'Common Injuries',
         injuryList: results.rows,
-        sport_name
+        sport_name,
+        sport_overview
       });
     }
   );
