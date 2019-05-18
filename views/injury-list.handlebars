@@ -3,10 +3,7 @@
 
 <h2 class="text-center">Injury List</h2>
 
-<div class="container mt-5 search-bar">
-  <input class="form-control" id="search-bar__input" type="text" placeholder="Search for a sport">
-  <button class="btn btn-primary" id="search-bar__button">Search</button>
-</div>
+{{> search-bar placeholder="Search for a sport"}}
 
 <div class="gallery">
   <div class="row" id="sportList">
@@ -21,7 +18,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", event => {
-    $('#search-bar__button').on('click', () => {
+    $('#search-bar__input').on('keyup search', () => {
       const query = $('#search-bar__input').val();
       fetch(`/sport/${query}`).then(response => {
         return response.json();

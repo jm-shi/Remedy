@@ -8,14 +8,13 @@
 @import 'components/form';
 @import 'components/gallery';
 @import 'components/navbar';
+@import 'components/search-bar';
 
 @import 'layout/header';
 @import 'layout/iframeContainer';
 
-@import 'pages/commonInjuries';
 @import 'pages/contact';
-@import 'pages/injuryList';
-@import 'pages/log';
+@import 'pages/injury-details';
 @import 'pages/map';
 
 @import '../../node_modules/bootstrap/scss/bootstrap';
