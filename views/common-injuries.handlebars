@@ -1,9 +1,11 @@
 {{> navbar}}
 {{> back-button destinationURL="/injury-list" destinationName="Injury List"}}
 
-<h2 class="titleName"> Common Injuries: {{sport_name}}</h2>
+<h2 class="text-center mb-5"> Common Injuries: {{sport_name}}</h2>
 
-<div class="container mt-5 searchBar">
+<p class="container">{{sport_overview}}</p>
+
+<div class="container mt-5 search-bar">
   <input class="form-control" id="myInput" type="text" placeholder="Search">
 </div>
 
@@ -17,21 +19,3 @@
     {{/each}}
   </div>
 </div>
-
-
-{{!-- {{#each injuryList.sports}}
-<div class="commonInjuryBox">
-  {{#each injuries}}
-  <a href="/injury-details">
-    <div class="cardCommon">
-      <p>
-        <h4>{{name}}</h4>
-      </p>
-      <div><img src={{imageURL}} alt={{name}}></div>
-      <div>{{description}}</div>
-      <br>
-    </div>
-  </a>
-  {{/each}}
-</div>
-{{/each}} --}}

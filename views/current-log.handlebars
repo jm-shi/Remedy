@@ -27,11 +27,11 @@
   <div class="card-body container">
     <h5 class="card-title">{{name}}</h5>
     <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at}}</h6>
+    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
 
     <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
-      {{#if expected_recovery_date}}
-      {{expected_recovery_date}}
+      {{#if expected_recovery_date_string}}
+      {{expected_recovery_date_string}}
       {{else}}
       Not specified
       {{/if}}
@@ -47,7 +47,7 @@
     {{!-- <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
     <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6> --}}
 
-    <h6 class="card-subtitle mb-2 text-muted mb-4">Complete recovery in 5/10 days</h6>
+    {{!-- <h6 class="card-subtitle mb-2 text-muted mb-4">Complete recovery in 5/10 days</h6> --}}
 
     <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
       data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"

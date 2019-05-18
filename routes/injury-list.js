@@ -23,7 +23,7 @@ exports.viewCommonInjuries = (req, res) => {
     i.c_injury_image_url AS injury_image_url, i.c_injury_image_source AS injury_image_source 
     FROM sport s JOIN sport_c_injury si 
     ON (s.sport_id = si.sport_id) 
-    JOIN c_injury i ON (si.c_injury_id = i.c_injury_id) 
+    INNER JOIN c_injury i ON (si.c_injury_id = i.c_injury_id) 
     WHERE s.sport_id = ${sportId}
     ORDER BY i.c_injury_name`,
     (error, results) => {
@@ -34,12 +34,15 @@ exports.viewCommonInjuries = (req, res) => {
 
       const sport_name =
         results.rows.length === 0 ? 'Sport' : results.rows[0].sport_name;
+      const sport_overview =
+        results.rows.length === 0 ? false : results.rows[0].sport_overview;
       console.log('common injuries results', results.rows);
 
       res.render('common-injuries', {
         title: 'Common Injuries',
         injuryList: results.rows,
-        sport_name
+        sport_name,
+        sport_overview
       });
     }
   );
