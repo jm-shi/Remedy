@@ -45,6 +45,10 @@ handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
 
+handlebars.registerHelper('toLowerCase', function(x) {
+  return x.toLowerCase();
+});
+
 let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {

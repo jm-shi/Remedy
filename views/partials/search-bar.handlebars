@@ -1,6 +1,12 @@
 <div class="container">
   <div class="search-bar input-group">
+    {{#if onCommonInjuryPage}}
+    <input class="form-control" id="search-bar__input" type="search"
+      placeholder="Search for common {{toLowerCase onCommonInjuryPage.sport_name}} injuries">
+    {{else}}
     <input class="form-control" id="search-bar__input" type="search" placeholder="{{placeholder}}">
+    {{/if}}
+
     <div class="input-group-append">
       <span class="input-group-text custom-form__group-text">
         <i class="fa fa-search"></i>
