@@ -43,6 +43,7 @@
         {{/if}}
       </h6>
 
+      <!-- Log history data -->
       <div class="mb-4">
         <a class="btn btn-dark log-history-btn" data-toggle="collapse" href="#collapseLogHistory{{injury_id}}"
           role="button" aria-expanded="false" aria-controls="collapseLogHistory{{injury_id}}"
@@ -50,7 +51,6 @@
           <i class="fa fa-history"></i> Log History
         </a>
       </div>
-
       <div class="collapse mb-4" id="collapseLogHistory{{injury_id}}">
         <div class="card card-body">
           <button class="btn btn-primary add-log mb-4" data-toggle="modal" data-target="#addLogModal"
@@ -62,6 +62,7 @@
           </div>
         </div>
       </div>
+      <!-- End log history data -->
 
       <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
         data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"
@@ -259,6 +260,9 @@
         success: logItems => {
           const injuryLogs = `#injuryLog${injuryId}`;
           $(injuryLogs).html('');
+          if (logItems.length === 0) {
+            return $(injuryLogs).append('No log history data');
+          }
           logItems.forEach(logItem => {
             const dateString = new Date(logItem.time).toDateString();
             const timeString = new Date(logItem.time).toLocaleTimeString();

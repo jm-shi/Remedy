@@ -14,38 +14,102 @@
   </ul>
 </div>
 
-{{#each previousInjury}}
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">{{name}}</h5>
-    <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
-      {{#if expected_recovery_date_string}}
-      {{expected_recovery_date_string}}
-      {{else}}
-      Not specified
-      {{/if}}
-    </h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Resolved: </strong>{{resolved_at_string}}</h6>
+<div class="container">
+  {{#each previousInjury}}
+  <div class="card">
+    <div class="card-body container">
+      <h5 class="card-title">{{name}}</h5>
+      <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
+        {{#if expected_recovery_date_string}}
+        {{expected_recovery_date_string}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Resolved: </strong>{{resolved_at_string}}</h6>
 
-    <h6 class="card-subtitle mb-4 text-muted mb-4"><strong>Treatment plan: </strong>
-      {{#if treatment}}
-      {{treatment}}
-      {{else}}
-      Not specified
-      {{/if}}
-    </h6>
+      <h6 class="card-subtitle mb-4 text-muted mb-4"><strong>Treatment plan: </strong>
+        {{#if treatment}}
+        {{treatment}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
 
-    <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
-      <i class="fa fa-trash" aria-hidden="true"></i>
-    </button>
+      <!-- Log history data -->
+      <div class="mb-4">
+        <a class="btn btn-dark log-history-btn" data-toggle="collapse" href="#collapseLogHistory{{injury_id}}"
+          role="button" aria-expanded="false" aria-controls="collapseLogHistory{{injury_id}}"
+          data-injury_id={{injury_id}}>
+          <i class="fa fa-history"></i> Log History
+        </a>
+      </div>
+      <div class="collapse mb-4" id="collapseLogHistory{{injury_id}}">
+        <div class="card card-body">
+          <div class="injuryLogs" id="injuryLog{{injury_id}}">
+          </div>
+        </div>
+      </div>
+      <!-- End log history data -->
+
+      <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
+  {{/each}}
 </div>
-{{/each}}
 
 <script>
   document.addEventListener("DOMContentLoaded", event => {
+    function appendLogItem(selector, injuryId, logId, dateString, timeString, content) {
+      $(selector).append(`
+            <div class="log-item log-item${logId}">
+              <div class="log-item__date">
+                ${dateString} 
+              </div>
+              <div class="log-item__time">
+                ${timeString}
+              </div>
+              <div class="log-item__text">
+                  ${content}
+              </div>
+            </div>      
+            `);
+    };
+
+    function displayLogItems(injuryId) {
+      $.ajax({
+        url: `/view-logs/${injuryId}`,
+        type: 'GET',
+        success: logItems => {
+          const injuryLogs = `#injuryLog${injuryId}`;
+          $(injuryLogs).html('');
+          if (logItems.length === 0) {
+            return $(injuryLogs).html('No log history data');
+          }
+          logItems.forEach(logItem => {
+            const dateString = new Date(logItem.time).toDateString();
+            const timeString = new Date(logItem.time).toLocaleTimeString();
+            const logId = logItem.log_id;
+            const content = logItem.content;
+            appendLogItem(injuryLogs, injuryId, logId, dateString, timeString, content);
+          })
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    };
+
+    // After clicking "Log History" button, show all log data associated with current injury
+    $('.log-history-btn').on('click', function () {
+      const injuryId = $(this).data('injury_id');
+      displayLogItems(injuryId);
+    });
+
     $('.delete-injury').on('click', function () {
       const id = $(this).data('id');
       console.log('The id of the injury to delete is...', id);
