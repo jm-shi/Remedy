@@ -3,9 +3,9 @@ exports.viewCurrent = (req, res) => {
     'SELECT * FROM injury WHERE is_current = true ORDER BY created_at',
     (error, results) => {
       if (error) {
-        return console.log('Error fetching current injury log', error);
+        return console.log('Error fetching current injury', error);
       }
-      console.log('Current injury log results:', results.rows);
+      console.log('Current injury results:', results.rows);
 
       results.rows.forEach((row, index) => {
         results.rows[index].created_at_string = row.created_at.toDateString();
@@ -29,9 +29,9 @@ exports.viewPrevious = (req, res) => {
     'SELECT * FROM injury WHERE is_current = false ORDER BY created_at',
     (error, results) => {
       if (error) {
-        return console.log('Error fetching previous injury log', error);
+        return console.log('Error fetching previous injury', error);
       }
-      console.log('Previous injury log results:', results.rows);
+      console.log('Previous injury results:', results.rows);
 
       results.rows.forEach((row, index) => {
         results.rows[index].created_at_string = row.created_at.toDateString();

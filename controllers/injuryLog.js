@@ -49,3 +49,39 @@ exports.completeInjury = (req, res) => {
   );
   res.redirect('/current-log');
 };
+
+exports.addLog = (req, res) => {
+  this.client.query('INSERT INTO log (injury_id, content) VALUES ($1, $2)', [
+    req.body.injuryId,
+    req.body.logContent
+  ]);
+  res.sendStatus(200);
+};
+
+exports.updateLog = (req, res) => {
+  this.client.query('UPDATE log SET content=$1 WHERE log_id = $2', [
+    req.body.logContent,
+    req.body.logId
+  ]);
+  res.sendStatus(200);
+};
+
+exports.viewLogs = (req, res) => {
+  this.client.query(
+    'SELECT * FROM log WHERE injury_id = $1 ORDER BY time',
+    [req.params.injury_id],
+    (error, results) => {
+      if (error) {
+        return console.log('Error fetching current injury log', error);
+      }
+      console.log('Current injury log results:', results.rows);
+      res.send(results.rows);
+    }
+  );
+};
+
+exports.deleteLog = (req, res) => {
+  console.log('Deleting log with id', req.params.id);
+  this.client.query('DELETE FROM log WHERE log_id = $1', [req.params.id]);
+  res.sendStatus(200);
+};

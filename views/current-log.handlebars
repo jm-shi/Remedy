@@ -20,50 +20,67 @@
   </button>
 </div>
 
-{{#each currentInjury}}
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">{{name}}</h5>
-    <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
+<div class="container">
+  {{#each currentInjury}}
+  <div class="card" id="injury{{injury_id}}">
+    <div class="card-body container">
+      <h5 class="card-title">{{name}}</h5>
+      <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
 
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
-      {{#if expected_recovery_date_string}}
-      {{expected_recovery_date_string}}
-      {{else}}
-      Not specified
-      {{/if}}
-    </h6>
-    <h6 class="card-subtitle mb-4 text-muted"><strong>Treatment plan: </strong>
-      {{#if treatment}}
-      {{treatment}}
-      {{else}}
-      Not specified
-      {{/if}}
-    </h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
+        {{#if expected_recovery_date_string}}
+        {{expected_recovery_date_string}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Treatment plan: </strong>
+        {{#if treatment}}
+        {{treatment}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
 
-    {{!-- <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6> --}}
+      <div class="mb-4">
+        <a class="btn btn-dark log-history-btn" data-toggle="collapse" href="#collapseLogHistory{{injury_id}}"
+          role="button" aria-expanded="false" aria-controls="collapseLogHistory{{injury_id}}"
+          data-injury_id={{injury_id}}>
+          <i class="fa fa-history"></i> Log History
+        </a>
+      </div>
 
-    {{!-- <h6 class="card-subtitle mb-2 text-muted mb-4">Complete recovery in 5/10 days</h6> --}}
+      <div class="collapse mb-4" id="collapseLogHistory{{injury_id}}">
+        <div class="card card-body">
+          <button class="btn btn-primary add-log mb-4" data-toggle="modal" data-target="#addLogModal"
+            data-id={{injury_id}}>
+            <i class="fa fa-edit" aria-hidden="true"></i>
+            Create new log
+          </button>
+          <div class="injuryLogs" id="injuryLog{{injury_id}}">
+          </div>
+        </div>
+      </div>
 
-    <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
-      data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"
-      data-treatment="{{treatment}}" data-expected-recvoery-date={{expected_recovery_date}} data-id="{{injury_id}}">
-      <i class="fa fa-edit" aria-hidden="true"></i>
-    </button>
-    <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
-      <i class="fa fa-trash" aria-hidden="true"></i>
-    </button>
+      <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
+        data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"
+        data-treatment="{{treatment}}" data-expected-recvoery-date={{expected_recovery_date}} data-id="{{injury_id}}">
+        <i class="fa fa-edit" aria-hidden="true"></i>
+      </button>
+      <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
 
-    <button class="btn btn-success complete-injury" data-id={{injury_id}}>
-      <i class="fa fa-check" aria-hidden="true">
-        <span style="font-family:Arial;">I have recovered</span>
-      </i>
-    </button>
+      <button class="btn btn-success complete-injury" data-id={{injury_id}}>
+        <i class="fa fa-check" aria-hidden="true">
+          <span style="font-family:Arial;">I have recovered</span>
+        </i>
+      </button>
+    </div>
   </div>
+  {{/each}}
 </div>
-{{/each}}
 
 <!-- Add injury modal -->
 <div class="modal fade" id="injuryModal" tabindex="-1" role="dialog" aria-labelledby="injuryModalLabel"
@@ -144,19 +161,219 @@
   </div>
 </div>
 
+<!-- Add log modal -->
+<div class="modal fade" id="addLogModal" tabindex="-1" role="dialog" aria-labelledby="addLogModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="/add-log">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addLogModalLabel">Add progress log on injury</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="injuryId" id="injury-id">
+          <!--
+          <div class="form-group">
+            <label>Date</label>
+            <input type="datetime-local" class="form-control" name="datetime" id="update-date">
+          </div> 
+          -->
+          <div class="form-group">
+            <label>Current injury status</label>
+            <input type="text" class="form-control" name="logContent" id="log-content" placeholder="How do you feel?">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="button" class="btn btn-primary add-log-btn" data-dismiss="modal" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Update log modal -->
+<div class="modal fade" id="updateLogModal" tabindex="-1" role="dialog" aria-labelledby="updateLogModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method="post" action="/update-log">
+        <div class="modal-header">
+          <h5 class="modal-title" id="updateLogModalLabel">Edit progress log on injury</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" name="logId" id="update-log-id">
+          <input type="hidden" name="injuryId" id="update-injury-id">
+          <div class="form-group">
+            <label>Current injury status</label>
+            <input type="text" class="form-control" name="logContent" id="update-log-content"
+              placeholder="How do you feel?">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="button" class="btn btn-primary update-log-save" data-dismiss="modal" value="Save" />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script>
   document.addEventListener("DOMContentLoaded", event => {
+    function appendLogItem(selector, injuryId, logId, dateString, timeString, content) {
+      $(selector).append(`
+            <div class="log-item log-item${logId}">
+              <div class="log-item__date">
+                ${dateString} 
+              </div>
+              <div class="log-item__time">
+                ${timeString}
+              </div>
+              <div class="log-item__text">
+                  ${content}
+              </div>
+
+              <div class="log-item__buttons">
+                <button class="btn btn-info update-log-icon" data-toggle="modal" data-log_id=${logId} data-injury_id=${injuryId} data-content=${content} data-target="#updateLogModal">
+                  <i class="fa fa-edit" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-danger delete-log" data-id=${logId}>
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>      
+            `);
+    };
+
+    function displayLogItems(injuryId) {
+      $.ajax({
+        url: `/view-logs/${injuryId}`,
+        type: 'GET',
+        success: logItems => {
+          const injuryLogs = `#injuryLog${injuryId}`;
+          $(injuryLogs).html('');
+          logItems.forEach(logItem => {
+            const dateString = new Date(logItem.time).toDateString();
+            const timeString = new Date(logItem.time).toLocaleTimeString();
+            const logId = logItem.log_id;
+            const content = logItem.content;
+            appendLogItem(injuryLogs, injuryId, logId, dateString, timeString, content);
+          })
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    };
+
+    // After clicking "add log" icon, get injury id associated with this log
+    // Save this injury id into a hidden input field
+    $('.add-log').on('click', function () {
+      const injuryId = $(this).data('id');
+      $('#log-content').val('');
+      $('#injury-id').val(injuryId);
+    });
+
+    $('.add-log-btn').on('click', function () {
+      const injuryId = $('#injury-id').val();
+      const logContent = $('#log-content').val();
+      $.ajax({
+        url: '/add-log',
+        type: 'POST',
+        data: {
+          injuryId,
+          logContent
+        },
+        success: result => {
+          // Display new log item without refreshing page
+          const injuryLogs = `#injuryLog${injuryId}`;
+          const logId = result;
+          const dateString = new Date().toDateString();
+          const timeString = new Date().toLocaleTimeString();
+          const content = $('#log-content').val();
+          displayLogItems(injuryId);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    });
+
+    // After clicking "Log History" button, show all log data associated with current injury
+    $(`.log-history-btn`).on('click', function () {
+      const injuryId = $(this).data('injury_id');
+      displayLogItems(injuryId);
+    });
+
+    // After clicking "update log" icon:
+    // Display pre-existing log content (and save id of the log/injury to update in a hidden input field)
+    $('.injuryLogs').on('click', '.update-log-icon', function () {
+      $('#update-injury-id').val($(this).data('injury_id'));
+      $('#update-log-id').val($(this).data('log_id'));
+      $('#update-log-content').val($(this).data('content'));
+    });
+
+    $('.update-log-save').on('click', function () {
+      const logId = $('#update-log-id').val();
+      const injuryId = $('#update-injury-id').val();
+      const logContent = $('#update-log-content').val();
+      $.ajax({
+        url: '/update-log',
+        type: 'POST',
+        data: {
+          logId,
+          logContent
+        },
+        success: result => {
+          // Display new log item without refreshing page
+          const injuryLogs = `#injuryLog${injuryId}`;
+          const logId = result;
+          const dateString = new Date().toDateString();
+          const timeString = new Date().toLocaleTimeString();
+          const content = $('#log-content').val();
+          displayLogItems(injuryId);
+        },
+        error: err => {
+          console.log(err);
+        }
+      });
+    });
+
+    $('.injuryLogs').on('click', '.delete-log', function () {
+      const id = $(this).data('id');
+      console.log('The id of the log item to delete is', id);
+      const url = `delete-log/${id}`;
+      if (confirm('Delete this log?')) {
+        $.ajax({
+          url: url,
+          type: 'DELETE',
+          success: result => {
+            $(`.log-item${id}`).hide();
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      }
+    });
+
     $('.delete-injury').on('click', function () {
       const id = $(this).data('id');
-      console.log('The id of the injury to delete is...', id);
+      console.log('The id of the log to delete is', id);
       const url = `injury/${id}`;
       if (confirm('Delete this injury?')) {
         $.ajax({
           url: url,
           type: 'DELETE',
           success: result => {
-            console.log('Deleting injury...');
-            window.location.href = '/current-log';
+            $(`#injury${id}`).hide();
           },
           error: err => {
             console.log(err);
@@ -167,7 +384,7 @@
 
     $('.complete-injury').on('click', function () {
       const id = $(this).data('id');
-      console.log('The id of the injury to complete is...', id);
+      console.log('The id of the injury to complete is', id);
       const url = `complete-injury/${id}`;
       if (confirm('Did you fully recover from this injury?')) {
         $.ajax({
