@@ -8,8 +8,6 @@ const { Client } = require('pg');
 const doctorController = require('./controllers/doctor');
 const injuryLogController = require('./controllers/injuryLog');
 const injuryListController = require('./controllers/injuryList');
-const mapController = require('./controllers/map');
-// const pharmacyController = require('./controllers/pharmacy');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -117,7 +115,6 @@ app.get('/pharmacy-data', (req, res) => {
   yelp_Client
     .search(searchRequest)
     .then(response => {
-      //console.log(response.body);
       res.send(response.body);
     })
     .catch(error => {
@@ -143,11 +140,17 @@ app.get('/profile', profile.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
+
 app.get('/injury-log', injuryLogController.getInjuries);
 app.post('/add-injury', injuryLogController.addInjury);
 app.post('/update-injury', injuryLogController.updateInjury);
 app.delete('/injury/:id', injuryLogController.deleteInjury);
 app.post('/complete-injury/:id', injuryLogController.completeInjury);
+app.get('/view-logs/:injury_id', injuryLogController.viewLogs);
+app.post('/add-log', injuryLogController.addLog);
+app.post('/update-log', injuryLogController.updateLog);
+app.delete('/delete-log/:id', injuryLogController.deleteLog);
+
 app.get('/sport', injuryListController.searchSports);
 app.get('/sport/:query', injuryListController.searchSports);
 app.get('/common-injury/', injuryListController.searchCommonInjuries);

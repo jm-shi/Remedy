@@ -9,6 +9,14 @@ CREATE TABLE injury (
     expected_recovery_date DATE
 );
 
+CREATE TABLE log (
+    log_id SERIAL NOT NULL PRIMARY KEY,
+    injury_id INTEGER NOT NULL,
+    time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    content TEXT NOT NULL,
+    FOREIGN KEY (injury_id) REFERENCES injury(injury_id) ON DELETE CASCADE
+);
+
 -- INSERT INTO injury (name, is_current, description)
 -- VALUES ('Knee sprain', false, 'Knee sprain description');
 
