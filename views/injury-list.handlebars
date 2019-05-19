@@ -26,11 +26,11 @@
         $('#sportList').html('');
         filteredSports.forEach(sport => {
           $('#sportList').append(`
-           <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
-            <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
-            <h5 class="gallery__item__caption">${sport.sport_name}</h5>
-          </a>
-          `)
+                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
+                  <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
+                  <h5 class="gallery__item__caption">${sport.sport_name}</h5>
+                </a>
+                `)
         })
       });
     });

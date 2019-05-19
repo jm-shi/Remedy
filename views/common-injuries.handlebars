@@ -1,21 +1,50 @@
 {{> navbar}}
 {{> back-button destinationURL="/injury-list" destinationName="Injury List"}}
 
-<h2 class="text-center mb-5"> Common Injuries: {{sport_name}}</h2>
-
-<p class="container">{{sport_overview}}</p>
-
-<div class="container mt-5 search-bar">
-  <input class="form-control" id="myInput" type="text" placeholder="Search">
+<div class="container">
+  <h2 class="text-center mb-4">Common Injuries: {{sport_name}}</h2>
+  <p>{{sport_overview}}</p>
 </div>
 
+{{> search-bar placeholder='Search for common injuries'}}
+
 <div class="gallery">
-  <div class="row">
+  <div class="row" id="commonInjuryList">
     {{#each injuryList}}
     <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/injury-details/{{injury_id}}">
-      <img height="90%" width="100%" src={{injury_image_url}} alt={{name}}>
+      <img height="90%" width="100%" src={{injury_image_url}} alt="{{injury_name}} image">
       <h5 class="gallery__item__caption">{{injury_name}}</h5>
     </a>
     {{/each}}
   </div>
 </div>
+
+<span class="d-none" id="sportId">{{sport_id}}</span>
+
+<script>
+  document.addEventListener("DOMContentLoaded", event => {
+    $('#search-bar__input').on('keyup search', () => {
+      const sportId = $('#sportId').html();
+      console.log('sportId is', sportId);
+      const query = $('#search-bar__input').val();
+
+      const data = { sportId, searchQuery: query };
+
+      fetch(`/common-injury/?sportId=${encodeURIComponent(data.sportId)}&searchQuery=${encodeURIComponent(data.searchQuery)}`).then(response => {
+        console.log('response is', response);
+        return response.json();
+      }).then(filteredInjuries => {
+        console.log('the filtered injuries are', filteredInjuries);
+        $('#commonInjuryList').html('');
+        filteredInjuries.forEach(injury => {
+          $('#commonInjuryList').append(`
+                   <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/injury-details/${injury.c_injury_id}">
+                    <img height="90%" width="100%" src=${injury.c_injury_image_url} alt=${injury.c_injury_name}>
+                    <h5 class="gallery__item__caption">${injury.c_injury_name}</h5>
+                  </a>
+                  `)
+        });
+      });
+    });
+  });
+</script>

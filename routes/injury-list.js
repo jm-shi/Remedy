@@ -30,17 +30,15 @@ exports.viewCommonInjuries = (req, res) => {
       if (error) {
         return console.log('Error fetching injury list', error);
       }
-      // console.log('Current injury list results:', results.rows);
 
-      const sport_name =
-        results.rows.length === 0 ? 'Sport' : results.rows[0].sport_name;
-      const sport_overview =
-        results.rows.length === 0 ? false : results.rows[0].sport_overview;
-      console.log('common injuries results', results.rows);
+      const sport_id = results.rows[0].sport_id;
+      const sport_name = results.rows[0].sport_name;
+      const sport_overview = results.rows[0].sport_overview;
 
       res.render('common-injuries', {
         title: 'Common Injuries',
         injuryList: results.rows,
+        sport_id,
         sport_name,
         sport_overview
       });
