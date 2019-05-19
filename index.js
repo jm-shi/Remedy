@@ -45,12 +45,16 @@ handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
 
+handlebars.registerHelper('toLowerCase', function(x) {
+  return x.toLowerCase();
+});
+
 let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {
   client = new Client({
-    user: 'postgres',
-    password: 'password',
+    user: process.env.POSTGRES_USER || 'postgres',
+    password: process.env.POSTGRES_PASSWORD || 'password',
     host: 'localhost',
     port: 5432,
     database: 'remedy'
@@ -70,7 +74,7 @@ injuryInfo.client = client;
 pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
-app.get('/common-injuries', injuryInfo.viewCommonInjuries);
+// app.get('/common-injuries', injuryInfo.viewCommonInjuries);
 app.get(
   '/common-injuries/:id',
   (req, res, next) => {
@@ -146,6 +150,8 @@ app.delete('/injury/:id', injuryLogController.deleteInjury);
 app.post('/complete-injury/:id', injuryLogController.completeInjury);
 app.get('/sport', injuryListController.searchSports);
 app.get('/sport/:query', injuryListController.searchSports);
+app.get('/common-injury/', injuryListController.searchCommonInjuries);
+app.get('/common-injury/:query', injuryListController.searchCommonInjuries);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);

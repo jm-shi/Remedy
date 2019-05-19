@@ -3,10 +3,7 @@
 
 <h2 class="text-center">Injury List</h2>
 
-<div class="container mt-5 search-bar">
-  <input class="form-control" id="search-bar__input" type="text" placeholder="Search for a sport">
-  <button class="btn btn-primary" id="search-bar__button">Search</button>
-</div>
+{{> search-bar placeholder="Search for a sport"}}
 
 <div class="gallery">
   <div class="row" id="sportList">
@@ -21,7 +18,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", event => {
-    $('#search-bar__button').on('click', () => {
+    $('#search-bar__input').on('keyup search', () => {
       const query = $('#search-bar__input').val();
       fetch(`/sport/${query}`).then(response => {
         return response.json();
@@ -29,11 +26,11 @@
         $('#sportList').html('');
         filteredSports.forEach(sport => {
           $('#sportList').append(`
-           <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
-            <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
-            <h5 class="gallery__item__caption">${sport.sport_name}</h5>
-          </a>
-          `)
+                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
+                  <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
+                  <h5 class="gallery__item__caption">${sport.sport_name}</h5>
+                </a>
+                `)
         })
       });
     });
