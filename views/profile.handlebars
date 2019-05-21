@@ -1,39 +1,56 @@
+<style>
+    .profile{
+        padding: 10px;
+        max-width: 700px;
+        margin: 10px;
+        box-shadow: 0 0 0 1px lightgray;  
+        text-align: center;
+    }
+</style>
+
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-4" align="center">
-            <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="150"
-                height="150">
+    <h5>User Profile</h5>
+    <div class="profile">
+        <div class="row">
+            <div class="col-sm-3" align="center">
+                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="125px"
+                    height="125px">
+            </div>
+            <div class="col-sm-3" align="left">
+                <br>
+                <h6>Johnny Appleseed</h6>
+                <p>jappleseed@email.com</p>
+                <p>San Diego, California</p>
+            </div>
         </div>
-        <div class="col-sm-4" align="center">
-            <h5>Johnny Appleseed</h5>
-            <p>jappleseed@email.com</p>
-            <p>San Diego, California</p>
+        <br>
+        <div class="row">
+            <div class="col-sm-3">
+                <h5>Sports</h5>
+                    <p style="text-indent: 50px;"><img src="/images/basketball.png" height="25px" width="25px"> - Center</p>
+                    <p style="text-indent: 50px;"><img src="/images/baseball.png" height="25px" width="25px"> - Pitcher</p>
+                    <p style="text-indent: 40px;"><img src="/images/swimming.png" height="25px" width="25px"> - 200m</p>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-4" style="text-align:center;">
-            <br>
-            <h5>Sports</h5>
-            <p>Basketball - Center</p>
-            <p>Baseball - Pitcher</p>
-            <p>Swimming</p>
-        </div>
-    </div>
-    <div class="row" align="center">
-        <div class="col-sm-4">
-            <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="75"
-                height="75">
-        </div>
-        <div class="col-sm-4">
-            <h5>Dr. Jason Snitzer</h5>
-            <p>(222) 733 8273</p>
-            <p>UCSD Hospital</p>
-            <a href="/doctor/001f60172493d3546f7869f4b8bad742">
-                <p>Go to his profile</p>
-            </a>
+    <br>
+    <div class="profile">
+        <div class="row" align="center">
+            <div class="col-sm-3">
+                <h5>Your Doctor</h5>
+                <br>
+                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="75"
+                    height="75">
+            </div>
+            <div class="col-sm-3" align="left">
+                <br><br>
+                <a href="/doctor/001f60172493d3546f7869f4b8bad742"><h6>Dr. Jason Snitzer</h6></a>
+                <p>(222) 733 8273</p>
+                <p>UCSD Hospital</p>
+            </div>
         </div>
     </div>
 </div>
