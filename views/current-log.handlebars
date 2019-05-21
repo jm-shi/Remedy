@@ -66,7 +66,8 @@
 
       <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal"
         data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}"
-        data-treatment="{{treatment}}" data-expected-recvoery-date={{expected_recovery_date}} data-id="{{injury_id}}">
+        data-treatment="{{treatment}}" data-expected-recovery-date="{{expected_recovery_date_unix_timestamp}}"
+        data-id="{{injury_id}}">
         <i class="fa fa-edit" aria-hidden="true"></i>
       </button>
       <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
@@ -84,147 +85,38 @@
 </div>
 
 <!-- Add injury modal -->
-<div class="modal fade" id="injuryModal" tabindex="-1" role="dialog" aria-labelledby="injuryModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="/add-injury">
-        <div class="modal-header">
-          <h5 class="modal-title" id="injuryModalLabel">Create Injury</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description">
-          </div>
-          <div class="form-group">
-            <label>Expected Recovery Date</label>
-            <input type="date" class="form-control" name="expected_recovery_date" id="update-expected-recovery-date">
-          </div>
-          <div class="form-group">
-            <label>Treatment Plan</label>
-            <input type="text" class="form-control" name="treatment" id="update-treatment">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <input type="submit" class="btn btn-primary" value="Create injury" />
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+{{> modal modalId="injuryModal" modalLabel="injuryModalLabel" modalTitle="Create Injury" method="post" action="/add-injury" 
+input1Label="Name" input1Type="text" input1Name="name" 
+input2Label="Description" input2Type="text" input2Name="description"
+input3Label="Expected Recovery Date" input3Type="date" input3Name="expected_recovery_date"
+input4Label="Treatman Plan" input4Type="text"  input4Name="treatment"
+saveInputType="submit" saveInputValue="Create Injury"
+}}
 
 <!-- Update injury modal -->
-<div class="modal fade" id="updateInjuryModal" tabindex="-1" role="dialog" aria-labelledby="updateInjuryModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="/update-injury">
-        <div class="modal-header">
-          <h5 class="modal-title" id="updateInjuryModalLabel">Edit Injury</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="id" id="update-id">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" class="form-control" name="name" id="update-name">
-          </div>
-          <div class="form-group">
-            <label>Description</label>
-            <input type="text" class="form-control" name="description" id="update-description">
-          </div>
-          <div class="form-group">
-            <label>Expected Recovery Date</label>
-            <input type="date" class="form-control" name="expected_recovery_date" id="update-expected-recovery-date">
-          </div>
-          <div class="form-group">
-            <label>Treatment Plan</label>
-            <input type="text" class="form-control" name="treatment" id="update-treatment">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input type="submit" class="btn btn-primary" value="Save" />
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+{{> modal modalId="updateInjuryModal" modalLabel="updateInjuryModalLabel" modalTitle="Edit Injury" method="post" action="/update-injury" 
+hiddenInput1Name="id" hiddenInput1Id="update-id"
+input1Label="Name" input1Type="text" input1Name="name" input1Id="update-name"
+input2Label="Description" input2Type="text" input2Name="description" input2Id="update-description"
+input3Label="Expected Recovery Date" input3Type="date" input3Name="expected_recovery_date" input3Id="update-expected-recovery-date"
+input4Label="Treatman Plan" input4Type="text" input4Name="treatment" input4Id="update-treatment"
+saveInputType="submit" saveInputValue="Save edit"
+}}
 
 <!-- Add log modal -->
-<div class="modal fade" id="addLogModal" tabindex="-1" role="dialog" aria-labelledby="addLogModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="/add-log">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addLogModalLabel">Add progress log on injury</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="injuryId" id="injury-id">
-          <!--
-          <div class="form-group">
-            <label>Date</label>
-            <input type="datetime-local" class="form-control" name="datetime" id="update-date">
-          </div> 
-          -->
-          <div class="form-group">
-            <label>Current injury status</label>
-            <input type="text" class="form-control" name="logContent" id="log-content" placeholder="How do you feel?">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input type="button" class="btn btn-primary add-log-btn" data-dismiss="modal" value="Save" />
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+{{> modal modalId="addLogModal" modalLabel="addLogModalLabel" modalTitle="Add progress log on injury" method="post" action="/add-log" 
+hiddenInput1Name="injuryId" hiddenInput1Id="injury-id"
+input1Label="Current injury status" input1Type="text" input1Name="logContent" input1Id="log-content" input1Placeholder="How do you feel?"
+saveInputType="button" saveInputClass="add-log-btn" saveInputValue="Add log"
+}}
 
 <!-- Update log modal -->
-<div class="modal fade" id="updateLogModal" tabindex="-1" role="dialog" aria-labelledby="updateLogModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <form method="post" action="/update-log">
-        <div class="modal-header">
-          <h5 class="modal-title" id="updateLogModalLabel">Edit progress log on injury</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="logId" id="update-log-id">
-          <input type="hidden" name="injuryId" id="update-injury-id">
-          <div class="form-group">
-            <label>Current injury status</label>
-            <input type="text" class="form-control" name="logContent" id="update-log-content"
-              placeholder="How do you feel?">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input type="button" class="btn btn-primary update-log-save" data-dismiss="modal" value="Save" />
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+{{> modal modalId="updateLogModal" modalLabel="updateLogModalLabel" modalTitle="Edit progress log on injury" method="post" action="/update-log" 
+hiddenInput1Name="logId" hiddenInput1Id="update-log-id"
+hiddenInput2Name="injuryId" hiddenInput2Id="update-injury-id"
+input1Label="Current injury status" input1Type="text" input1Name="logContent" input1Id="update-log-content" input1Placeholder="How do you feel?"
+saveInputType="button" saveInputClass="update-log-save" saveInputValue="Save"
+}}
 
 <script>
   document.addEventListener("DOMContentLoaded", event => {
@@ -411,9 +303,19 @@
     $('.update-injury').on('click', function () {
       $('#update-name').val($(this).data('name'));
       $('#update-description').val($(this).data('description'));
-      $('#update-expected-recovery-date').val($(this).data('expected-recovery-date'));
       $('#update-treatment').val($(this).data('treatment'));
       $('#update-id').val($(this).data('id'));
+
+      const recover_date_timestamp = $(this).data('expected-recovery-date');
+      if (recover_date_timestamp) {
+        const recover_date = new Date(recover_date_timestamp * 1000);
+        const recover_day = recover_date.getDate() < 10 ? '0' + recover_date.getDate() : recover_date.getDate();
+        let recover_month = recover_date.getMonth() + 1;
+        recover_month = recover_month < 10 ? '0' + recover_month : recover_month;
+        const recover_year = recover_date.getFullYear();
+        const recover_date_formatted = `${recover_year}-${recover_month}-${recover_day}`
+        $('#update-expected-recovery-date').val(recover_date_formatted);
+      }
     });
   });
 </script>

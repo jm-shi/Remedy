@@ -1,0 +1,59 @@
+<div class="modal fade" id={{modalId}} tabindex="-1" role="dialog" aria-labelledby={{modalLabel}} aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form method={{method}} action={{action}}>
+        <div class="modal-header">
+          <h5 class="modal-title" id={{modalLabel}}>{{modalTitle}}</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          {{#if hiddenInput1Name}}
+          <input type="hidden" name={{hiddenInput1Name}} id={{hiddenInput1Id}}>
+          {{/if}}
+          {{#if hiddenInput2Name}}
+          <input type="hidden" name={{hiddenInput2Name}} id={{hiddenInput2Id}}>
+          {{/if}}
+
+          <div class="form-group">
+            <label>{{input1Label}}</label>
+            <input type={{input1Type}} class="form-control" name={{input1Name}} id={{input1Id}}
+              placeholder="{{input1Placeholder}}">
+          </div>
+
+          {{#if input2Type}}
+          <div class=" form-group">
+            <label>{{input2Label}}</label>
+            <input type={{input2Type}} class="form-control" name={{input2Name}} id={{input2Id}}>
+          </div>
+          {{/if}}
+
+          {{#if input3Type}}
+          <div class="form-group">
+            <label>{{input3Label}}</label>
+            <input type={{input3Type}} class="form-control" name={{input3Name}} id={{input3Id}}>
+          </div>
+          {{/if}}
+
+          {{#if input4Type}}
+          <div class="form-group">
+            <label>{{input4Label}}</label>
+            <input type={{input4Type}} class="form-control" name={{input4Name}} id={{input4Id}}>
+          </div>
+          {{/if}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+
+          {{#ifEquals saveInputType "submit"}}
+          <input type={{saveInputType}} class="btn btn-primary" value="{{saveInputValue}}" />
+          {{else}}
+          <input type="button" class="btn btn-primary {{saveInputClass}}" data-dismiss="modal"
+            value="{{saveInputValue}}" />
+          {{/ifEquals}}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
