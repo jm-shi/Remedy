@@ -25,7 +25,7 @@ Additional resources on setting up Postgres:
   <li>https://www.youtube.com/watch?v=qw--VYLpxG4, from 10:53 to 17:38 (for either Mac or Windows users)</li>
 </ul>
 
-Once you have Postgres installed, open the SQL Shell and run the following:
+Once you have Postgres installed, open the SQL Shell (psql) and run the following:
 
 ```
 CREATE DATABASE remedy;
@@ -36,9 +36,44 @@ CREATE TABLE injury (
     injury_id SERIAL NOT NULL PRIMARY KEY,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     resolved_at TIMESTAMPTZ,
-    name VARCHAR(100) NOT NULL,
     is_current BOOLEAN NOT NULL,
-    description TEXT
+    name TEXT NOT NULL,
+    description TEXT,
+    treatment TEXT,
+    expected_recovery_date DATE
+);
+
+CREATE TABLE log (
+    log_id SERIAL NOT NULL PRIMARY KEY,
+    injury_id INTEGER NOT NULL,
+    time TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    content TEXT NOT NULL,
+    FOREIGN KEY (injury_id) REFERENCES injury(injury_id) ON DELETE CASCADE
+);
+
+CREATE TABLE sport (
+  sport_id SERIAL PRIMARY KEY,
+  sport_name TEXT NOT NULL,
+  sport_overview TEXT,
+  sport_source TEXT,
+  sport_image_url TEXT
+);
+
+CREATE TABLE c_injury (
+  c_injury_id SERIAL PRIMARY KEY,
+  c_injury_name TEXT NOT NULL,
+  c_injury_overview TEXT NOT NULL,
+  c_injury_symptoms TEXT NOT NULL,
+  c_injury_treatment TEXT NOT NULL,
+  c_injury_source TEXT NOT NULL,
+  c_injury_image_url TEXT,
+  c_injury_image_source TEXT
+);
+
+CREATE TABLE sport_c_injury (
+  sport_id INT REFERENCES sport (sport_id) ON UPDATE CASCADE,
+  c_injury_id INT REFERENCES c_injury (c_injury_id) ON UPDATE CASCADE,
+  CONSTRAINT sport_injury_pkey PRIMARY KEY (sport_id, c_injury_id)
 );
 ```
 
