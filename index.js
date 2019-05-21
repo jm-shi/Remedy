@@ -47,6 +47,10 @@ handlebars.registerHelper('toLowerCase', function(x) {
   return x.toLowerCase();
 });
 
+handlebars.registerHelper('ifEquals', function(x, y, options) {
+  return x === y ? options.fn(this) : options.inverse(this);
+});
+
 let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {
