@@ -18,9 +18,6 @@
         <input type="text" class="form-control" id="address" placeholder="Enter a city to find nearby services">
         <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input>
       </form>
-
-      <div class="text-danger" id="invalidSearch"></div>
-
       {{!-- <div class="dropdowns">
         <!-- TODO: Implement filter -->
         <div class="dropdown">
@@ -48,9 +45,12 @@
           </div>
         </div>
       </div> --}}
-
     </div>
     <!-- End searchbar and filter/sort dropdown menu -->
+
+    <div class="container">
+      <div class="text-danger" id="invalidSearch"></div>
+    </div>
 
     <div class="container">
       <div class="map-cards">
@@ -230,10 +230,12 @@
     $('#searchButton').on('click', e => {
       e.preventDefault();
       const address = $('#address').val();
+      console.log('The address is', address);
       fetch(`/geodata/${address}`).then(response => {
         return response.json();
       }).then(data => {
         $('#invalidSearch').html('');
+        console.log('The geodata is', data);
         const geodata = data.results[0];
         const formattedAddress = geodata.formatted_address;
         const latitude = geodata.geometry.location.lat;
