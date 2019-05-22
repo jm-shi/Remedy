@@ -3,21 +3,26 @@
 
 <div class="row">
   <div class="col-sm-12 col-md-6 a order-2 order-md-1">
-    <form class="mt-4 mb-4 ml-4">
-      <div class="input-group">
-        <div class="input-group-prepend">
+
+    <!-- Searchbar and filter/sort dropdown menu -->
+    <div class="mt-4 mb-4 ml-4 mr-4">
+      <form class="input-group">
+        {{!-- <div class="input-group-prepend">
           <span class="input-group-text">Find</span>
         </div>
         <input type="text" class="form-control w-45" id="search" placeholder="doctors/pharmacies">
         <div class="input-group-prepend">
           <span class="input-group-text">Near</span>
         </div>
-        <input type="text" class="form-control" id="location" placeholder="San Diego, CA">
+        <input type="text" class="form-control" id="location" placeholder="San Diego, CA"> --}}
+        <input type="text" class="form-control" id="address" placeholder="Enter a city to find nearby services">
+        <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input>
+      </form>
 
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-      </div>
+      <div class="text-danger" id="invalidSearch"></div>
 
-      <div class="dropdowns">
+      {{!-- <div class="dropdowns">
+        <!-- TODO: Implement filter -->
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="filterDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -30,6 +35,7 @@
           </div>
         </div>
 
+        <!-- TODO: Implement sort -->
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="sortByDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -41,124 +47,28 @@
             <button class="dropdown-item" type="button">Rating</button>
           </div>
         </div>
+      </div> --}}
 
+    </div>
+    <!-- End searchbar and filter/sort dropdown menu -->
+
+    <div class="container">
+      <div class="map-cards">
       </div>
-
-    </form>
-
-    <div class="map-cards">
     </div>
   </div>
 
-  <div class="col-sm-12 col-md-6 iframe-container test order-1 order-md-2">
+  <div class="col-sm-12 col-md-6 iframe-container order-1 order-md-2">
     <div id="map"></div>
   </div>
 </div>
 
 <script>
-  document.addEventListener("DOMContentLoaded", event => {
-    const fetchDoctors = () => {
-      fetch('/doctor-data').then(response => {
-        console.log('Doctor data response:', response);
-        return response.json();
-      }).then(result => {
-        console.log('Doctor data', result);
-        let doctorArr = [];
-        doctorArr = result.data;
-
-        doctorArr.forEach(doctor => {
-          const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
-          const image_url = `${doctor.profile.image_url}`;
-          let specialtiesArr = [];
-          doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
-          const specialties = specialtiesArr.join(", ");
-          const address_street = `${doctor.practices[0].visit_address.street}`;
-          const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
-          const uid = doctor.uid;
-
-          $(".map-cards").append(`{{> card
-                                      is-doctor="true"
-                                      image-url="${image_url}"
-                                      business-name="${name}"
-                                      specialties="${specialties}"
-                                      street-address="${address_street}"
-                                      city-state-address="${address_city_state}"
-                                      uid="${uid}"}}`);
-        });
-      });
-    }
-
-    const fetchPharmacies = () => {
-      fetch('/pharmacy-data').then(response => {
-        console.log('Pharmacy data response:', response);
-        return response.json();
-      }).then(result => {
-        console.log('Pharmacy data', result);
-        let pharmacyArr = [];
-        pharmacyArr = result.businesses;
-        pharmacyArr.forEach(pharmacy => {
-          const name = `${pharmacy.name}`;
-          const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
-          const address_street = `${pharmacy.location.address1}`;
-          const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
-          const uid = pharmacy.id;
-
-          $(".map-cards").append(`{{> card
-                                      image-url="${image_url}"
-                                      business-name="${name}"
-                                      street-address="${address_street}"
-                                      city-state-address="${address_city_state}"
-                                      uid="${uid}"}}`);
-        });
-      });
-    }
-
-    const fetchOnlyPharmacies = () => {
-      fetchPharmacies();
-    }
-
-    const fetchOnlyDoctors = () => {
-      fetchDoctors();
-    }
-
-    const fetchAll = () => {
-      fetchPharmacies();
-      fetchDoctors();
-    }
-
-    const clearData = () => {
-      $(".map-cards").html('');
-    }
-
-    $('#allButton').click(() => {
-      clearData();
-      fetchAll();
-    });
-    $('#pharmacyButton').click(() => {
-      clearData();
-      fetchPharmacies();
-    });
-    $('#doctorButton').click(() => {
-      clearData();
-      fetchDoctors();
-    });
-
-    fetchAll();
-  });
-
-  let map;
-  function initMap() {
-    map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: 32.8801, lng: -117.234 },
-      zoom: 8
-    });
-
-    // Creates markers for all the doctors
-    fetch('/doctor-data').then(response => {
-      //console.log('Doctor data response:', response);
+  const fetchDoctors = (lat, lng) => {
+    fetch(`/doctor-data?lat=${lat}&lng=${lng}`).then(response => {
       return response.json();
     }).then(result => {
-      //console.log('Doctor data', result);
+      console.log('Doctor data', result.data);
       let doctorArr = [];
       doctorArr = result.data;
 
@@ -174,35 +84,46 @@
         const lat = `${doctor.practices[0].lat}`;
         const long = `${doctor.practices[0].lon}`;
 
+        // Display doctor cards
+        $(".map-cards").append(`{{> card
+                                      is-doctor="true"
+                                      image-url="${image_url}"
+                                      business-name="${name}"
+                                      specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+
+        // Display doctor markers on map
         const contentString = '<div class="card mt-4">' +
           '<div class="row no-gutters justify-content-around">' +
-            '<div class="col-md-3 mt-3">' +
-              '<a href=/doctor/' + uid +  '>' +
-                  '<img class="card__thumbnail" src=' + image_url + '>' +
-                '</a>' +
-            '</div>' +
-            '<div class="col-md-8">' +
-              '<div class="card-body">' +
-              '  <h5 class="card-title">' + name + '</h5>' +
-                '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-                '<p class="card-text">' +
-                  '<strong>Specialties</strong><br>' +
-                  specialties +
-                '</p>' +
-                '<p class="card-text">' +
-                  '<strong>Address</strong> <br>' +
-                  address_street + '<br>' +
-                  address_city_state +
-                '</p>' +
-                '<a id="doctor-id" href=/doctor/' + uid +  '>' +
-                    '<button class="btn btn-dark">View more</button>' +
-                '</a>' +
-            '  </div>' +
-            '</div> '+
-          '</div>'+
-        '</div>';
+          '<div class="col-md-3 mt-3">' +
+          '<a href=/doctor/' + uid + '>' +
+          '<img class="card__thumbnail" src=' + image_url + '>' +
+          '</a>' +
+          '</div>' +
+          '<div class="col-md-8">' +
+          '<div class="card-body">' +
+          '  <h5 class="card-title">' + name + '</h5>' +
+          '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+          '<p class="card-text">' +
+          '<strong>Specialties</strong><br>' +
+          specialties +
+          '</p>' +
+          '<p class="card-text">' +
+          '<strong>Address</strong> <br>' +
+          address_street + '<br>' +
+          address_city_state +
+          '</p>' +
+          '<a id="doctor-id" href=/doctor/' + uid + '>' +
+          '<button class="btn btn-dark">View more</button>' +
+          '</a>' +
+          '  </div>' +
+          '</div> ' +
+          '</div>' +
+          '</div>';
 
-        const pos = {lat: parseFloat(lat), lng: parseFloat(long)};
+        const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString
@@ -213,17 +134,19 @@
           //title: 'Uluru (Ayers Rock)'
         });
 
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
           infowindow.open(map, marker);
         });
       });
     });
+  }
 
-    fetch('/pharmacy-data').then(response => {
-      console.log('Pharmacy data response:', response);
+  // Display pharmacy data on screen and create markers for each pharmacy on the map
+  const fetchPharmacies = (address = 'La Jolla') => {
+    fetch(`/pharmacy-data?address=${address}`).then(response => {
       return response.json();
     }).then(result => {
-      //console.log('Pharmacy data', result);
+      console.log('Pharmacy data', result);
       let pharmacyArr = [];
       pharmacyArr = result.businesses;
       pharmacyArr.forEach(pharmacy => {
@@ -235,31 +158,40 @@
         const lat = `${pharmacy.coordinates.latitude}`;
         const long = `${pharmacy.coordinates.longitude}`;
 
+        // Display pharmacy card
+        $(".map-cards").append(`{{> card
+                                      image-url="${image_url}"
+                                      business-name="${name}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"}}`);
+
+        // Display pharmacy markers on map
         const contentString = '<div class="card mt-4">' +
           '<div class="row no-gutters justify-content-around">' +
-            '<div class="col-md-3 mt-3">' +
-              '<a href=/pharmacy/' + uid +  '>' +
-                  '<img class="card__thumbnail" src=' + image_url + '>' +
-                '</a>' +
-            '</div>' +
-            '<div class="col-md-8">' +
-              '<div class="card-body">' +
-              '  <h5 class="card-title">' + name + '</h5>' +
-                '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-                '<p class="card-text">' +
-                  '<strong>Address</strong> <br>' +
-                  address_street + '<br>' +
-                  address_city_state +
-                '</p>' +
-                '<a id="pharmacy-id" href=/pharmacy/' + uid +  '>' +
-                    '<button class="btn btn-dark">View more</button>' +
-                '</a>' +
-            '  </div>' +
-            '</div> '+
-          '</div>'+
-        '</div>';
+          '<div class="col-md-3 mt-3">' +
+          '<a href=/pharmacy/' + uid + '>' +
+          '<img class="card__thumbnail" src=' + image_url + '>' +
+          '</a>' +
+          '</div>' +
+          '<div class="col-md-8">' +
+          '<div class="card-body">' +
+          '  <h5 class="card-title">' + name + '</h5>' +
+          '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+          '<p class="card-text">' +
+          '<strong>Address</strong> <br>' +
+          address_street + '<br>' +
+          address_city_state +
+          '</p>' +
+          '<a id="pharmacy-id" href=/pharmacy/' + uid + '>' +
+          '<button class="btn btn-dark">View more</button>' +
+          '</a>' +
+          '  </div>' +
+          '</div> ' +
+          '</div>' +
+          '</div>';
 
-        const pos = {lat: parseFloat(lat), lng: parseFloat(long)};
+        const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
         const infowindow = new google.maps.InfoWindow({
           content: contentString
@@ -270,14 +202,77 @@
           //title: 'Uluru (Ayers Rock)'
         });
 
-        marker.addListener('click', function() {
+        marker.addListener('click', function () {
           infowindow.open(map, marker);
         });
-
       });
     });
+  }
 
+  const fetchOnlyPharmacies = () => {
+    fetchPharmacies();
+  }
 
+  const fetchOnlyDoctors = () => {
+    fetchDoctors();
+  }
+
+  const fetchAll = () => {
+    fetchPharmacies();
+    fetchDoctors();
+  }
+
+  const clearData = () => {
+    $(".map-cards").html('');
+  }
+
+  document.addEventListener("DOMContentLoaded", event => {
+    $('#searchButton').on('click', e => {
+      e.preventDefault();
+      const address = $('#address').val();
+      fetch(`/geodata/${address}`).then(response => {
+        return response.json();
+      }).then(data => {
+        $('#invalidSearch').html('');
+        const geodata = data.results[0];
+        const formattedAddress = geodata.formatted_address;
+        const latitude = geodata.geometry.location.lat;
+        const longitude = geodata.geometry.location.lng;
+        localStorage.setItem('lat', latitude);
+        localStorage.setItem('lng', longitude);
+        localStorage.setItem('address', formattedAddress);
+        initMap(latitude, longitude, formattedAddress);
+      }).catch(err => {
+        console.log('Error getting geo data:', err);
+        $('#invalidSearch').html('Invalid address. Try again.');
+      })
+    });
+
+    // Used for filtering
+    $('#allButton').click(() => {
+      clearData();
+      fetchAll();
+    });
+    $('#pharmacyButton').click(() => {
+      clearData();
+      fetchPharmacies();
+    });
+    $('#doctorButton').click(() => {
+      clearData();
+      fetchDoctors();
+    });
+    // fetchAll();
+  });
+
+  let map;
+  function initMap(lat, lng, address) {
+    map = new google.maps.Map(document.getElementById("map"), {
+      center: { lat: lat || 32.8801, lng: lng || -117.234 },
+      zoom: 10
+    });
+    $(".map-cards").html('');
+    fetchDoctors(lat, lng);
+    fetchPharmacies(address);
   }
 
   function loadMap() {
