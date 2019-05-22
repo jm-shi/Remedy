@@ -1,35 +1,38 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-{{!-- <div class="topBox">
-  <a class="btn btn-primary" href="/" role="button" id="back-btn">Back</a>
-  <h2 class="titleName"> Injury Information </h2>
-</div> --}}
+<h2 class="text-center">Injury List</h2>
 
-<h2 class="titleName">Injury List</h2>
-
-<div>
-  <button type="button" name="filter" class="btn btn-primary">Filter</button>
-</div>
+{{> search-bar placeholder="Search for a sport"}}
 
 <div class="gallery">
-  <div class="row">
-    {{#each injuryList.sports}}
-    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
-      <img height="90%" width="100%" src={{imageURL}} alt={{name}}>
-      <h5 class="gallery__item__caption">{{name}}</h5>
+  <div class="row" id="sportList">
+    {{#each injuryList}}
+    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/{{sport_id}}">
+      <img height="80%" width="80%" src={{sport_image_url}} alt="Sport icon">
+      <h5 class="gallery__item__caption">{{sport_name}}</h5>
     </a>
     {{/each}}
   </div>
 </div>
 
-{{!-- {{#each injuryList.sports}}
-<div class="responsive">
-  <a href="/common-injuries">
-    <div class="card">
-      <img src={{imageURL}} alt={{name}}>
-      <h6 class="name">{{name}}</h6>
-    </div>
-  </a>
-</div>
-{{/each}} --}}
+<script>
+  document.addEventListener("DOMContentLoaded", event => {
+    $('#search-bar__input').on('keyup search', () => {
+      const query = $('#search-bar__input').val();
+      fetch(`/sport/${query}`).then(response => {
+        return response.json();
+      }).then(filteredSports => {
+        $('#sportList').html('');
+        filteredSports.forEach(sport => {
+          $('#sportList').append(`
+                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
+                  <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
+                  <h5 class="gallery__item__caption">${sport.sport_name}</h5>
+                </a>
+                `)
+        })
+      });
+    });
+  });
+</script>

@@ -4,16 +4,15 @@
 <div class="container mt-5 mb-5">
   <div class="row">
     <div class="col-sm-12 col-md-6" align="center">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png" class="img-responsive"
-        style="object-fit:contain; width:100%; height:100%:">
+      <img id="pharmacy-image" src="https://upload.wikimedia.org/wikipedia/commons/c/c8/CVS1212.png"
+        alt="Pharmacy image" class="img-responsive" style="object-fit:contain; width:100%; height:100%:">
     </div>
 
     <div class="col-sm-12 col-md-6 d-flex flex-column justify-content-center">
-      <h1>CVS Pharmacy</h1>
+      <h1 id="name"></h1>
       <img src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png" width="100" height="20">
       <h5 class="mt-4">
-        <a href="https://www.cvs.com/store-locator/cvs-pharmacy-address/510+C+Street-San+Diego-CA-92101/storeid=4768"
-          target="_blank">Visit website</a>
+        <a id="website" href="#" target="_blank">Visit website</a>
       </h5>
     </div>
   </div>
@@ -34,31 +33,31 @@
         <tbody>
           <tr>
             <th scope="row">Mon</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="monday"></td>
           </tr>
           <tr>
             <th scope="row">Tues</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="tuesday"></td>
           </tr>
           <tr>
             <th scope="row">Wed</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="wednesday"></td>
           </tr>
           <tr>
             <th scope="row">Thurs</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="thursday"></td>
           </tr>
           <tr>
             <th scope="row">Fri</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="friday"></td>
           </tr>
           <tr>
             <th scope="row">Sat</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="saturday"></td>
           </tr>
           <tr>
             <th scope="row">Sun</th>
-            <td>6:00am - 10:00pm</td>
+            <td id="sunday"></td>
           </tr>
         </tbody>
       </table>
@@ -67,3 +66,136 @@
   <!-- end open hours row -->
 
 </div>
+
+<script>
+  const timeMap = new Map();
+  timeMap.set('0000', '12:00 AM')
+  timeMap.set('0030', '12:30 AM')
+  timeMap.set('0100', '1:00 AM')
+  timeMap.set('0130', '1:30 AM')
+  timeMap.set('0200', '2:00 AM')
+  timeMap.set('0230', '2:30 AM')
+  timeMap.set('0300', '3:00 AM')
+  timeMap.set('0330', '3:30 AM')
+  timeMap.set('0400', '4:00 AM')
+  timeMap.set('0430', '4:30 AM')
+  timeMap.set('0500', '5:00 AM')
+  timeMap.set('0530', '5:30 AM')
+  timeMap.set('0600', '6:00 AM')
+  timeMap.set('0630', '6:30 AM')
+  timeMap.set('0700', '7:00 AM')
+  timeMap.set('0730', '7:30 AM')
+  timeMap.set('0800', '8:00 AM')
+  timeMap.set('0830', '8:30 AM')
+  timeMap.set('0900', '9:00 AM')
+  timeMap.set('0930', '9:30 AM')
+  timeMap.set('1000', '10:00 AM')
+  timeMap.set('1030', '10:30 AM')
+  timeMap.set('1100', '11:00 AM')
+  timeMap.set('1130', '11:30 AM')
+  timeMap.set('1200', '12:00 PM')
+  timeMap.set('1230', '12:30 PM')
+  timeMap.set('1300', '1:00 PM')
+  timeMap.set('1330', '1:30 PM')
+  timeMap.set('1400', '2:00 PM')
+  timeMap.set('1430', '2:30 PM')
+  timeMap.set('1500', '3:00 PM')
+  timeMap.set('1530', '3:30 PM')
+  timeMap.set('1600', '4:00 PM')
+  timeMap.set('1630', '4:30 PM')
+  timeMap.set('1700', '5:00 PM')
+  timeMap.set('1730', '5:30 PM')
+  timeMap.set('1800', '6:00 PM')
+  timeMap.set('1830', '6:30 PM')
+  timeMap.set('1900', '7:00 PM')
+  timeMap.set('1930', '7:30 PM')
+  timeMap.set('2000', '8:00 PM')
+  timeMap.set('2030', '8:30 PM')
+  timeMap.set('2100', '9:00 PM')
+  timeMap.set('2130', '9:30 PM')
+  timeMap.set('2200', '10:00 PM')
+  timeMap.set('2230', '10:30 PM')
+  timeMap.set('2300', '11:00 PM')
+  timeMap.set('2330', '11:30 PM')
+  //timeMap.set('2400', '12:00 AM')
+
+
+  // Converts the 24-hour time to 12-hour time
+  function convertTime(time) {
+    if (timeMap.get(time)) {
+      return timeMap.get(time);
+    }
+    else {
+      return time;
+    }
+  }
+  document.addEventListener("DOMContentLoaded", event => {
+    // Last segment of URL is the pharmacy ID
+    // ex: /pharmacy/asdf means pharmacyId is asdf
+    const url = window.location.href;
+    console.log("HERE");
+    pharmacyId = url.substr(url.lastIndexOf('/') + 1);
+
+    fetch(`/pharmacy-data/${pharmacyId}`).then(response => {
+      console.log('Pharmacy data response:', response);
+      return response.json();
+    }).then(result => {
+      console.log(result);
+
+      //const pharmacy = result.data;
+      //console.log("Pharmacy " + pharmacy);
+      // const name = `${pharmacy.name}`;
+      // const price = `${pharmacy.price}`
+      // const image_url = `${pharmacy.image_url}`;
+      // const monday = `${pharmacy.hours.open[0].start} - ${pharmacy.hours.open[0].end}`;
+      // const tuesday = `${pharmacy.hours.open[1].start} - ${pharmacy.hours.open[1].end}`;
+      // const wednesday = `${pharmacy.hours.open[2].start} - ${pharmacy.hours.open[2].end}`;
+      // const thursday = `${pharmacy.hours.open[3].start} - ${pharmacy.hours.open[3].end}`;
+      // const friday = `${pharmacy.hours.open[4].start} - ${pharmacy.hours.open[4].end}`;
+      // const saturday = `${pharmacy.hours.open[5].start} - ${pharmacy.hours.open[5].end}`;
+      // const sunday = `${pharmacy.hours.open[6].start} - ${pharmacy.hours.open[6].end}`;
+      // const address_street = `${pharmacy.location.address1}`;
+      // const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
+      // const website = `${pharmacy.url}`;
+
+      const name = `${result.name}`;
+      const price = `${result.price}`
+      const image_url = `${result.image_url}` || 'images/no-image-available.svg';
+      const address_street = `${result.location.address1}`;
+      const address_city_state = `${result.location.city}, ${result.location.state} ${result.location.zip_code}`;
+      const website = `${result.url}`;
+      let monday = 'Not Open';
+      let tuesday = 'Not Open';;
+      let wednesday = 'Not Open';
+      let thursday = 'Not Open';
+      let friday = 'Not Open';
+      let saturday = 'Not Open';
+      let sunday = 'Not Open';
+      // const tuesday = convertTime(`${result.hours[0].open[1].start}`) + ' - ' + convertTime(`${result.hours[0].open[1].end}`);
+      // const wednesday = convertTime(`${result.hours[0].open[2].start}`) + ' - ' + convertTime(`${result.hours[0].open[2].end}`);
+      // const thursday = convertTime(`${result.hours[0].open[3].start}`) + ' - ' + convertTime(`${result.hours[0].open[3].end}`);
+      // const friday = convertTime(`${result.hours[0].open[4].start}`) + ' - ' + convertTime(`${result.hours[0].open[4].end}`);
+      // const saturday = convertTime(`${result.hours[0].open[5].start}`) + ' - ' + convertTime(`${result.hours[0].open[5].end}`);
+      // const sunday = convertTime(`${result.hours[0].open[6].start}`) + ' - ' + convertTime(`${result.hours[0].open[6].end}`);
+
+      const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
+      //console.log(`${result.hours[0].open}`.split(',').length);
+      for (day = 0; day < `${result.hours[0].open}`.split(',').length; day++) {
+        days[day] = convertTime(`${result.hours[0].open[day].start}`) + ' - ' + convertTime(`${result.hours[0].open[day].end}`);
+      }
+
+      $("#name").html(name);
+      $("#price").html(price);
+      $("#monday").html(days[0]);
+      $("#tuesday").html(days[1]);
+      $("#wednesday").html(days[2]);
+      $("#thursday").html(days[3]);
+      $("#friday").html(days[4]);
+      $("#saturday").html(days[5]);
+      $("#sunday").html(days[6]);
+      $("#pharmacy-image").attr("src", image_url);
+      $("#pharmacy-image").attr("height", "200");
+      $("#website").attr("href", website);
+    });
+  });
+</script>

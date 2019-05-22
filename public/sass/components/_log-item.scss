@@ -1,0 +1,33 @@
+.log-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: white;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  flex: 1 1 auto;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+
+  &__date {
+    font-weight: 700;
+  }
+
+  &__time {
+    font-weight: 500;
+  }
+
+  &__text {
+    margin-bottom: 0.5rem;
+  }
+
+  &__buttons {
+    display: flex;
+    .btn {
+      margin-right: 0.5rem;
+    }
+  }
+}
