@@ -1,6 +1,6 @@
 # Remedy
 
-Remedy is a web app that allows the user to track past and current injuries (showing progress and status of injury),provides information about various injuries/strains and remedies to facilitate full recovery, and shows potential doctors and health stores nearby.
+Remedy is a web app that allows the user to track past and current injuries (showing progress and status of injury), provides information about various injuries/strains and remedies to facilitate full recovery, and shows potential doctors and health stores nearby.
 
 ## Getting Started
 
