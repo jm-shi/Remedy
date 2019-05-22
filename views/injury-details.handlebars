@@ -1,12 +1,10 @@
 {{> navbar}}
 {{> back-button destinationURL="javascript:history.back();" destinationName="Common Injuries"}}
 
-<h2 class="titleName">{{injuryData.c_injury_name}}</h2>
+<h2 class="text-center">{{injuryData.c_injury_name}}</h2>
 
 <div class="container">
-  <img src="https://www.health.harvard.edu/media/content/images/LegPain.jpg"
-    style="display:block; margin-left:auto; margin-right:auto; margin-top: 1em; margin-bottom:1em;" alt="Leg Sprain"
-    width="400px">
+  <img src={{injuryData.c_injury_image_url}} class="injury-image" alt="Injury Image" width="400">
 
   <h4>Overview</h4>
   <p>{{injuryData.c_injury_overview}}</p>
@@ -19,16 +17,3 @@
 
   <p><a href="{{injuryData.c_injury_source}}" target="_blank">Source</a></p>
 </div>
-
-
-{{!-- 
-<div class="remedies">
-  <h4>Remedies</h4>
-  <p>
-    - Apply ice everyday for an hour <br />
-    - Put an icy hot patch in the affected area
-  </p>
-</div>
-<br>
-<a href="https://youtu.be/WVootGaWv4M"> Video Guide</a> 
---}}

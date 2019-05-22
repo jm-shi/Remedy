@@ -1,24 +1,12 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<h2 class="titleName">Injury List</h2>
+<h2 class="text-center">Injury List</h2>
 
-<!-- <div>
-  <button type="button" name="filter" id="filter" class="btn btn-primary">Filter</button>
-</div> -->
-
-<div class="container mt-5 searchBar">
-  <input class="form-control" id="myInput" type="text" placeholder="Search">
-</div>
+{{> search-bar placeholder="Search for a sport"}}
 
 <div class="gallery">
-  <div class="row">
-    {{!-- 
-    {{#each injuryList.sports}}
-    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries">
-      <img height="120px" width="120px" src={{imageURL}} alt={{name}}>
-      <h5 class="gallery__item__caption">{{name}}</h5>
-    --}}
+  <div class="row" id="sportList">
     {{#each injuryList}}
     <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/{{sport_id}}">
       <img height="80%" width="80%" src={{sport_image_url}} alt="Sport icon">
@@ -28,13 +16,23 @@
   </div>
 </div>
 
-<!-- <script type="text/javascript">
-$(document).ready(function(){
-$("#myInput").on("keyup", function() {
-  var value = $(this).val().toLowerCase();
-  $("#myList li").filter(function() {
-    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+<script>
+  document.addEventListener("DOMContentLoaded", event => {
+    $('#search-bar__input').on('keyup search', () => {
+      const query = $('#search-bar__input').val();
+      fetch(`/sport/${query}`).then(response => {
+        return response.json();
+      }).then(filteredSports => {
+        $('#sportList').html('');
+        filteredSports.forEach(sport => {
+          $('#sportList').append(`
+                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
+                  <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
+                  <h5 class="gallery__item__caption">${sport.sport_name}</h5>
+                </a>
+                `)
+        })
+      });
+    });
   });
-});
-});
-</script> -->
+</script>

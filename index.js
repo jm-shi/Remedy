@@ -6,9 +6,8 @@ const { Client } = require('pg');
 
 // Controllers
 const doctorController = require('./controllers/doctor');
-const injuryController = require('./controllers/injury');
-const mapController = require('./controllers/map');
-// const pharmacyController = require('./controllers/pharmacy');
+const injuryLogController = require('./controllers/injuryLog');
+const injuryListController = require('./controllers/injuryList');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -44,12 +43,20 @@ handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
 
+handlebars.registerHelper('toLowerCase', function(x) {
+  return x.toLowerCase();
+});
+
+handlebars.registerHelper('ifEquals', function(x, y, options) {
+  return x === y ? options.fn(this) : options.inverse(this);
+});
+
 let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {
   client = new Client({
-    user: 'bob',
-    password: 'watermelon',
+    user: process.env.POSTGRES_USER || 'postgres',
+    password: process.env.POSTGRES_PASSWORD || 'password',
     host: 'localhost',
     port: 5432,
     database: 'remedy'
@@ -61,14 +68,15 @@ if (environment === 'development') {
   });
 }
 client.connect();
-injuryController.client = client;
+injuryLogController.client = client;
+injuryListController.client = client;
 injuryLog.client = client;
 injuryInfo.client = client;
 
 pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
-app.get('/common-injuries', injuryInfo.viewCommonInjuries);
+// app.get('/common-injuries', injuryInfo.viewCommonInjuries);
 app.get(
   '/common-injuries/:id',
   (req, res, next) => {
@@ -111,7 +119,6 @@ app.get('/pharmacy-data', (req, res) => {
   yelp_Client
     .search(searchRequest)
     .then(response => {
-      //console.log(response.body);
       res.send(response.body);
     })
     .catch(error => {
@@ -137,10 +144,21 @@ app.get('/profile', profile.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
-app.get('/injury-log', injuryController.getInjuries);
-app.post('/add-injury', injuryController.addInjury);
-app.post('/update-injury', injuryController.updateInjury);
-app.delete('/injury/:id', injuryController.deleteInjury);
+
+app.get('/injury-log', injuryLogController.getInjuries);
+app.post('/add-injury', injuryLogController.addInjury);
+app.post('/update-injury', injuryLogController.updateInjury);
+app.delete('/injury/:id', injuryLogController.deleteInjury);
+app.post('/complete-injury/:id', injuryLogController.completeInjury);
+app.get('/view-logs/:injury_id', injuryLogController.viewLogs);
+app.post('/add-log', injuryLogController.addLog);
+app.post('/update-log', injuryLogController.updateLog);
+app.delete('/delete-log/:id', injuryLogController.deleteLog);
+
+app.get('/sport', injuryListController.searchSports);
+app.get('/sport/:query', injuryListController.searchSports);
+app.get('/common-injury/', injuryListController.searchCommonInjuries);
+app.get('/common-injury/:query', injuryListController.searchCommonInjuries);
 
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Express server listening on port', listener.address().port);

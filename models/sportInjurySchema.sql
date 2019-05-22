@@ -13,7 +13,8 @@ CREATE TABLE c_injury (
   c_injury_symptoms TEXT NOT NULL,
   c_injury_treatment TEXT NOT NULL,
   c_injury_source TEXT NOT NULL,
-  c_injury_image_url TEXT
+  c_injury_image_url TEXT,
+  c_injury_image_source TEXT
 );
 
 CREATE TABLE sport_c_injury (
@@ -21,4 +22,3 @@ CREATE TABLE sport_c_injury (
   c_injury_id INT REFERENCES c_injury (c_injury_id) ON UPDATE CASCADE,
   CONSTRAINT sport_injury_pkey PRIMARY KEY (sport_id, c_injury_id)
 );
-

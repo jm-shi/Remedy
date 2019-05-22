@@ -1,42 +1,132 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<h2 class="titleName"> Past Injuries Log </h2>
+<h2 class="text-center mb-5">Past Injuries Log</h2>
 
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Right Leg: Ankle Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 10/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Recovered on 4/30/19</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+<div class="container mb-4">
+  <ul class="nav nav-pills nav-fill">
+    <li class="nav-item">
+      <a class="nav-link" href="/current-log">Current injuries</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link active" href="/previous-log">Past injuries</a>
+    </li>
+  </ul>
+</div>
+
+<div class="container">
+  {{#each previousInjury}}
+  <div class="card">
+    <div class="card-body container">
+      <h5 class="card-title">{{name}}</h5>
+      <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Created: </strong>{{created_at_string}}</h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Expected recovery date: </strong>
+        {{#if expected_recovery_date_string}}
+        {{expected_recovery_date_string}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
+      <h6 class="card-subtitle mb-4 text-muted"><strong>Resolved: </strong>{{resolved_at_string}}</h6>
+
+      <h6 class="card-subtitle mb-4 text-muted mb-4"><strong>Treatment plan: </strong>
+        {{#if treatment}}
+        {{treatment}}
+        {{else}}
+        Not specified
+        {{/if}}
+      </h6>
+
+      <!-- Log history data -->
+      <div class="mb-4">
+        <a class="btn btn-dark log-history-btn" data-toggle="collapse" href="#collapseLogHistory{{injury_id}}"
+          role="button" aria-expanded="false" aria-controls="collapseLogHistory{{injury_id}}"
+          data-injury_id={{injury_id}}>
+          <i class="fa fa-history"></i> Log History
+        </a>
+      </div>
+      <div class="collapse mb-4" id="collapseLogHistory{{injury_id}}">
+        <div class="card card-body">
+          <div class="injuryLogs" id="injuryLog{{injury_id}}">
+          </div>
+        </div>
+      </div>
+      <!-- End log history data -->
+
+      <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
+        <i class="fa fa-trash" aria-hidden="true"></i>
+      </button>
+    </div>
   </div>
+  {{/each}}
 </div>
 
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Leg: Ankle Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 10/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Recovered on 4/15/19</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
+<script>
+  document.addEventListener("DOMContentLoaded", event => {
+    function appendLogItem(selector, injuryId, logId, dateString, timeString, content) {
+      $(selector).append(`
+            <div class="log-item log-item${logId}">
+              <div class="log-item__date">
+                ${dateString} 
+              </div>
+              <div class="log-item__time">
+                ${timeString}
+              </div>
+              <div class="log-item__text">
+                  ${content}
+              </div>
+            </div>      
+            `);
+    };
 
-<div class="card container">
-  <div class="card-body container">
-    <h5 class="card-title">Left Hand: Finger Sprain</h5>
-    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
-    <h6 class="card-subtitle mb-2 text-muted">-Rest 10/10 days</h6>
-    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
-    <h6 class="card-subtitle mb-2 text-muted">Recovered on 3/5/19</h6>
-    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
-  </div>
-</div>
+    function displayLogItems(injuryId) {
+      $.ajax({
+        url: `/view-logs/${injuryId}`,
+        type: 'GET',
+        success: logItems => {
+          const injuryLogs = `#injuryLog${injuryId}`;
+          $(injuryLogs).html('');
+          if (logItems.length === 0) {
+            return $(injuryLogs).html('No log history data');
+          }
+          logItems.forEach(logItem => {
+            const dateString = new Date(logItem.time).toDateString();
+            const timeString = new Date(logItem.time).toLocaleTimeString();
+            const logId = logItem.log_id;
+            const content = logItem.content;
+            appendLogItem(injuryLogs, injuryId, logId, dateString, timeString, content);
+          })
+        },
+        error: err => {
+          console.log(err);
+        }
+      })
+    };
 
-<div class=" bottom-pos">
-  <a class="btn btn-primary" href="/current-log" role="button" id="currentLog">Current Injuries</a>
-  <a class="btn btn-primary" href="/previous-log" role="button" id="previousLog">Past Injuries</a>
-</div>
+    // After clicking "Log History" button, show all log data associated with current injury
+    $('.log-history-btn').on('click', function () {
+      const injuryId = $(this).data('injury_id');
+      displayLogItems(injuryId);
+    });
+
+    $('.delete-injury').on('click', function () {
+      const id = $(this).data('id');
+      console.log('The id of the injury to delete is...', id);
+      const url = `injury/${id}`;
+      if (confirm('Delete this injury?')) {
+        $.ajax({
+          url: url,
+          type: 'DELETE',
+          success: result => {
+            console.log('Deleting injury...');
+            window.location.href = '/previous-log';
+          },
+          error: err => {
+            console.log(err);
+          }
+        });
+      }
+    });
+  });
+</script>

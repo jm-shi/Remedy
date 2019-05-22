@@ -1,15 +1,49 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-
 <div class="row">
   <div class="col-sm-12 col-md-6 a order-2 order-md-1">
     <form class="mt-4 mb-4 ml-4">
       <div class="input-group">
-        <input type="text" class="form-control" id="search" placeholder="Search for doctors/pharmacies">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Find</span>
+        </div>
+        <input type="text" class="form-control w-45" id="search" placeholder="doctors/pharmacies">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Near</span>
+        </div>
+        <input type="text" class="form-control" id="location" placeholder="San Diego, CA">
+
         <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
       </div>
-      <button class="btn btn-primary">Filter</button>
+
+      <div class="dropdowns">
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="filterDropdownMenu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Filter
+          </button>
+          <div class="dropdown-menu" id="filterDropdown" aria-labelledby="filterDropdownMenu">
+            <button class="dropdown-item" type="button" id="allButton">All</button>
+            <button class="dropdown-item" type="button" id="pharmacyButton">Pharmacies only</button>
+            <button class="dropdown-item" type="button" id="doctorButton">Doctors only</button>
+          </div>
+        </div>
+
+        <div class="dropdown">
+          <button class="btn btn-info dropdown-toggle" type="button" id="sortByDropdownMenu" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Sort by
+          </button>
+          <div class="dropdown-menu" aria-labelledby="sortByDropdownMenu">
+            <button class="dropdown-item" type="button">Distance</button>
+            <button class="dropdown-item" type="button">Price</button>
+            <button class="dropdown-item" type="button">Rating</button>
+          </div>
+        </div>
+
+      </div>
+
     </form>
 
     <div class="map-cards">
@@ -21,27 +55,28 @@
   </div>
 </div>
 
-
 <script>
-  fetch('/doctor-data').then(response => {
-    console.log('Doctor data response:', response);
-    return response.json();
-  }).then(result => {
-    console.log('Doctor data', result);
-    let doctorArr = [];
-    doctorArr = result.data;
+  document.addEventListener("DOMContentLoaded", event => {
+    const fetchDoctors = () => {
+      fetch('/doctor-data').then(response => {
+        console.log('Doctor data response:', response);
+        return response.json();
+      }).then(result => {
+        console.log('Doctor data', result);
+        let doctorArr = [];
+        doctorArr = result.data;
 
-    doctorArr.forEach(doctor => {
-      const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
-      const image_url = `${doctor.profile.image_url}`;
-      let specialtiesArr = [];
-      doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
-      const specialties = specialtiesArr.join(", ");
-      const address_street = `${doctor.practices[0].visit_address.street}`;
-      const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
-      const uid = doctor.uid;
+        doctorArr.forEach(doctor => {
+          const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+          const image_url = `${doctor.profile.image_url}`;
+          let specialtiesArr = [];
+          doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+          const specialties = specialtiesArr.join(", ");
+          const address_street = `${doctor.practices[0].visit_address.street}`;
+          const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+          const uid = doctor.uid;
 
-      $(".map-cards").append(`{{> card
+          $(".map-cards").append(`{{> card
                                       is-doctor="true"
                                       image-url="${image_url}"
                                       business-name="${name}"
@@ -49,30 +84,66 @@
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
                                       uid="${uid}"}}`);
-    });
-  });
+        });
+      });
+    }
 
-  fetch('/pharmacy-data').then(response => {
-    console.log('Pharmacy data response:', response);
-    return response.json();
-  }).then(result => {
-    console.log('Pharmacy data', result);
-    let pharmacyArr = [];
-    pharmacyArr = result.businesses;
-    pharmacyArr.forEach(pharmacy => {
-      const name = `${pharmacy.name}`;
-      const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
-      const address_street = `${pharmacy.location.address1}`;
-      const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
-      const uid = pharmacy.id;
+    const fetchPharmacies = () => {
+      fetch('/pharmacy-data').then(response => {
+        console.log('Pharmacy data response:', response);
+        return response.json();
+      }).then(result => {
+        console.log('Pharmacy data', result);
+        let pharmacyArr = [];
+        pharmacyArr = result.businesses;
+        pharmacyArr.forEach(pharmacy => {
+          const name = `${pharmacy.name}`;
+          const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
+          const address_street = `${pharmacy.location.address1}`;
+          const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
+          const uid = pharmacy.id;
 
-      $(".map-cards").append(`{{> card
+          $(".map-cards").append(`{{> card
                                       image-url="${image_url}"
                                       business-name="${name}"
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
                                       uid="${uid}"}}`);
+        });
+      });
+    }
+
+    const fetchOnlyPharmacies = () => {
+      fetchPharmacies();
+    }
+
+    const fetchOnlyDoctors = () => {
+      fetchDoctors();
+    }
+
+    const fetchAll = () => {
+      fetchPharmacies();
+      fetchDoctors();
+    }
+
+    const clearData = () => {
+      $(".map-cards").html('');
+    }
+
+    $('#allButton').click(() => {
+      clearData();
+      fetchAll();
     });
+    $('#pharmacyButton').click(() => {
+      clearData();
+      fetchPharmacies();
+    });
+    $('#doctorButton').click(() => {
+      clearData();
+      fetchDoctors();
+    });
+
+    fetchAll();
   });
 
   let map;
@@ -81,6 +152,132 @@
       center: { lat: 32.8801, lng: -117.234 },
       zoom: 8
     });
+
+    // Creates markers for all the doctors
+    fetch('/doctor-data').then(response => {
+      //console.log('Doctor data response:', response);
+      return response.json();
+    }).then(result => {
+      //console.log('Doctor data', result);
+      let doctorArr = [];
+      doctorArr = result.data;
+
+      doctorArr.forEach(doctor => {
+        const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
+        const image_url = `${doctor.profile.image_url}`;
+        let specialtiesArr = [];
+        doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
+        const specialties = specialtiesArr.join(", ");
+        const address_street = `${doctor.practices[0].visit_address.street}`;
+        const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
+        const uid = doctor.uid;
+        const lat = `${doctor.practices[0].lat}`;
+        const long = `${doctor.practices[0].lon}`;
+
+        const contentString = '<div class="card mt-4">' +
+          '<div class="row no-gutters justify-content-around">' +
+            '<div class="col-md-3 mt-3">' +
+              '<a href=/doctor/' + uid +  '>' +
+                  '<img class="card__thumbnail" src=' + image_url + '>' +
+                '</a>' +
+            '</div>' +
+            '<div class="col-md-8">' +
+              '<div class="card-body">' +
+              '  <h5 class="card-title">' + name + '</h5>' +
+                '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+                '<p class="card-text">' +
+                  '<strong>Specialties</strong><br>' +
+                  specialties +
+                '</p>' +
+                '<p class="card-text">' +
+                  '<strong>Address</strong> <br>' +
+                  address_street + '<br>' +
+                  address_city_state +
+                '</p>' +
+                '<a id="doctor-id" href=/doctor/' + uid +  '>' +
+                    '<button class="btn btn-dark">View more</button>' +
+                '</a>' +
+            '  </div>' +
+            '</div> '+
+          '</div>'+
+        '</div>';
+
+        const pos = {lat: parseFloat(lat), lng: parseFloat(long)};
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        const marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          //title: 'Uluru (Ayers Rock)'
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+      });
+    });
+
+    fetch('/pharmacy-data').then(response => {
+      console.log('Pharmacy data response:', response);
+      return response.json();
+    }).then(result => {
+      //console.log('Pharmacy data', result);
+      let pharmacyArr = [];
+      pharmacyArr = result.businesses;
+      pharmacyArr.forEach(pharmacy => {
+        const name = `${pharmacy.name}`;
+        const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
+        const address_street = `${pharmacy.location.address1}`;
+        const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
+        const uid = pharmacy.id;
+        const lat = `${pharmacy.coordinates.latitude}`;
+        const long = `${pharmacy.coordinates.longitude}`;
+
+        const contentString = '<div class="card mt-4">' +
+          '<div class="row no-gutters justify-content-around">' +
+            '<div class="col-md-3 mt-3">' +
+              '<a href=/pharmacy/' + uid +  '>' +
+                  '<img class="card__thumbnail" src=' + image_url + '>' +
+                '</a>' +
+            '</div>' +
+            '<div class="col-md-8">' +
+              '<div class="card-body">' +
+              '  <h5 class="card-title">' + name + '</h5>' +
+                '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+                '<p class="card-text">' +
+                  '<strong>Address</strong> <br>' +
+                  address_street + '<br>' +
+                  address_city_state +
+                '</p>' +
+                '<a id="pharmacy-id" href=/pharmacy/' + uid +  '>' +
+                    '<button class="btn btn-dark">View more</button>' +
+                '</a>' +
+            '  </div>' +
+            '</div> '+
+          '</div>'+
+        '</div>';
+
+        const pos = {lat: parseFloat(lat), lng: parseFloat(long)};
+
+        const infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+        const marker = new google.maps.Marker({
+          position: pos,
+          map: map,
+          //title: 'Uluru (Ayers Rock)'
+        });
+
+        marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+      });
+    });
+
+
   }
 
   function loadMap() {

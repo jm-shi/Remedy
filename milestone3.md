@@ -1,19 +1,18 @@
-Team Name: Remedy
-Team Members: Eric Yang, Nikki Hardiman, Jamie Shi, Lawrence Ngo
+# Team Name: Remedy
 
-### How UI skeleton has improved compared to milestone2:
+## Team Members: Eric Yang, Nikki Hardiman, Jamie Shi, Lawrence Ngo
 
-> Our UI skeleton has improved because of the new icons and changes in the overall design of the pages. For example,
-for our Injury List and Common Injuries page, we removed the filter button and added a search bar instead as a filter
-button did not make much sense to have. Also, our other pages show a change in the overall design such as the box layouts
-changing.
+### UI improvements since milestone 2
 
-<img src="/images/mile3-1.png" alt="mile3-1">
-<img src="/images/mile3-2.png" alt="mile3-2">
-<img src="/images/mile3-3.png" alt="mile3-3">
-<img src="/images/mile3-4.png" alt="mile3-4">
-<img src="/images/mile3-5.png" alt="mile3-5">
-<img src="/images/mile3-6.png" alt="mile3-6">
-<img src="/images/mile3-7.png" alt="mile3-7">
-<img src="/images/mile3-8.png" alt="mile3-8">
-<img src="/images/mile3-9.png" alt="mile3-9">
+> One of the improvements we made since milestone 2 was make our app more responsive so that it is easily readable on any screen size, mobile or desktop. We also added icons to the buttons on the home page, and replaced our placeholder images for sports/injuries with actual images that were retrieved from our database (PostgreSQL). Overall, our screens look cleaner as we repositioned items so that they weren't located in awkward positions.
+
+### Database
+
+> We used PostgreSQL to store our data, which included the static files that pertain to common injuries associated with specific sports, as well as user-generated content such as the injury logs they create. We decided to use PostgreSQL as our database for several reasons. For one thing, it was a great opportunity to learn more about SQL. Second, we used Heroku to deploy our app, and Heroku has high compatability with Postgres. (If we went with SQLite or MySQL, we would have had to migrate to Postgres eventually in order to have our app deployed on Heroku.) Third, using Postgres allowed us to work on local databases, so if we accidentally made a mess on our local server, our database on Heroku would be unaffected.
+
+### Deployed app
+
+Our deployed app can be accessed [here](https://remedies.herokuapp.com/).
+
+<img src="/images/milestone3-1.png" alt="mile3-1">
+<img src="/images/milestone3-2.png" alt="mile3-2">
