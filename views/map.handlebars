@@ -230,12 +230,10 @@
     $('#searchButton').on('click', e => {
       e.preventDefault();
       const address = $('#address').val();
-      console.log('The address is', address);
       fetch(`/geodata/${address}`).then(response => {
         return response.json();
       }).then(data => {
         $('#invalidSearch').html('');
-        console.log('The geodata is', data);
         const geodata = data.results[0];
         const formattedAddress = geodata.formatted_address;
         const latitude = geodata.geometry.location.lat;
