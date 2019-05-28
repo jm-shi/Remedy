@@ -64,8 +64,6 @@
 </div>
 
 <script>
-
-
   const fetchDoctors = (lat, lng, infowindow) => {
     fetch(`/doctor-data?lat=${lat}&lng=${lng}`).then(response => {
       return response.json();
@@ -74,58 +72,82 @@
       let doctorArr = [];
       doctorArr = result.data;
 
-
       doctorArr.forEach(doctor => {
         const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
-        const image_url = `${doctor.profile.image_url}`;
+        const image_url = doctor.profile.image_url;
         let specialtiesArr = [];
         doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
         const specialties = specialtiesArr.join(", ");
-        const address_street = `${doctor.practices[0].visit_address.street}`;
+        const address_street = doctor.practices[0].visit_address.street;
         const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
         const uid = doctor.uid;
-        const lat = `${doctor.practices[0].lat}`;
-        const long = `${doctor.practices[0].lon}`;
-
+        const lat = doctor.practices[0].lat;
+        const long = doctor.practices[0].lon;
+        const ratings = doctor.ratings;
+        const doctorObjectWithRating = ratings.find(({ rating }) => {
+          return rating !== undefined;
+        });
+        let rating;
+        if (doctorObjectWithRating) {
+          rating = doctorObjectWithRating.rating.toString();
+          rating = rating.replace(".", "_");
+        }
         // Display doctor cards
-        $(".map-cards").append(`{{> card
+        if (rating) {
+          $(".map-cards").append(`{{> card
                                       is-doctor="true"
                                       image-url="${image_url}"
                                       business-name="${name}"
                                       specialties="${specialties}"
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
-                                      uid="${uid}"}}`);
+                                      uid="${uid}"
+                                      rating="${rating}"
+                                      }}`);
+        } else {
+          $(".map-cards").append(`{{> card
+                                      is-doctor="true"
+                                      image-url="${image_url}"
+                                      business-name="${name}"
+                                      specialties="${specialties}"
+                                      street-address="${address_street}"
+                                      city-state-address="${address_city_state}"
+                                      uid="${uid}"
+                                      }}`);
+        }
+
+        const test = false;
 
         // Display doctor markers on map
-        const contentString = '<div class="infoWindow">' +
-          '<div class="row">' +
-          '<div class="col-6">' +
-          '<a href=/doctor/' + uid + '>' +
-          '<img class="infoWindow__thumbnail" src=' + image_url + '>' +
-          '</a>' +
-          '</div>' +
-          '<div class="col-6">' +
-          '<div class="infoWindow-body">' +
-          '  <h5 class="infoWindow-title">' + name + '</h5>' +
-          '<img class="infoWindow__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-          '<p class="infoWindow-text">' +
-          '<strong>Specialties</strong><br>' +
-          specialties +
-          '</p>' +
-          '<p class="infoWindow-text">' +
-          '<strong>Address</strong> <br>' +
-          address_street + '<br>' +
-          address_city_state +
-          '</p>' +
-          '<a id="doctor-id" href=/doctor/' + uid + '>' +
-          '<button class="btn btn-dark">View more</button>' +
-          '</a>' +
-          '  </div>' +
-          '</div> ' +
-          '</div>' +
-          '</div>';
-
+        const contentString = `
+          <div class="infoWindow">
+            <div class="row">
+              <div class="col-6">
+                <a href=/doctor/${uid}>
+                  <img class="infoWindow__thumbnail" src=${image_url}>
+                </a>
+            </div>
+              <div class="col-6">
+                <div class="infoWindow-body">
+                  <h5 class="infoWindow-title">${name}</h5>
+                    <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}> 
+                    <p class="infoWindow-text">
+                      <strong>Specialties</strong><br>
+                        ${specialties}
+                    </p>
+                    <p class="infoWindow-text">
+                      <strong>Address</strong><br>
+                        ${address_street} <br> 
+                        ${address_city_state} 
+                    </p>
+                <a id="doctor-id" href=/doctor/${uid}> 
+                  <button class="btn btn-dark">View more</button>
+                </a>
+              </div>
+          </div>
+          </div>
+        </div>
+        `;
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
 
@@ -153,13 +175,14 @@
       pharmacyArr = result.businesses;
 
       pharmacyArr.forEach(pharmacy => {
-        const name = `${pharmacy.name}`;
-        const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
-        const address_street = `${pharmacy.location.address1}`;
+        const name = pharmacy.name;
+        const image_url = pharmacy.image_url || 'images/no-image-available.svg';
+        const address_street = pharmacy.location.address1;
         const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
         const uid = pharmacy.id;
-        const lat = `${pharmacy.coordinates.latitude}`;
-        const long = `${pharmacy.coordinates.longitude}`;
+        const lat = pharmacy.coordinates.latitude;
+        const long = pharmacy.coordinates.longitude;
+        const rating = `${pharmacy.rating}`.replace('.', '_');
 
         // Display pharmacy card
         $(".map-cards").append(`{{> card
@@ -167,33 +190,36 @@
                                       business-name="${name}"
                                       street-address="${address_street}"
                                       city-state-address="${address_city_state}"
-                                      uid="${uid}"}}`);
+                                      uid="${uid}"
+                                      rating="${rating}"
+                                      }}`);
 
         // Display pharmacy markers on map
-        const contentString = '<div class="infoWindow">' +
-          '<div class="row">' +
-          '<div class="col-6">' +
-          '<a href=/pharmacy/' + uid + '>' +
-          '<img class="infoWindow__thumbnail" src=' + image_url + '>' +
-          '</a>' +
-          '</div>' +
-          '<div class="col-6">' +
-          '<div class="infoWindow-body">' +
-          '  <h5 class="infoWindow-title">' + name + '</h5>' +
-          '<img class="infoWindow__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-          '<p class="infoWindow-text">' +
-          '<strong>Address</strong> <br>' +
-          address_street + '<br>' +
-          address_city_state +
-          '</p>' +
-          '<a id="pharmacy-id" href=/pharmacy/' + uid + '>' +
-          '<button class="btn btn-dark">View more</button>' +
-          '</a>' +
-          '  </div>' +
-          '</div> ' +
-          '</div>' +
-          '</div>';
-
+        const contentString = `
+        <div class="infoWindow">
+          <div class="row">
+            <div class="col-6">
+              <a href=/pharmacy/${uid}>
+                <img class="infoWindow__thumbnail" src=${image_url}>
+              </a> 
+            </div>
+            <div class="col-6">
+              <div class="infoWindow-body">
+                <h5 class="infoWindow-title">${name}</h5>
+                <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}> 
+                <p class="infoWindow-text">
+                  <strong>Address</strong> <br>
+                    ${address_street} <br>
+                    ${address_city_state}
+                </p>
+                <a id="pharmacy-id" href=/pharmacy/'${uid}>
+                  <button class="btn btn-dark">View more</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        `;
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
         // const infowindow = new google.maps.InfoWindow({
