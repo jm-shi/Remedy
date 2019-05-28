@@ -9,13 +9,27 @@
 
     <div class="col-sm-12 col-md-6">
       <h1 id="name"></h1>
-      <img src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png">
+      <img id="rating" src="" width="100" height="20" alt="Rating">
       <h5 class="mt-4">
         <a id="website" href="#" target="_blank">Visit website</a>
       </h5>
     </div>
   </div>
   <!-- end row -->
+
+  <div class="row mt-5">
+    <div class="col">
+      <h4>Address</h4>
+      <div id="address">
+      </div>
+    </div>
+    <div class="col">
+      <h4>Phone</h4>
+      <div id="phone">
+      </div>
+    </div>
+  </div>
+  <!-- end address and phone row -->
 
   <div class="row mt-5">
     <div class="col">
@@ -52,8 +66,17 @@
 </div>
 
 <script>
+  function formatPhoneNumber(phoneNumberString) {
+    var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+    var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+    if (match) {
+      return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+    }
+    return null
+  }
+
   document.addEventListener("DOMContentLoaded", event => {
-    // Last segment of URL is the doctor ID 
+    // Last segment of URL is the doctor ID
     // ex: /doctor/asdf means doctorId is asdf
     const url = window.location.href;
     doctorId = url.substr(url.lastIndexOf('/') + 1);
@@ -76,9 +99,31 @@
       const address_street = `${doctor.practices[0].visit_address.street}`;
       const address_city_state = `${doctor.practices[0].visit_address.city}, ${doctor.practices[0].visit_address.state} ${doctor.practices[0].visit_address.zip}`;
       const website = doctor.practices[0].website;
+      const phone = `${doctor.practices[0].phones[0].number}`;
+      const ratings = doctor.ratings;
+      const doctorObjectWithRating = ratings.find(({ rating }) => {
+        return rating !== undefined;
+      });
+      let rating;
+      if (doctorObjectWithRating) {
+        rating = doctorObjectWithRating.rating.toString();
+        rating = rating.replace(".", "_");
+      }
+      // Display doctor cards
+      if (rating) {
+        $("#rating").attr("src", `${(rating && `images/stars/${rating}.png`)}`);
+      }
+      else {
+        $("#rating").remove();
+        // let textRating = document.createElement("div");
+        // textRating.innerHTML = "No Rating";
+        // document.body.appendChild(textRating);
+      }
 
       $("#name").html(name);
       $("#bio").html(bio);
+      $("#phone").html(formatPhoneNumber(phone));
+      $("#address").html(address_street + ", " + address_city_state);
       $("#specialties").html(specialties);
       $("#doctor-image").attr("src", image_url);
       $("#website").attr("href", website);

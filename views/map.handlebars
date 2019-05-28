@@ -130,17 +130,17 @@
               <div class="col-6">
                 <div class="infoWindow-body">
                   <h5 class="infoWindow-title">${name}</h5>
-                    <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}> 
+                    <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}>
                     <p class="infoWindow-text">
                       <strong>Specialties</strong><br>
                         ${specialties}
                     </p>
                     <p class="infoWindow-text">
                       <strong>Address</strong><br>
-                        ${address_street} <br> 
-                        ${address_city_state} 
+                        ${address_street} <br>
+                        ${address_city_state}
                     </p>
-                <a id="doctor-id" href=/doctor/${uid}> 
+                <a id="doctor-id" href=/doctor/${uid}>
                   <button class="btn btn-dark">View more</button>
                 </a>
               </div>
@@ -201,18 +201,18 @@
             <div class="col-6">
               <a href=/pharmacy/${uid}>
                 <img class="infoWindow__thumbnail" src=${image_url}>
-              </a> 
+              </a>
             </div>
             <div class="col-6">
               <div class="infoWindow-body">
                 <h5 class="infoWindow-title">${name}</h5>
-                <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}> 
+                <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}>
                 <p class="infoWindow-text">
                   <strong>Address</strong> <br>
                     ${address_street} <br>
                     ${address_city_state}
                 </p>
-                <a id="pharmacy-id" href=/pharmacy/'${uid}>
+                <a id="pharmacy-id" href=/pharmacy/${uid}>
                   <button class="btn btn-dark">View more</button>
                 </a>
               </div>

@@ -10,7 +10,7 @@
 
     <div class="col-sm-12 col-md-6 d-flex flex-column justify-content-center">
       <h1 id="name"></h1>
-      <img src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png" width="100" height="20">
+      <img id="rating" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png" width="100" height="20">
       <h5 class="mt-4">
         <a id="website" href="#" target="_blank">Visit website</a>
       </h5>
@@ -21,7 +21,15 @@
   <div class="row mt-5">
     <div class="col">
       <h4>Price</h4>
-      $$
+      <div id="price"></div>
+    </div>
+    <div class="col">
+      <h4>Phone</h4>
+      <div id="phone"></div>
+    </div>
+    <div class="col">
+      <h4>Address</h4>
+      <div id="address"></div>
     </div>
   </div>
   <!-- end price row -->
@@ -133,7 +141,6 @@
     // Last segment of URL is the pharmacy ID
     // ex: /pharmacy/asdf means pharmacyId is asdf
     const url = window.location.href;
-    console.log("HERE");
     pharmacyId = url.substr(url.lastIndexOf('/') + 1);
 
     fetch(`/pharmacy-data/${pharmacyId}`).then(response => {
@@ -142,24 +149,10 @@
     }).then(result => {
       console.log(result);
 
-      //const pharmacy = result.data;
-      //console.log("Pharmacy " + pharmacy);
-      // const name = `${pharmacy.name}`;
-      // const price = `${pharmacy.price}`
-      // const image_url = `${pharmacy.image_url}`;
-      // const monday = `${pharmacy.hours.open[0].start} - ${pharmacy.hours.open[0].end}`;
-      // const tuesday = `${pharmacy.hours.open[1].start} - ${pharmacy.hours.open[1].end}`;
-      // const wednesday = `${pharmacy.hours.open[2].start} - ${pharmacy.hours.open[2].end}`;
-      // const thursday = `${pharmacy.hours.open[3].start} - ${pharmacy.hours.open[3].end}`;
-      // const friday = `${pharmacy.hours.open[4].start} - ${pharmacy.hours.open[4].end}`;
-      // const saturday = `${pharmacy.hours.open[5].start} - ${pharmacy.hours.open[5].end}`;
-      // const sunday = `${pharmacy.hours.open[6].start} - ${pharmacy.hours.open[6].end}`;
-      // const address_street = `${pharmacy.location.address1}`;
-      // const address_city_state = `${pharmacy.location.city}, ${pharmacy.location.state} ${pharmacy.location.zip_code}`;
-      // const website = `${pharmacy.url}`;
-
       const name = `${result.name}`;
-      const price = `${result.price}`
+      let price = `${result.price}`;
+      const rating = `${result.rating}`;
+      const phone = `${result.display_phone}`;
       const image_url = `${result.image_url}` || 'images/no-image-available.svg';
       const address_street = `${result.location.address1}`;
       const address_city_state = `${result.location.city}, ${result.location.state} ${result.location.zip_code}`;
@@ -171,12 +164,6 @@
       let friday = 'Not Open';
       let saturday = 'Not Open';
       let sunday = 'Not Open';
-      // const tuesday = convertTime(`${result.hours[0].open[1].start}`) + ' - ' + convertTime(`${result.hours[0].open[1].end}`);
-      // const wednesday = convertTime(`${result.hours[0].open[2].start}`) + ' - ' + convertTime(`${result.hours[0].open[2].end}`);
-      // const thursday = convertTime(`${result.hours[0].open[3].start}`) + ' - ' + convertTime(`${result.hours[0].open[3].end}`);
-      // const friday = convertTime(`${result.hours[0].open[4].start}`) + ' - ' + convertTime(`${result.hours[0].open[4].end}`);
-      // const saturday = convertTime(`${result.hours[0].open[5].start}`) + ' - ' + convertTime(`${result.hours[0].open[5].end}`);
-      // const sunday = convertTime(`${result.hours[0].open[6].start}`) + ' - ' + convertTime(`${result.hours[0].open[6].end}`);
 
       const days = [monday, tuesday, wednesday, thursday, friday, saturday, sunday];
       //console.log(`${result.hours[0].open}`.split(',').length);
@@ -184,8 +171,15 @@
         days[day] = convertTime(`${result.hours[0].open[day].start}`) + ' - ' + convertTime(`${result.hours[0].open[day].end}`);
       }
 
+      if (typeof price !== 'undefined') {
+        price = "Unavailable.";
+      }
+
       $("#name").html(name);
       $("#price").html(price);
+      $("#phone").html(phone);
+      $("#rating").attr("src", `${(rating && `images/stars/${rating}.png`)}`);
+      $("#address").html(address_street + ", " + address_city_state);
       $("#monday").html(days[0]);
       $("#tuesday").html(days[1]);
       $("#wednesday").html(days[2]);
