@@ -18,3 +18,25 @@
     margin-right: 2rem;
   }
 }
+
+.infoWindow {
+  & img {
+    width: auto;
+    height: auto;
+  }
+
+  .infoWindow__thumbnail {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    border-radius: 100%;
+    height: 10rem;
+    width: 10rem;
+  }
+
+  .infoWindow__ratings {
+    height: 1.5rem;
+    width: 7rem;
+  }
+}

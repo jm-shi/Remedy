@@ -64,13 +64,16 @@
 </div>
 
 <script>
-  const fetchDoctors = (lat, lng) => {
+
+
+  const fetchDoctors = (lat, lng, infowindow) => {
     fetch(`/doctor-data?lat=${lat}&lng=${lng}`).then(response => {
       return response.json();
     }).then(result => {
       console.log('Doctor data', result.data);
       let doctorArr = [];
       doctorArr = result.data;
+
 
       doctorArr.forEach(doctor => {
         const name = `${doctor.profile.first_name} ${doctor.profile.last_name}, ${doctor.profile.title}`;
@@ -95,22 +98,22 @@
                                       uid="${uid}"}}`);
 
         // Display doctor markers on map
-        const contentString = '<div class="card mt-4">' +
-          '<div class="row no-gutters justify-content-around">' +
-          '<div class="col-md-3 mt-3">' +
+        const contentString = '<div class="infoWindow">' +
+          '<div class="row">' +
+          '<div class="col-6">' +
           '<a href=/doctor/' + uid + '>' +
-          '<img class="card__thumbnail" src=' + image_url + '>' +
+          '<img class="infoWindow__thumbnail" src=' + image_url + '>' +
           '</a>' +
           '</div>' +
-          '<div class="col-md-8">' +
-          '<div class="card-body">' +
-          '  <h5 class="card-title">' + name + '</h5>' +
-          '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-          '<p class="card-text">' +
+          '<div class="col-6">' +
+          '<div class="infoWindow-body">' +
+          '  <h5 class="infoWindow-title">' + name + '</h5>' +
+          '<img class="infoWindow__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+          '<p class="infoWindow-text">' +
           '<strong>Specialties</strong><br>' +
           specialties +
           '</p>' +
-          '<p class="card-text">' +
+          '<p class="infoWindow-text">' +
           '<strong>Address</strong> <br>' +
           address_street + '<br>' +
           address_city_state +
@@ -125,16 +128,15 @@
 
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
-        const infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+
         const marker = new google.maps.Marker({
           position: pos,
           map: map,
           //title: 'Uluru (Ayers Rock)'
         });
 
-        marker.addListener('click', function () {
+        google.maps.event.addListener(marker, 'click', function () {
+          infowindow.setContent(contentString);
           infowindow.open(map, marker);
         });
       });
@@ -142,13 +144,14 @@
   }
 
   // Display pharmacy data on screen and create markers for each pharmacy on the map
-  const fetchPharmacies = (address = 'La Jolla') => {
+  const fetchPharmacies = (address = 'La Jolla', infowindow) => {
     fetch(`/pharmacy-data?address=${address}`).then(response => {
       return response.json();
     }).then(result => {
       console.log('Pharmacy data', result);
       let pharmacyArr = [];
       pharmacyArr = result.businesses;
+
       pharmacyArr.forEach(pharmacy => {
         const name = `${pharmacy.name}`;
         const image_url = `${pharmacy.image_url}` || 'images/no-image-available.svg';
@@ -167,18 +170,18 @@
                                       uid="${uid}"}}`);
 
         // Display pharmacy markers on map
-        const contentString = '<div class="card mt-4">' +
-          '<div class="row no-gutters justify-content-around">' +
-          '<div class="col-md-3 mt-3">' +
+        const contentString = '<div class="infoWindow">' +
+          '<div class="row">' +
+          '<div class="col-6">' +
           '<a href=/pharmacy/' + uid + '>' +
-          '<img class="card__thumbnail" src=' + image_url + '>' +
+          '<img class="infoWindow__thumbnail" src=' + image_url + '>' +
           '</a>' +
           '</div>' +
-          '<div class="col-md-8">' +
-          '<div class="card-body">' +
-          '  <h5 class="card-title">' + name + '</h5>' +
-          '<img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
-          '<p class="card-text">' +
+          '<div class="col-6">' +
+          '<div class="infoWindow-body">' +
+          '  <h5 class="infoWindow-title">' + name + '</h5>' +
+          '<img class="infoWindow__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">' +
+          '<p class="infoWindow-text">' +
           '<strong>Address</strong> <br>' +
           address_street + '<br>' +
           address_city_state +
@@ -193,16 +196,17 @@
 
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
-        const infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+        // const infowindow = new google.maps.InfoWindow({
+        //   content: contentString
+        // });
         const marker = new google.maps.Marker({
           position: pos,
           map: map,
           //title: 'Uluru (Ayers Rock)'
         });
 
-        marker.addListener('click', function () {
+        google.maps.event.addListener(marker, 'click', function () {
+          infowindow.setContent(contentString);
           infowindow.open(map, marker);
         });
       });
@@ -271,8 +275,9 @@
       zoom: 10
     });
     $(".map-cards").html('');
-    fetchDoctors(lat, lng);
-    fetchPharmacies(address);
+    let infowindow = new google.maps.InfoWindow();
+    fetchDoctors(lat, lng, infowindow);
+    fetchPharmacies(address, infowindow);
   }
 
   function loadMap() {
