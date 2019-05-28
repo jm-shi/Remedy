@@ -156,6 +156,7 @@ app.post('/add-injury', injuryLogController.addInjury);
 app.post('/update-injury', injuryLogController.updateInjury);
 app.delete('/injury/:id', injuryLogController.deleteInjury);
 app.post('/complete-injury/:id', injuryLogController.completeInjury);
+app.post('/uncomplete-injury/:id', injuryLogController.uncompleteInjury);
 app.get('/view-logs/:injury_id', injuryLogController.viewLogs);
 app.post('/add-log', injuryLogController.addLog);
 app.post('/update-log', injuryLogController.updateLog);

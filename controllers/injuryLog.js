@@ -50,6 +50,14 @@ exports.completeInjury = (req, res) => {
   res.redirect('/current-log');
 };
 
+exports.uncompleteInjury = (req, res) => {
+  this.client.query('UPDATE injury SET is_current=$1 WHERE injury_id = $2', [
+    true,
+    req.body.injury_id
+  ]);
+  res.redirect('/previous-log');
+};
+
 exports.addLog = (req, res) => {
   this.client.query('INSERT INTO log (injury_id, content) VALUES ($1, $2)', [
     req.body.injuryId,

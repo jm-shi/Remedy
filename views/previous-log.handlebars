@@ -57,6 +57,12 @@
       <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
         <i class="fa fa-trash" aria-hidden="true"></i>
       </button>
+
+      <button class="btn btn-secondary uncomplete-injury" data-id={{injury_id}}>
+        <i class="fa fa-backward" aria-hidden="true">
+          <span style="font-family:Arial;"> Move back to current</span>
+        </i>
+      </button>
     </div>
   </div>
   {{/each}}
@@ -128,5 +134,28 @@
         });
       }
     });
+
+    $('.uncomplete-injury').on('click', function () {
+      const id = $(this).data('id');
+      console.log('The id of the injury to uncomplete is', id);
+      const url = `uncomplete-injury/${id}`;
+      if (confirm('Move injury back to current log?')) {
+        $.ajax({
+          url: url,
+          type: 'POST',
+          data: {
+            injury_id: id
+          },
+          success: result => {
+            console.log('Uncompleting injury...', result);
+            window.location.href = '/previous-log';
+          },
+          error: err => {
+            console.log('Error with uncompleting injury', err);
+          }
+        });
+      }
+    });
+
   });
 </script>
