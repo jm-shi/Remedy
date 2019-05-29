@@ -10,7 +10,7 @@
 
     <div class="col-sm-12 col-md-6 d-flex flex-column justify-content-center">
       <h1 id="name"></h1>
-      <img id="rating" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-large-3.5.png" width="100" height="20">
+      <img id="rating" src="images/stars/0.png" width="100" height="20">
       <h5 class="mt-4">
         <a id="website" href="#" target="_blank">Visit website</a>
       </h5>
@@ -149,14 +149,15 @@
     }).then(result => {
       console.log(result);
 
-      const name = `${result.name}`;
-      let price = `${result.price}`;
-      const rating = `${result.rating}`;
-      const phone = `${result.display_phone}`;
-      const image_url = `${result.image_url}` || 'images/no-image-available.svg';
-      const address_street = `${result.location.address1}`;
+      const name = result.name;
+      let price = result.price;
+      let rating = result.rating.toString();
+      rating = rating.replace(".", "_");
+      const phone = result.display_phone;
+      const image_url = result.image_url || 'images/no-image-available.svg';
+      const address_street = result.location.address1;
       const address_city_state = `${result.location.city}, ${result.location.state} ${result.location.zip_code}`;
-      const website = `${result.url}`;
+      const website = result.url;
       let monday = 'Not Open';
       let tuesday = 'Not Open';;
       let wednesday = 'Not Open';
