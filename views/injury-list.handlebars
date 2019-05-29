@@ -1,3 +1,14 @@
+<style>
+  @media screen and (max-width: 400px) {
+  .gallery__item__caption {
+    font-size: 15px;
+  }
+  .images {
+    height: auto;
+    width: 75%;
+  }
+}
+</style>
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
@@ -8,8 +19,8 @@
 <div class="gallery">
   <div class="row" id="sportList">
     {{#each injuryList}}
-    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/{{sport_id}}">
-      <img height="80%" width="80%" src={{sport_image_url}} alt="Sport icon">
+    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" style="width:40%" href="/common-injuries/{{sport_id}}">
+      <img class="images" height="100px" width="100px" src={{sport_image_url}} alt="Sport icon">
       <h5 class="gallery__item__caption">{{sport_name}}</h5>
     </a>
     {{/each}}
@@ -26,8 +37,8 @@
         $('#sportList').html('');
         filteredSports.forEach(sport => {
           $('#sportList').append(`
-                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/common-injuries/${sport.sport_id}">
-                  <img height="80%" width="80%" src=${sport.sport_image_url} alt="Sport icon">
+                 <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" style="width:40%" href="/common-injuries/${sport.sport_id}">
+                  <img height="100px" width="100px" src=${sport.sport_image_url} alt="Sport icon">
                   <h5 class="gallery__item__caption">${sport.sport_name}</h5>
                 </a>
                 `)
