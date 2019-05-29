@@ -6,16 +6,21 @@
         box-shadow: 0 0 0.2rem 0.1rem lightgray;
         text-align: center;
     }
+
+    .container {
+        margin-top: 80px;
+    }
 </style>
 
-{{> navbar}}
+<div class="container">
+    <div class="text-center">
+        <img src="/images/logo.png" alt="Remedy" height="100">
+    </div>
 
-<div class="container mt-4">
-    <h1 id="loginBanner" class="text-center mb-5">Log In</h1>
-    <h1 id="signupBanner" class="text-center mb-5">Sign Up</h1>
+    <h1 id="loginBanner" class="text-center">Log In</h1>
+    <h1 id="signupBanner" class="text-center">Sign Up</h1>
 
     <form id="loginForm" class="custom-form" action="/">
-
         <div class="input-group mb-5">
             <div class="input-group-prepend">
                 <span class="input-group-text custom-form__group-text">Username</span>
@@ -35,9 +40,7 @@
         <button id="loginButton" type="button" class="btn btn-primary loginButton">Log In</button>
         <button id="signupButton" type="button" class="btn btn-outline-primary signupButton">Sign Up</button>
     </form>
-</div>
 
-<div class="container mt-4">
     <form id="signupForm" class="custom-form" action="/">
         <div class="input-group mb-5">
             <div class="input-group-prepend">
@@ -64,9 +67,7 @@
         </div>
         <button type="button" class="btn btn-outline-primary loginButton">Log In</button>
         <button type="button" class="btn btn-primary signupButton">Sign Up</button>
-
     </form>
-
 </div>
 
 <script>
