@@ -1,7 +1,50 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
+<<<<<<< HEAD
+<h2 class="titleName"> Current Injuries Log </h2>
+
+{{!-- <a class="btn btn-primary" style="float:right;" href="/" role="button" id="add">Add new injury</a> --}}
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#injuryModal">
+  Add new injury
+</button>
+
+{{#each currentInjury}}
+<div class="card container">
+  <div class="card-body container">
+    <h5 class="card-title">{{name}}</h5>
+    <h6 class="card-subtitle mb-4 text-muted">{{description}}</h6>
+    <h6 class="card-subtitle mb-3 text-muted">-{{content}}</h6>
+    <button class="btn btn-danger add-log" data-id={{injury_id}}>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    <h6 class="card-subtitle mb-2 text-muted"> {{created_at}} - Current</h6>
+        <button class="btn btn-info update-injury" data-id={{injury_id}} data-toggle="modal" data-target="#updateInjuryModal" data-name="{{name}}" data-description="{{description}}" data-id="{{injury_id}}">
+      <i class="fa fa-edit" aria-hidden="true"></i>
+    </button>
+    <button class="btn btn-danger delete-injury" data-id={{injury_id}}>
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+  </div>
+</div>
+{{/each}}
+
+{{!-- 
+<div class="card container">
+  <div class="card-body container">
+    <h5 class="card-title">Left Hand: Finger Sprain</h5>
+    <h6 class="card-subtitle mb-4 text-muted">Description</h6>
+    <h6 class="card-subtitle mb-2 text-muted">-Rest 3/10 days</h6>
+    <h6 class="card-subtitle mb-4 text-muted">-Ice 5/5 days</h6>
+    <h6 class="card-subtitle mb-2 text-muted">Complete recovery in 5/10 days</h6>
+    <a class="btn btn-primary" href="/injury-details" role="button" id="injuryInfo">View More</a>
+  </div>
+</div>
+=======
 <h2 class="text-center mb-5">Current Injuries Log</h2>
+>>>>>>> 9d4de9922946e3694a5422a14403284b3992b2e8
 
 <div class="container mb-4">
   <ul class="nav nav-pills nav-fill">
@@ -60,6 +103,21 @@
           </button>
           <div class="injuryLogs" id="injuryLog{{injury_id}}">
           </div>
+<<<<<<< HEAD
+          <div class="form-group">
+            <label>Description</label>
+            <input type="text" class="form-control" name="description">
+          </div>
+          <div class="form-group">
+            <label>Progress Report 1</label>
+            <input type="text" class="form-control" name="content">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <input type="submit" class="btn btn-primary" value="Save" />
+=======
+>>>>>>> 9d4de9922946e3694a5422a14403284b3992b2e8
         </div>
       </div>
       <!-- End log history data -->
@@ -317,5 +375,10 @@ saveInputType="button" saveInputClass="update-log-save" saveInputValue="Save"
         $('#update-expected-recovery-date').val(recover_date_formatted);
       }
     });
+
+     $('.add-log').on('click', function() {
+      $('#update-log').val($(this).data('log2'));
+    });
+
   });
 </script>
