@@ -116,6 +116,7 @@ app.get(
 
 app.get('/pharmacy-data', (req, res) => {
   const location = req.query.address;
+  console.log('the pharmacy location', location);
   const searchRequest = {
     term: 'pharmacy',
     location,

@@ -16,24 +16,28 @@
         </div>
         <input type="text" class="form-control" id="location" placeholder="San Diego, CA"> --}}
         <input type="text" class="form-control" id="address" placeholder="Enter a city to find nearby services">
-        <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input>
+        <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input></button>
       </form>
-      {{!-- <div class="dropdowns">
-        <!-- TODO: Implement filter -->
+
+      <div class="dropdowns">
+
+        <div class="d-none" id="mapOptions" data-show_doctors="true" data-show_pharmacies="true" data-lat="32.8801"
+          data-lng="-117.234" data-address="La Jolla"></div>
+
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="filterDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Filter
           </button>
           <div class="dropdown-menu" id="filterDropdown" aria-labelledby="filterDropdownMenu">
-            <button class="dropdown-item" type="button" id="allButton">All</button>
+            <button class="dropdown-item" type="button" id="allButton">Show all</button>
             <button class="dropdown-item" type="button" id="pharmacyButton">Pharmacies only</button>
             <button class="dropdown-item" type="button" id="doctorButton">Doctors only</button>
           </div>
         </div>
 
         <!-- TODO: Implement sort -->
-        <div class="dropdown">
+        {{!-- <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="sortByDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Sort by
@@ -43,8 +47,10 @@
             <button class="dropdown-item" type="button">Price</button>
             <button class="dropdown-item" type="button">Rating</button>
           </div>
-        </div>
-      </div> --}}
+        </div> --}}
+      </div>
+
+
     </div>
     <!-- End searchbar and filter/sort dropdown menu -->
 
@@ -116,8 +122,6 @@
                                       }}`);
         }
 
-        const test = false;
-
         // Display doctor markers on map
         const contentString = `
           <div class="infoWindow">
@@ -130,7 +134,7 @@
               <div class="col-6">
                 <div class="infoWindow-body">
                   <h5 class="infoWindow-title">${name}</h5>
-                    <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}>
+                    <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`) || ""}>
                     <p class="infoWindow-text">
                       <strong>Specialties</strong><br>
                         ${specialties}
@@ -153,8 +157,7 @@
 
         const marker = new google.maps.Marker({
           position: pos,
-          map: map,
-          //title: 'Uluru (Ayers Rock)'
+          map: map
         });
 
         google.maps.event.addListener(marker, 'click', function () {
@@ -166,7 +169,7 @@
   }
 
   // Display pharmacy data on screen and create markers for each pharmacy on the map
-  const fetchPharmacies = (address = 'La Jolla', infowindow) => {
+  const fetchPharmacies = (address = 'La Jolla', infoWindow) => {
     fetch(`/pharmacy-data?address=${address}`).then(response => {
       return response.json();
     }).then(result => {
@@ -206,7 +209,7 @@
             <div class="col-6">
               <div class="infoWindow-body">
                 <h5 class="infoWindow-title">${name}</h5>
-                <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`)}>
+                <img class="infoWindow__ratings" src=${(rating && `images/stars/${rating}.png`) || ""}>
                 <p class="infoWindow-text">
                   <strong>Address</strong> <br>
                     ${address_street} <br>
@@ -227,33 +230,15 @@
         // });
         const marker = new google.maps.Marker({
           position: pos,
-          map: map,
-          //title: 'Uluru (Ayers Rock)'
+          map: map
         });
 
         google.maps.event.addListener(marker, 'click', function () {
-          infowindow.setContent(contentString);
-          infowindow.open(map, marker);
+          infoWindow.setContent(contentString);
+          infoWindow.open(map, marker);
         });
       });
     });
-  }
-
-  const fetchOnlyPharmacies = () => {
-    fetchPharmacies();
-  }
-
-  const fetchOnlyDoctors = () => {
-    fetchDoctors();
-  }
-
-  const fetchAll = () => {
-    fetchPharmacies();
-    fetchDoctors();
-  }
-
-  const clearData = () => {
-    $(".map-cards").html('');
   }
 
   document.addEventListener("DOMContentLoaded", event => {
@@ -268,10 +253,10 @@
         const formattedAddress = geodata.formatted_address;
         const latitude = geodata.geometry.location.lat;
         const longitude = geodata.geometry.location.lng;
-        localStorage.setItem('lat', latitude);
-        localStorage.setItem('lng', longitude);
-        localStorage.setItem('address', formattedAddress);
-        initMap(latitude, longitude, formattedAddress);
+        $('#mapOptions').data('lat', latitude);
+        $('#mapOptions').data('lng', longitude);
+        $('#mapOptions').data('address', formattedAddress);
+        initMap();
       }).catch(err => {
         console.log('Error getting geo data:', err);
         $('#invalidSearch').html('Invalid address. Try again.');
@@ -280,30 +265,42 @@
 
     // Used for filtering
     $('#allButton').click(() => {
-      clearData();
-      fetchAll();
+      $('#mapOptions').data('show_doctors', true);
+      $('#mapOptions').data('show_pharmacies', true);
+      initMap();
     });
     $('#pharmacyButton').click(() => {
-      clearData();
-      fetchPharmacies();
+      $('#mapOptions').data('show_doctors', false);
+      $('#mapOptions').data('show_pharmacies', true);
+      initMap();
     });
     $('#doctorButton').click(() => {
-      clearData();
-      fetchDoctors();
+      $('#mapOptions').data('show_doctors', true);
+      $('#mapOptions').data('show_pharmacies', false);
+      initMap();
     });
-    // fetchAll();
   });
 
-  let map;
-  function initMap(lat, lng, address) {
+  let map, infoWindow;
+  function initMap() {
+    const lat = parseFloat($('#mapOptions').data('lat'));
+    const lng = parseFloat($('#mapOptions').data('lng'));
+    const doShowDoctors = $('#mapOptions').data('show_doctors');
+    const doShowPharmacies = $('#mapOptions').data('show_pharmacies');
     map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: lat || 32.8801, lng: lng || -117.234 },
+      center: { lat: lat, lng: lng },
       zoom: 10
     });
     $(".map-cards").html('');
-    let infowindow = new google.maps.InfoWindow();
-    fetchDoctors(lat, lng, infowindow);
-    fetchPharmacies(address, infowindow);
+    infoWindow = new google.maps.InfoWindow();
+
+    if (doShowDoctors) {
+      fetchDoctors(lat, lng, infoWindow);
+    }
+    if (doShowPharmacies) {
+      const address = $('#mapOptions').data('address');
+      fetchPharmacies(address, infoWindow);
+    }
   }
 
   function loadMap() {
