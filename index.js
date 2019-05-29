@@ -117,10 +117,13 @@ app.get(
 
 app.get('/pharmacy-data', (req, res) => {
   const location = req.query.address;
+  const latitude = req.query.lat;
+  const longitude = req.query.lng;
   const sortByType = req.query.sortByType;
   const searchRequest = {
     term: 'pharmacy',
-    location,
+    latitude,
+    longitude,
     categories: 'pharmacy',
     limit: 10,
     sort_by: sortByType || 'best_match'
@@ -152,7 +155,7 @@ app.get('/pharmacy-data/:id', (req, res) => {
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
 
-app.get('/help',help.view);
+app.get('/help', help.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);

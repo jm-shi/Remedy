@@ -37,7 +37,6 @@
           </div>
         </div>
 
-        <!-- TODO: Implement sort -->
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="sortByDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -45,7 +44,6 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="sortByDropdownMenu">
             <button class="dropdown-item" type="button" id="sortByBestMatchButton">Best Match</button>
-            {{!-- <button class="dropdown-item" type="button" id="sortByDistanceButton">Distance</button> --}}
             <button class="dropdown-item" type="button" id="sortByRatingButton">Rating</button>
           </div>
         </div>
@@ -73,7 +71,6 @@
     const lat = $('#mapOptions').data('lat');
     const lng = $('#mapOptions').data('lng');
     const sortBy = $('#mapOptions').data('sort_by');
-    // const doSortByRating = $('#mapOptions').data('sort_by_rating');
     let url = `/doctor-data?lat=${lat}&lng=${lng}`;
     if (sortBy === 'rating') {
       url += '&sortByRating=true';
@@ -161,7 +158,6 @@
         `;
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
-
         const marker = new google.maps.Marker({
           position: pos,
           map: map
@@ -178,8 +174,10 @@
   // Display pharmacy data on screen and create markers for each pharmacy on the map
   const fetchPharmacies = (infoWindow) => {
     const address = $('#mapOptions').data('address');
+    const latitude = $('#mapOptions').data('lat');
+    const longitude = $('#mapOptions').data('lng');
     const sortByType = $('#mapOptions').data('sort_by');
-    let url = `/pharmacy-data?address=${address}&sortByType=${sortByType}`;
+    let url = `/pharmacy-data?address=${address}&lat=${latitude}&lng=${longitude}&sortByType=${sortByType}`;
     fetch(url).then(response => {
       return response.json();
     }).then(result => {
@@ -319,7 +317,6 @@
       fetchDoctors(infoWindow);
     }
     if (doShowPharmacies) {
-      const address = $('#mapOptions').data('address');
       fetchPharmacies(infoWindow);
     }
 
