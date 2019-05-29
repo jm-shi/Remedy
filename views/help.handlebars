@@ -1,0 +1,79 @@
+{{> navbar}}
+{{> back-button destinationURL="/" destinationName="Home"}}
+<head>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="css/style.css">
+  
+</head>
+
+<h2 class="text-center">Help</h2>
+
+<div class="container">
+
+    <div>
+      <button class="collapsible" style="font-size: 13px"> Q: What is Remedy? <i class="fas fa-chevron-down"></i></button>
+      <div class="content" style="font-size: 12px">
+        <p>Remedy is a medical app used to track and report injuries to doctors. The app has additional features of listing information of common sports injuries,
+           as well as, a map function used to locate nearby doctors and/or pharmacies</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div>
+      <button class="collapsible" style="font-size: 13px"> Q: How do I log in an injury? <i class="fas fa-chevron-down"></i></button>
+      <div class="content" style="font-size: 12px">
+        <p>On the homepage, click on "Injury Logs" where you will find both a "Current Injuries" and a "Past Injuries" tab. While in the "Current Injuries" tab,
+            click on "Add new injury", where you will be prompted to fill in information regarding the injury. </p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div>
+      <button class="collapsible" style="font-size: 13px"> Q: How do I update the progress of an injury? <i class="fas fa-chevron-down"></i></button>
+      <div class="content" style="font-size: 12px">
+        <p>In the "Injury Logs" page, click on "Log History" of the specified injury. A series of injury logs will appear with a button to "Create new log". 
+            Click on it and fill in the information. </p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div>
+      <button class="collapsible" style="font-size: 13px"> Q: How do I send a report to my doctor? <i class="fas fa-chevron-down"></i></button>
+      <div class="content" style="font-size: 12px">
+        <p>On the homepage, click on "Contact Doctor". You will be redirected to a page where you can then write the contents of an email to a chosen doctor. 
+            Within the message of the email, your entire injury log is attached for the doctor to view.</p>
+      </div>
+    </div>
+
+    <hr class="divider" />
+
+    <div>
+      <button class="collapsible" style="font-size: 13px"> Q: How do I look for a remedies for a specific injury I have? <i class="fas fa-chevron-down"></i></button>
+      <div class="content" style="font-size: 12px">
+        <p>On the homepage, click on Injury List to see a list of sports. By clicking on a sport, it will list all the common injuries of that sport,
+           where you can then view an overview, symptoms, and treatments for the specific injury.</p>
+      </div>
+    </div>
+</div>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+      coll[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+          content.style.display = "none";
+        } else {
+          content.style.display = "block";
+        }
+      });
+    }
+  </script>

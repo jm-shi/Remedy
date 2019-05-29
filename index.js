@@ -21,6 +21,7 @@ const pharmacy = require('./routes/pharmacy');
 const profile = require('./routes/profile');
 const fetch = require('node-fetch');
 const yelp = require('yelp-fusion');
+const help = require('./routes/help');
 
 require('dotenv').config();
 
@@ -147,6 +148,8 @@ app.get('/pharmacy-data/:id', (req, res) => {
 //app.get('/pharmacy', pharmacy.view);
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
+
+app.get('/help',help.view);
 
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);

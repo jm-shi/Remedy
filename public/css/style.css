@@ -6,6 +6,27 @@
   box-sizing: inherit;
 }
 
+
+.collapsible {
+  background-color: rgb(52, 58, 64);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  padding: 10px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 1px;
+}
+
+.content {
+  padding: 10px 10px 0px 10px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+
 html {
   font-size: 62.5%;
 }
