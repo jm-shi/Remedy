@@ -19,10 +19,11 @@
         <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input></button>
       </form>
 
-      <div class="dropdowns">
+      <div class="option-details">Showing doctors and pharmacies, sorted by best match</div>
 
+      <div class="dropdowns">
         <div class="d-none" id="mapOptions" data-show_doctors="true" data-show_pharmacies="true" data-lat="32.8801"
-          data-lng="-117.234" data-address="La Jolla"></div>
+          data-lng="-117.234" data-address="La Jolla" data-sort_by="best_match"></div>
 
         <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="filterDropdownMenu" data-toggle="dropdown"
@@ -37,20 +38,18 @@
         </div>
 
         <!-- TODO: Implement sort -->
-        {{!-- <div class="dropdown">
+        <div class="dropdown">
           <button class="btn btn-info dropdown-toggle" type="button" id="sortByDropdownMenu" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Sort by
           </button>
           <div class="dropdown-menu" aria-labelledby="sortByDropdownMenu">
-            <button class="dropdown-item" type="button">Distance</button>
-            <button class="dropdown-item" type="button">Price</button>
-            <button class="dropdown-item" type="button">Rating</button>
+            <button class="dropdown-item" type="button" id="sortByBestMatchButton">Best Match</button>
+            {{!-- <button class="dropdown-item" type="button" id="sortByDistanceButton">Distance</button> --}}
+            <button class="dropdown-item" type="button" id="sortByRatingButton">Rating</button>
           </div>
-        </div> --}}
+        </div>
       </div>
-
-
     </div>
     <!-- End searchbar and filter/sort dropdown menu -->
 
@@ -70,8 +69,16 @@
 </div>
 
 <script>
-  const fetchDoctors = (lat, lng, infowindow) => {
-    fetch(`/doctor-data?lat=${lat}&lng=${lng}`).then(response => {
+  const fetchDoctors = (infowindow) => {
+    const lat = $('#mapOptions').data('lat');
+    const lng = $('#mapOptions').data('lng');
+    const sortBy = $('#mapOptions').data('sort_by');
+    // const doSortByRating = $('#mapOptions').data('sort_by_rating');
+    let url = `/doctor-data?lat=${lat}&lng=${lng}`;
+    if (sortBy === 'rating') {
+      url += '&sortByRating=true';
+    }
+    fetch(url).then(response => {
       return response.json();
     }).then(result => {
       console.log('Doctor data', result.data);
@@ -169,8 +176,11 @@
   }
 
   // Display pharmacy data on screen and create markers for each pharmacy on the map
-  const fetchPharmacies = (address = 'La Jolla', infoWindow) => {
-    fetch(`/pharmacy-data?address=${address}`).then(response => {
+  const fetchPharmacies = (infoWindow) => {
+    const address = $('#mapOptions').data('address');
+    const sortByType = $('#mapOptions').data('sort_by');
+    let url = `/pharmacy-data?address=${address}&sortByType=${sortByType}`;
+    fetch(url).then(response => {
       return response.json();
     }).then(result => {
       console.log('Pharmacy data', result);
@@ -263,6 +273,16 @@
       })
     });
 
+    $('#sortByBestMatchButton').on('click', e => {
+      $('#mapOptions').data('sort_by', 'best_match');
+      initMap();
+    });
+
+    $('#sortByRatingButton').on('click', e => {
+      $('#mapOptions').data('sort_by', 'rating');
+      initMap();
+    });
+
     // Used for filtering
     $('#allButton').click(() => {
       $('#mapOptions').data('show_doctors', true);
@@ -287,6 +307,7 @@
     const lng = parseFloat($('#mapOptions').data('lng'));
     const doShowDoctors = $('#mapOptions').data('show_doctors');
     const doShowPharmacies = $('#mapOptions').data('show_pharmacies');
+    const sortBy = $('#mapOptions').data('sort_by');
     map = new google.maps.Map(document.getElementById("map"), {
       center: { lat: lat, lng: lng },
       zoom: 10
@@ -295,11 +316,24 @@
     infoWindow = new google.maps.InfoWindow();
 
     if (doShowDoctors) {
-      fetchDoctors(lat, lng, infoWindow);
+      fetchDoctors(infoWindow);
     }
     if (doShowPharmacies) {
       const address = $('#mapOptions').data('address');
-      fetchPharmacies(address, infoWindow);
+      fetchPharmacies(infoWindow);
+    }
+
+    if (doShowDoctors && !doShowPharmacies) {
+      $('.option-details').text('Showing only doctors');
+    } else if (!doShowDoctors && doShowPharmacies) {
+      $('.option-details').text('Showing only pharmacies');
+    } else {
+      $('.option-details').text('Showing doctors and pharmacies');
+    }
+    if (sortBy === 'rating') {
+      $('.option-details').append(', sorted by rating');
+    } else if (sortBy === 'best_match') {
+      $('.option-details').append(', sorted by best match');
     }
   }
 

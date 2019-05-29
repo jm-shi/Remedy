@@ -116,11 +116,13 @@ app.get(
 
 app.get('/pharmacy-data', (req, res) => {
   const location = req.query.address;
-  console.log('the pharmacy location', location);
+  const sortByType = req.query.sortByType;
   const searchRequest = {
     term: 'pharmacy',
     location,
-    categories: 'pharmacy'
+    categories: 'pharmacy',
+    limit: 10,
+    sort_by: sortByType || 'best_match'
   };
   console.log('searchRequest', searchRequest);
   yelpClient

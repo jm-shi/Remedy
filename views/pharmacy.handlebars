@@ -172,8 +172,8 @@
         days[day] = convertTime(`${result.hours[0].open[day].start}`) + ' - ' + convertTime(`${result.hours[0].open[day].end}`);
       }
 
-      if (typeof price !== 'undefined') {
-        price = "Unavailable.";
+      if (typeof price === 'undefined') {
+        price = "Unavailable";
       }
 
       $("#name").html(name);
