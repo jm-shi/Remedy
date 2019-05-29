@@ -1,12 +1,14 @@
 <style>
-    .profile{
-        padding: 10px;
-        max-width: 700px;
-        margin: 10px;
-        box-shadow: 0 0 0 1px lightgray;  
+    .profile {
+        padding: 1rem;
+        max-width: 70rem;
+        margin: 1rem;
+        box-shadow: 0 0 0 0.1rem lightgray;
         text-align: center;
     }
-    textarea:required:invalid, input:required:invalid {
+
+    textarea:required:invalid,
+    input:required:invalid {
         background-color: lightyellow;
     }
 </style>
@@ -27,25 +29,31 @@
     <div class="profile">
         <div class="row">
             <div class="col-sm-3" align="center">
-                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="125px"
-                    height="125px">
+                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg"
+                    width="125px" height="125px">
             </div>
             <div class="col-sm-6" align="center">
                 <br>
                 <h6 id="name">Johnny Appleseed</h6>
-                <div id="nameBox" class="input-group input-group-sm mb-3"><div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Name</span></div>
-                        <input id="nameInput" type="text" placeholder="John Appleseed" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                <div id="nameBox" class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Name</span></div>
+                    <input id="nameInput" type="text" placeholder="John Appleseed" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
                 </div>
                 <p id="email">jappleseed@email.com</p>
-                <div id="emailBox" class="input-group input-group-sm mb-3"><div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Email</span></div>
-                        <input id="emailInput" type="text" placeholder="johnappleseed@gmail.com" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                <div id="emailBox" class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span></div>
+                    <input id="emailInput" type="text" placeholder="johnappleseed@gmail.com" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
                 </div>
                 <p id="location">San Diego, California</p>
-                <div id="locationBox" class="input-group input-group-sm mb-3"><div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroup-sizing-sm">Location</span></div>
-                        <input id="locationInput" type="text" placeholder="Los Angeles, California" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                <div id="locationBox" class="input-group input-group-sm mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroup-sizing-sm">Location</span></div>
+                    <input id="locationInput" type="text" placeholder="Los Angeles, California" class="form-control"
+                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
         </div>
@@ -57,88 +65,91 @@
                 <div id="sport1Dropdown" class="dropdown">
                     <select id="sportSelect1" class="form-control">
                         <option value="none" selected="selected">Select a sport</option>
-                        <option value="none">None</option> 
-                        <option value="baseball">Baseball</option> 
+                        <option value="none">None</option>
+                        <option value="baseball">Baseball</option>
                         <option value="basketball">Basketball</option>
                         <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option> 
+                        <option value="pom-pom">Cheerleading</option>
                         <option value="ballerina">Dance</option>
                         <option value="american-football">Football</option>
                         <option value="golf">Golf</option>
                         <option value="rings">Gymnastics</option>
                         <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option> 
+                        <option value="lacrosse">Lacrosse</option>
                         <option value="motorbike">Motocross</option>
                         <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option> 
+                        <option value="skateboard">Skateboarding</option>
                         <option value="soccer">Soccer</option>
                         <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option> 
+                        <option value="frisbee">Ultimate Frisbee</option>
                         <option value="volleyball">Volleyball</option>
                     </select><br></div>
                 <div id="sport1Box" class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
                     </div>
-                    <input id="sport1Position" type="text" placeholder="Center" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    <input id="sport1Position" type="text" placeholder="Center" class="form-control" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-default">
                 </div>
                 <p id="sport2"><img src="/images/baseball.png" height="25px" width="25px"> - Pitcher</p>
                 <div id="sport2Dropdown" class="dropdown">
                     <select id="sportSelect2" class="form-control">
                         <option value="none" selected="selected">Select a sport</option>
                         <option value="none">None</option>
-                        <option value="baseball">Baseball</option> 
+                        <option value="baseball">Baseball</option>
                         <option value="basketball">Basketball</option>
                         <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option> 
+                        <option value="pom-pom">Cheerleading</option>
                         <option value="ballerina">Dance</option>
                         <option value="american-football">Football</option>
                         <option value="golf">Golf</option>
                         <option value="rings">Gymnastics</option>
                         <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option> 
+                        <option value="lacrosse">Lacrosse</option>
                         <option value="motorbike">Motocross</option>
                         <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option> 
+                        <option value="skateboard">Skateboarding</option>
                         <option value="soccer">Soccer</option>
                         <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option> 
+                        <option value="frisbee">Ultimate Frisbee</option>
                         <option value="volleyball">Volleyball</option>
                     </select><br></div>
                 <div id="sport2Box" class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
                     </div>
-                    <input id="sport2Position" type="text" placeholder="Pitcher" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    <input id="sport2Position" type="text" placeholder="Pitcher" class="form-control" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-default">
                 </div>
                 <p id="sport3"><img src="/images/swimming.png" height="25px" width="25px"> - 200m</p>
                 <div id="sport3Dropdown" class="dropdown">
                     <select id="sportSelect3" class="form-control">
                         <option value="none" selected="selected">Select a sport</option>
                         <option value="none">None</option>
-                        <option value="baseball">Baseball</option> 
+                        <option value="baseball">Baseball</option>
                         <option value="basketball">Basketball</option>
                         <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option> 
+                        <option value="pom-pom">Cheerleading</option>
                         <option value="ballerina">Dance</option>
                         <option value="american-football">Football</option>
                         <option value="golf">Golf</option>
                         <option value="rings">Gymnastics</option>
                         <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option> 
+                        <option value="lacrosse">Lacrosse</option>
                         <option value="motorbike">Motocross</option>
                         <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option> 
+                        <option value="skateboard">Skateboarding</option>
                         <option value="soccer">Soccer</option>
                         <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option> 
+                        <option value="frisbee">Ultimate Frisbee</option>
                         <option value="volleyball">Volleyball</option>
                     </select><br></div>
                 <div id="sport3Box" class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
                     </div>
-                    <input id="sport3Position" type="text" placeholder="200m" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    <input id="sport3Position" type="text" placeholder="200m" class="form-control" aria-label="Small"
+                        aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
         </div>
@@ -154,14 +165,16 @@
             </div>
             <div class="col-sm-6" align="center">
                 <br><br>
-                <a href="/doctor/001f60172493d3546f7869f4b8bad742" id="doctor"><h6>Dr. Jason Snitzer</h6></a>
+                <a href="/doctor/001f60172493d3546f7869f4b8bad742" id="doctor">
+                    <h6>Dr. Jason Snitzer</h6>
+                </a>
                 <div id="doctorDropdown" class="dropdown">
                     <select id="doctorSelect" class="form-control">
-                        <option selected="selected">Select your doctor</option> 
-                        <option>Jamie Lee</option> 
+                        <option selected="selected">Select your doctor</option>
+                        <option>Jamie Lee</option>
                         <option>Eric Wong</option>
                         <option>Nikki Easyman</option>
-                        <option>Lawrence Yes</option> 
+                        <option>Lawrence Yes</option>
                     </select><br>
                 </div>
                 <p id="doctorPhone">(222) 733 8273</p>
@@ -169,16 +182,16 @@
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Phone Number</span>
                     </div>
-                        <input id="doctorPhoneInput" type="tel" placeholder="888 888 8888" pattern="[0-9]{3} [0-9]{3} [0-9]{4}" 
-                        maxlength="12" title="Ten digits required" required class="form-control" aria-label="Small" 
-                        aria-describedby="inputGroup-sizing-default">
+                    <input id="doctorPhoneInput" type="tel" placeholder="888 888 8888"
+                        pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" title="Ten digits required" required
+                        class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
                 </div>
                 <p id="doctorLocation">UCSD Hospital</p>
                 <div id="doctorLocationBox" class="input-group input-group-sm mb-3">
                     <div class="input-group-prepend">
                         <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
                     </div>
-                        <input id="doctorLocationInput" type="text" placeholder="Scripps Hospital" class="form-control" 
+                    <input id="doctorLocationInput" type="text" placeholder="Scripps Hospital" class="form-control"
                         aria-label="Small" aria-describedby="inputGroup-sizing-default">
                 </div>
             </div>
@@ -206,10 +219,10 @@
         $('#edit').click(() => {
             $('#nameBox').show();
             $('#name').hide();
-            
+
             $('#emailBox').show();
             $('#email').hide();
-            
+
             $('#locationBox').show();
             $('#location').hide();
 
@@ -220,7 +233,7 @@
             $('#sport2Dropdown').show();
             $('#sport2Box').show();
             $('#sport2').hide();
-            
+
             $('#sport3Dropdown').show();
             $('#sport3Box').show();
             $('#sport3').hide();
@@ -241,21 +254,21 @@
         //save profile
         $('#save').click(() => {
             if ($('#nameInput').val() !== '' && $('#emailInput').val() !== '' && $('#locationInput').val() !== ''
-                && document.getElementById('doctorSelect') != null && $('#doctorPhoneInput').val() !== '' 
+                && document.getElementById('doctorSelect') != null && $('#doctorPhoneInput').val() !== ''
                 && $('#doctorLocationInput').val() !== '') {
-            
+
                 $('#nameBox').hide();
                 $('#name').show();
                 $('#name').replaceWith("<h6 id='name'>" + $('#nameInput').val() + "</h6>");
-                
+
                 $('#emailBox').hide();
                 $('#email').show();
                 $('#email').replaceWith("<p id='email'>" + $('#emailInput').val() + "</p>");
-            
+
                 $('#locationBox').hide();
                 $('#location').show();
                 $('#location').replaceWith("<p id='location'>" + $('#locationInput').val() + "</p>");
-                
+
                 $('#sport1Box').hide();
                 $('#sport1Dropdown').hide();
                 var sport = document.getElementById('sportSelect1');
@@ -264,7 +277,7 @@
                 if (userSport1 == 'none') {
                     $('#sport1').replaceWith("<p></p>");
                 } else {
-                    $('#sport1').replaceWith("<p id='sport1'><img src='/images/" + userSport1 + 
+                    $('#sport1').replaceWith("<p id='sport1'><img src='/images/" + userSport1 +
                         ".png' height='25px' width='25px'> - " + $('#sport1Position').val() + "</p>");
                 }
 
@@ -276,8 +289,8 @@
                 if (userSport2 == 'none') {
                     $('#sport2').replaceWith("<p></p>");
                 } else {
-                $('#sport2').replaceWith("<p id='sport2'><img src='/images/" + userSport2 + 
-                    ".png' height='25px' width='25px'> - " + $('#sport2Position').val() + "</p>");
+                    $('#sport2').replaceWith("<p id='sport2'><img src='/images/" + userSport2 +
+                        ".png' height='25px' width='25px'> - " + $('#sport2Position').val() + "</p>");
                 }
 
                 $('#sport3Box').hide();
@@ -288,8 +301,8 @@
                 if (userSport3 == 'none') {
                     $('#sport3').replaceWith("<p></p>");
                 } else {
-                $('#sport3').replaceWith("<p id='sport3'><img src='/images/" + userSport3 + 
-                    ".png' height='25px' width='25px'> - " + $('#sport3Position').val() + "</p>");
+                    $('#sport3').replaceWith("<p id='sport3'><img src='/images/" + userSport3 +
+                        ".png' height='25px' width='25px'> - " + $('#sport3Position').val() + "</p>");
                 }
 
                 $('#doctorDropdown').hide();
@@ -301,7 +314,7 @@
                 $('#doctorPhoneBox').hide();
                 $('#doctorPhone').show();
                 $('#doctorPhone').replaceWith("<p id='doctorPhone'>" + $('#doctorPhoneInput').val() + "</p>");
-                
+
                 $('#doctorLocationBox').hide();
                 $('#doctorLocation').show();
                 $('#doctorLocation').replaceWith("<p id='doctorLocation'>" + $('#doctorLocationInput').val() + "</p>");

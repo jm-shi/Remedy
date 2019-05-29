@@ -30,6 +30,16 @@
       padding: 0.5rem 1rem 1rem 1rem;
       text-align: center;
     }
+
+    @media screen and (max-width: 400px) {
+      &__caption {
+        font-size: 1.5rem;
+      }
+      &__image {
+        height: auto;
+        width: 75%;
+      }
+    }
   }
 
   &__button {
