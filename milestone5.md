@@ -41,7 +41,11 @@ overly large. We also created a logo to provide a more unique feel to our app.
 We used Sass, Handlebars and jQuery to help with displaying the actual content on the screen. To store the users’ injury log data, 
 we used PostgreSQL as our database due to its high compatibility with Heroku, which we used to deploy our app. Our database would 
 have injury tables, which would be modeled to have attributes like id, name, and expected recovery date. We would make AJAX requests
-to call SQL queries to select, insert, delete, and update the relevant injury data from our database.
+to call SQL queries to select, insert, delete, and update the relevant injury data from our database. Several relevant screens showing how the injury log data was displayed are shown below:
+
+<img src="/images/milestone5/currentInjury.png" alt="Current Injury">
+<img src="/images/milestone5/addInjury.png" alt="Add Injury">
+<img src="/images/milestone5/previousInjury.png" alt="Previous Injury">
 
 We also imported .csv files concerning common injuries associated with popular sports into our database. This involved implementing 
 a many-to-many relationship between sports and injuries, as each sport could be associated with multiple injuries, and each injury 
