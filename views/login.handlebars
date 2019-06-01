@@ -8,7 +8,7 @@
     }
 
     .container {
-        margin-top: 80px;
+        margin-top: 8rem;
     }
 </style>
 
@@ -17,8 +17,8 @@
         <img src="/images/logo.png" alt="Remedy" height="100">
     </div>
 
-    <h1 id="loginBanner" class="text-center">Log In</h1>
-    <h1 id="signupBanner" class="text-center">Sign Up</h1>
+    <h1 id="loginBanner" class="mt-5 text-center">Log In</h1>
+    <h1 id="signupBanner" class="mt-5 text-center">Sign Up</h1>
 
     <form id="loginForm" class="custom-form" action="/">
         <div class="input-group mb-5">
@@ -57,14 +57,18 @@
                 aria-describedby="password">
         </div>
 
-        <div class="input-group mb-5">
+        <div class="input-group">
             <div class="input-group-prepend">
                 <span class="input-group-text">Confirm Password</span>
             </div>
             <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control"
                 aria-label="Password" aria-describedby="password">
-            <p id='message'></p>
         </div>
+
+        <div class="custom-form__message mb-5">
+            <div id="message"></div>
+        </div>
+
         <button type="button" class="btn btn-outline-primary loginButton">Log In</button>
         <button type="button" class="btn btn-primary signupButton">Sign Up</button>
     </form>
@@ -101,9 +105,9 @@
 
         $('#password, #passwordConfirm').on('keyup', function () {
             if ($('#password').val() !== '' && $('#password').val() == $('#passwordConfirm').val()) {
-                $('#message').replaceWith("<p id='message' style='color: green;'>Passwords match</p>");
+                $('#message').replaceWith("<p id='message' style='color: green;'>Passwords match.</p>");
             } else
-                $('#message').replaceWith("<p id='message' style='color: red;'>Passwords do not match</p>");
+                $('#message').replaceWith("<p id='message' style='color: red;'>Passwords do not match.</p>");
         });
 
         $('#signupForm .signupButton').click(() => {
@@ -111,7 +115,7 @@
                 window.location.href = '/';
             }
             else {
-                alert('Please enter a username & password.');
+                alert('Please enter a username and password.');
             }
         });
     });
