@@ -1,206 +1,188 @@
-<style>
-    .profile {
-        padding: 1rem;
-        max-width: 70rem;
-        margin: 1rem;
-        box-shadow: 0 0 0 0.1rem lightgray;
-        text-align: center;
-    }
-
-    textarea:required:invalid,
-    input:required:invalid {
-        background-color: lightyellow;
-    }
-</style>
-
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
 <div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h3 class="text-center">User Profile</h5>
-        </div>
-        <div class="col-sm-6" align="right">
-            <button id="edit" class="btn btn-primary">Edit Profile</button>
-            <button id="save" class="btn btn-success">Save Profile</button>
-        </div>
+    <h3 class="text-center">User Profile</h3>
+
+    <div class="mb-3" align="right">
+        <button id="edit" class="btn btn-primary">Edit Profile</button>
+        <button id="save" class="btn btn-success">Save Profile</button>
     </div>
-    <div class="profile">
-        <div class="row">
-            <div class="col-sm-3" align="center">
-                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg"
-                    width="125px" height="125px">
+
+    <div class="error-message mb-3"></div>
+
+    <div class="card mb-3">
+        <h4 class="mt-3 ml-3">You</h4>
+
+        <div class="row no-gutters">
+            <div class="col-xs-12 col-md-auto align-self-center text-center">
+                <i class="fa fa-user-circle profile-icon"></i>
             </div>
-            <div class="col-sm-6" align="center">
-                <br>
-                <h6 id="name">Johnny Appleseed</h6>
-                <div id="nameBox" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Name</span></div>
-                    <input id="nameInput" type="text" placeholder="John Appleseed" class="form-control"
-                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
+            <div class="col align-self-center">
+                <div class="card-block p-3">
+                    <h5 class="card-title mb-3" id="name"></h5>
+                    <div id="nameBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+                        </div>
+                        <input id="nameInput" type="text" placeholder="John Appleseed" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="card-text mb-3" id="email"></div>
+                    <div id="emailBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Email</span></div>
+                        <input id="emailInput" type="text" placeholder="johnappleseed@gmail.com" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="card-text mb-3" id="location"></div>
+                    <div id="locationBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Location</span></div>
+                        <input id="locationInput" type="text" placeholder="San Digeo, California" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
                 </div>
-                <p id="email">jappleseed@email.com</p>
-                <div id="emailBox" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Email</span></div>
-                    <input id="emailInput" type="text" placeholder="johnappleseed@gmail.com" class="form-control"
-                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <p id="location">San Diego, California</p>
-                <div id="locationBox" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Location</span></div>
-                    <input id="locationInput" type="text" placeholder="Los Angeles, California" class="form-control"
-                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
-                </div>
+                <!-- end card-block -->
             </div>
+            <!-- end col -->
         </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-4">
-                <h5>Sports</h5>
-                <p id="sport1"><img src="/images/basketball.png" height="25px" width="25px"> - Center</p>
-                <div id="sport1Dropdown" class="dropdown">
-                    <select id="sportSelect1" class="form-control">
-                        <option value="none" selected="selected">Select a sport</option>
-                        <option value="none">None</option>
-                        <option value="baseball">Baseball</option>
-                        <option value="basketball">Basketball</option>
-                        <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option>
-                        <option value="ballerina">Dance</option>
-                        <option value="american-football">Football</option>
-                        <option value="golf">Golf</option>
-                        <option value="rings">Gymnastics</option>
-                        <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option>
-                        <option value="motorbike">Motocross</option>
-                        <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option>
-                        <option value="soccer">Soccer</option>
-                        <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option>
-                        <option value="volleyball">Volleyball</option>
-                    </select><br></div>
-                <div id="sport1Box" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
-                    </div>
-                    <input id="sport1Position" type="text" placeholder="Center" class="form-control" aria-label="Small"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <p id="sport2"><img src="/images/baseball.png" height="25px" width="25px"> - Pitcher</p>
-                <div id="sport2Dropdown" class="dropdown">
-                    <select id="sportSelect2" class="form-control">
-                        <option value="none" selected="selected">Select a sport</option>
-                        <option value="none">None</option>
-                        <option value="baseball">Baseball</option>
-                        <option value="basketball">Basketball</option>
-                        <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option>
-                        <option value="ballerina">Dance</option>
-                        <option value="american-football">Football</option>
-                        <option value="golf">Golf</option>
-                        <option value="rings">Gymnastics</option>
-                        <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option>
-                        <option value="motorbike">Motocross</option>
-                        <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option>
-                        <option value="soccer">Soccer</option>
-                        <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option>
-                        <option value="volleyball">Volleyball</option>
-                    </select><br></div>
-                <div id="sport2Box" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
-                    </div>
-                    <input id="sport2Position" type="text" placeholder="Pitcher" class="form-control" aria-label="Small"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-                <p id="sport3"><img src="/images/swimming.png" height="25px" width="25px"> - 200m</p>
-                <div id="sport3Dropdown" class="dropdown">
-                    <select id="sportSelect3" class="form-control">
-                        <option value="none" selected="selected">Select a sport</option>
-                        <option value="none">None</option>
-                        <option value="baseball">Baseball</option>
-                        <option value="basketball">Basketball</option>
-                        <option value="bike">Bicycling</option>
-                        <option value="pom-pom">Cheerleading</option>
-                        <option value="ballerina">Dance</option>
-                        <option value="american-football">Football</option>
-                        <option value="golf">Golf</option>
-                        <option value="rings">Gymnastics</option>
-                        <option value="hockey">Hockey</option>
-                        <option value="lacrosse">Lacrosse</option>
-                        <option value="motorbike">Motocross</option>
-                        <option value="jogging">Running</option>
-                        <option value="skateboard">Skateboarding</option>
-                        <option value="soccer">Soccer</option>
-                        <option value="swimming">Swimming</option>
-                        <option value="frisbee">Ultimate Frisbee</option>
-                        <option value="volleyball">Volleyball</option>
-                    </select><br></div>
-                <div id="sport3Box" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
-                    </div>
-                    <input id="sport3Position" type="text" placeholder="200m" class="form-control" aria-label="Small"
-                        aria-describedby="inputGroup-sizing-default">
-                </div>
-            </div>
-        </div>
+        <!-- end row -->
     </div>
-    <br>
-    <div class="profile">
-        <div class="row" align="center">
-            <div class="col-sm-3">
-                <h5>Your Doctor</h5>
-                <br>
-                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="75"
-                    height="75">
+    <!-- end card -->
+</div>
+<!-- end container -->
+
+<div class="container mb-3">
+    <div class="card">
+        <h4 class="mt-3 ml-3">Your doctor</h4>
+        <div class="row no-gutters">
+            <div class="col-xs-12 col-md-auto align-self-center text-center">
+                <i class="fa fa-user-circle" style="font-size: 10rem; padding: 1rem;"></i>
             </div>
-            <div class="col-sm-6" align="center">
-                <br><br>
-                <a href="/doctor/001f60172493d3546f7869f4b8bad742" id="doctor">
-                    <h6>Dr. Jason Snitzer</h6>
-                </a>
-                <div id="doctorDropdown" class="dropdown">
-                    <select id="doctorSelect" class="form-control">
-                        <option selected="selected">Select your doctor</option>
-                        <option>Jamie Lee</option>
-                        <option>Eric Wong</option>
-                        <option>Nikki Easyman</option>
-                        <option>Lawrence Yes</option>
-                    </select><br>
-                </div>
-                <p id="doctorPhone">(222) 733 8273</p>
-                <div id="doctorPhoneBox" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Phone Number</span>
+            <div class="col align-self-center">
+                <div class="card-block p-3">
+                    <h5 class="mb-3" id="doctorName">Dr. Jason Snitzer</h5>
+                    <div id="doctorBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Doctor Name</span>
+                        </div>
+                        <input id="doctorInput" type="text" placeholder="Dr. Jason Snitzer" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input id="doctorPhoneInput" type="tel" placeholder="888 888 8888"
-                        pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" title="Ten digits required" required
-                        class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
-                </div>
-                <p id="doctorLocation">UCSD Hospital</p>
-                <div id="doctorLocationBox" class="input-group input-group-sm mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
+
+                    <div class="mb-3" id="doctorPhone">222 733 8273</div>
+                    <div id="doctorPhoneBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Phone Number</span>
+                        </div>
+                        <input id="doctorPhoneInput" type="tel" placeholder="888 888 8888"
+                            pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" title="Ten digits required" required
+                            class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
                     </div>
-                    <input id="doctorLocationInput" type="text" placeholder="Scripps Hospital" class="form-control"
-                        aria-label="Small" aria-describedby="inputGroup-sizing-default">
+
+                    <div class="mb-3" id="doctorLocation">UCSD Hospital</div>
+                    <div id="doctorLocationBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
+                        </div>
+                        <input id="doctorLocationInput" type="text" placeholder="Scripps Hospital" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
                 </div>
             </div>
+            <!-- end col -->
         </div>
+        <!-- end row -->
+    </div>
+    <!-- end card -->
+</div>
+<!-- end container -->
+
+<div class="container mb-5">
+    <div class="card p-3">
+        <h4 class="mb-3">Your sports</h4>
+        {{> sport-box id="1" sport="basketball" position="Center" positionPlaceholder="Center"}}
+        {{> sport-box id="2" sport="baseball" position="Pitcher" positionPlaceholder="Pitcher"}}
+        {{> sport-box id="3" sport="swimming" position="200m" positionPlaceholder="200m"}}
     </div>
 </div>
 
 <script>
+    const displayUserInputData = () => {
+        const userName = document.getElementById('name');
+        const userNameValue = localStorage.getItem(`remedy__name`) || 'Johnny Appleseed';
+        userName.innerHTML = userNameValue;
+
+        const userEmail = document.getElementById('email');
+        const userEmailValue = localStorage.getItem(`remedy__email`) || 'jappleseed@gmail.com';
+        userEmail.innerHTML = userEmailValue;
+
+        const userLocation = document.getElementById('location');
+        const userLocationValue = localStorage.getItem(`remedy__location`) || 'San Diego, California';
+        userLocation.innerHTML = userLocationValue;
+
+        const doctorName = document.getElementById('doctorName');
+        const doctorNameValue = localStorage.getItem(`remedy__doctorName`) || 'Dr. Jason Snitzer';
+        doctorName.innerHTML = doctorNameValue;
+
+        const doctorPhone = document.getElementById('doctorPhone');
+        const doctorPhoneValue = localStorage.getItem(`remedy__doctorPhone`) || '222 777 8273';
+        doctorPhone.innerHTML = doctorPhoneValue;
+
+        const doctorLocation = document.getElementById('doctorLocation');
+        const doctorLocationValue = localStorage.getItem(`remedy__doctorLocation`) || 'UCSD Hospital';
+        doctorLocation.innerHTML = doctorLocationValue;
+    }
+
+    const displaySportsUserPlays = () => {
+        for (let i = 1; i <= 3; i++) {
+            const sport = document.getElementById(`sportSelect${i}`);
+            let userSport = localStorage.getItem(`remedy__sport${i}Name`) || sport.options[sport.selectedIndex].value;;
+            const sportInfo = document.getElementById(`sport${i}`);
+
+            if (sportInfo !== null) {
+                sportInfo.style.display = 'block';
+                if (userSport === 'none') {
+                    $(`#sport${i}`).html('<div></div>');
+                    sportInfo.innerHTML = '<div></div>';
+                } else {
+                    const sportPosition = document.getElementById(`sport${i}Position`);
+                    // First check if sport position info is stored on user's machine. If no info is saved to
+                    // localStorage, display the default sport position
+                    if (sportPosition) {
+                        let sportPositionValue = localStorage.getItem(`remedy__sport${i}PositionValue`);
+
+                        if (!sportPositionValue) {
+                            sportPositionValue = sportPosition.value;
+                        }
+                        if (sportPositionValue) {
+                            sportInfo.innerHTML = `
+                            <div id='sport${i}' class='sport-box'>
+                                <img src='/images/${userSport}.png' class='sport-icon'>
+                                - ${sportPositionValue} 
+                            </div>
+                        `;
+                        } else {
+                            sportInfo.innerHTML = `
+                            <div id='sport${i}' class='sport-box'>
+                                <img src='/images/${userSport}.png' class='sport-icon'>
+                            </div>
+                        `;
+                        }
+                    }
+                }
+                // end if (userSport === 'none')
+            } // end if (sportInfo)
+        }
+    }
+
     document.addEventListener("DOMContentLoaded", event => {
+        displayUserInputData();
+        displaySportsUserPlays();
+
         $('#save').hide();
         $('#nameBox').hide();
         $('#emailBox').hide();
@@ -211,120 +193,124 @@
         $('#sport2Box').hide();
         $('#sport3Dropdown').hide();
         $('#sport3Box').hide();
-        $('#doctorDropdown').hide();
+        $('#doctorBox').hide();
         $('#doctorPhoneBox').hide();
         $('#doctorLocationBox').hide();
 
-        //edit profile
+        // Edit profile
         $('#edit').click(() => {
             $('#nameBox').show();
+            $('#nameInput').val($('#name').text()); // Show current name
             $('#name').hide();
 
             $('#emailBox').show();
+            $('#emailInput').val($('#email').text()); // Show current email
             $('#email').hide();
 
             $('#locationBox').show();
+            $('#locationInput').val($('#location').text()); // Show current location
             $('#location').hide();
 
             $('#sport1Dropdown').show();
+            const sport1Name = localStorage.getItem('remedy__sport1Name') || $('#sportSelect1').val();
+
+            $('#sportSelect1').val(sport1Name);
+            const sport1Position = localStorage.getItem('remedy__sport1PositionValue') || $('#sport1Position').val();
+            $('#sport1Position').val(sport1Position);
             $('#sport1Box').show();
             $('#sport1').hide();
 
             $('#sport2Dropdown').show();
+            const sport2Name = localStorage.getItem('remedy__sport2Name') || $('#sportSelect2').val();
+            $('#sportSelect2').val(sport2Name);
+            const sport2Position = localStorage.getItem('remedy__sport2PositionValue') || $('#sport2Position').val();
+            $('#sport2Position').val(sport2Position);
             $('#sport2Box').show();
             $('#sport2').hide();
 
             $('#sport3Dropdown').show();
+            const sport3Name = localStorage.getItem('remedy__sport3Name') || $('#sportSelect3').val();
+            $('#sportSelect3').val(sport3Name);
+            const sport3Position = localStorage.getItem('remedy__sport3PositionValue') || $('#sport3Position').val();
+            $('#sport3Position').val(sport3Position);
             $('#sport3Box').show();
             $('#sport3').hide();
 
-            $('#doctorDropdown').show();
-            $('#doctor').hide();
+            $('#doctorInput').val($('#doctorName').text()); // Show current doctor name
+            $('#doctorBox').show();
+            $('#doctorName').hide();
 
             $('#doctorPhoneBox').show();
+            $('#doctorPhoneInput').val($('#doctorPhone').text());
             $('#doctorPhone').hide();
 
             $('#doctorLocationBox').show();
+            $('#doctorLocationInput').val($('#doctorLocation').text());
             $('#doctorLocation').hide();
 
             $('#edit').hide();
             $('#save').show();
         });
 
-        //save profile
+        // Save profile
         $('#save').click(() => {
-            if ($('#nameInput').val() !== '' && $('#emailInput').val() !== '' && $('#locationInput').val() !== ''
-                && document.getElementById('doctorSelect') != null && $('#doctorPhoneInput').val() !== ''
-                && $('#doctorLocationInput').val() !== '') {
+            if ($('#nameInput').val() != '') {
+                $('.error-message').text('');
+                $('#nameInput').removeClass('invalid-input');
 
                 $('#nameBox').hide();
                 $('#name').show();
-                $('#name').replaceWith("<h6 id='name'>" + $('#nameInput').val() + "</h6>");
+                $('#name').text(`${$('#nameInput').val()}`);
+                localStorage.setItem('remedy__name', $('#nameInput').val());
 
                 $('#emailBox').hide();
                 $('#email').show();
-                $('#email').replaceWith("<p id='email'>" + $('#emailInput').val() + "</p>");
+                $('#email').text(`${$('#emailInput').val()}`);
+                localStorage.setItem('remedy__email', $('#emailInput').val());
 
                 $('#locationBox').hide();
                 $('#location').show();
-                $('#location').replaceWith("<p id='location'>" + $('#locationInput').val() + "</p>");
+                $('#location').text(`${$('#locationInput').val()} `);
+                localStorage.setItem('remedy__location', $('#locationInput').val());
 
-                $('#sport1Box').hide();
-                $('#sport1Dropdown').hide();
-                var sport = document.getElementById('sportSelect1');
-                var userSport1 = sport.options[sport.selectedIndex].value;
-                $('#sport1').show();
-                if (userSport1 == 'none') {
-                    $('#sport1').replaceWith("<p></p>");
-                } else {
-                    $('#sport1').replaceWith("<p id='sport1'><img src='/images/" + userSport1 +
-                        ".png' height='25px' width='25px'> - " + $('#sport1Position').val() + "</p>");
-                }
-
-                $('#sport2Box').hide();
-                $('#sport2Dropdown').hide();
-                var sport2 = document.getElementById('sportSelect2');
-                var userSport2 = sport2.options[sport2.selectedIndex].value;
-                $('#sport2').show();
-                if (userSport2 == 'none') {
-                    $('#sport2').replaceWith("<p></p>");
-                } else {
-                    $('#sport2').replaceWith("<p id='sport2'><img src='/images/" + userSport2 +
-                        ".png' height='25px' width='25px'> - " + $('#sport2Position').val() + "</p>");
-                }
-
-                $('#sport3Box').hide();
-                $('#sport3Dropdown').hide();
-                var sport3 = document.getElementById('sportSelect3');
-                var userSport3 = sport3.options[sport3.selectedIndex].value;
-                $('#sport3').show();
-                if (userSport3 == 'none') {
-                    $('#sport3').replaceWith("<p></p>");
-                } else {
-                    $('#sport3').replaceWith("<p id='sport3'><img src='/images/" + userSport3 +
-                        ".png' height='25px' width='25px'> - " + $('#sport3Position').val() + "</p>");
-                }
-
-                $('#doctorDropdown').hide();
-                var doctor = document.getElementById('doctorSelect');
-                var userDoctor = doctor.options[doctor.selectedIndex].text;
-                $('#doctor').show();
-                $('#doctor').replaceWith("<a href='/doctor/001f60172493d3546f7869f4b8bad742' id='doctor'><h6>" + userDoctor + "</h6></a>");
+                $('#doctorName').show();
+                $('#doctorName').text(`${$('#doctorInput').val()}`);
+                $('#doctorBox').hide();
+                localStorage.setItem('remedy__doctorName', $('#doctorInput').val());
 
                 $('#doctorPhoneBox').hide();
                 $('#doctorPhone').show();
-                $('#doctorPhone').replaceWith("<p id='doctorPhone'>" + $('#doctorPhoneInput').val() + "</p>");
+                $('#doctorPhone').text(`${$('#doctorPhoneInput').val()} `);
+                localStorage.setItem('remedy__doctorPhone', $('#doctorPhoneInput').val());
 
                 $('#doctorLocationBox').hide();
                 $('#doctorLocation').show();
-                $('#doctorLocation').replaceWith("<p id='doctorLocation'>" + $('#doctorLocationInput').val() + "</p>");
+                $('#doctorLocation').text(`${$('#doctorLocationInput').val()}`);
+                localStorage.setItem('remedy__doctorLocation', $('#doctorLocationInput').val());
 
                 $('#edit').show();
                 $('#save').hide();
-            }
-            else {
-                alert('Please enter in all fields.');
+
+                $('#sport1Box').hide();
+                $('#sport1Dropdown').hide();
+                $('#sport2Box').hide();
+                $('#sport2Dropdown').hide();
+                $('#sport3Box').hide();
+                $('#sport3Dropdown').hide();
+                localStorage.setItem('remedy__sport1Name', $('#sportSelect1').val());
+                localStorage.setItem('remedy__sport2Name', $('#sportSelect2').val());
+                localStorage.setItem('remedy__sport3Name', $('#sportSelect3').val());
+                localStorage.setItem('remedy__sport1PositionValue', $('#sport1Position').val());
+                localStorage.setItem('remedy__sport2PositionValue', $('#sport2Position').val());
+                localStorage.setItem('remedy__sport3PositionValue', $('#sport3Position').val());
+
+                displaySportsUserPlays();
+            } else {
+                $('.error-message').text('Please enter your name');
+                $('#nameInput').addClass('invalid-input');
             }
         });
+
     });
+
 </script>

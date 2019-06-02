@@ -47,6 +47,14 @@ handlebars.registerHelper('ifEquals', function(x, y, options) {
   return x === y ? options.fn(this) : options.inverse(this);
 });
 
+// Set a selected select option in Handlebars template
+// Source: https://stackoverflow.com/questions/13046401/how-to-set-selected-select-option-in-handlebars-template
+handlebars.registerHelper('select', function(selected, options) {
+  return options
+    .fn(this)
+    .replace(new RegExp(' value="' + selected + '"'), '$& selected="selected"');
+});
+
 let client;
 const environment = process.env.NODE_ENV || 'development';
 if (environment === 'development') {

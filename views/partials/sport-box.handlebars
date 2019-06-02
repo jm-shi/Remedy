@@ -1,0 +1,39 @@
+<!-- Used to display user's sports played in profile.handlebars -->
+
+<div id="sport{{id}}" class="sport-box">
+  <img src="/images/basketball.png" class="sport-icon">
+  - Center
+</div>
+<div id="sport{{id}}Dropdown" class="dropdown mb-1">
+  <label for="sportSelect{{id}}">Select a sport</label>
+  <select id="sportSelect{{id}}" class="form-control">
+    {{#select sport}}
+    <option value="none">None</option>
+    <option value="baseball">Baseball</option>
+    <option value="basketball">Basketball</option>
+    <option value="bike">Bicycling</option>
+    <option value="pom-pom">Cheerleading</option>
+    <option value="ballerina">Dance</option>
+    <option value="american-football">Football</option>
+    <option value="golf">Golf</option>
+    <option value="rings">Gymnastics</option>
+    <option value="hockey">Hockey</option>
+    <option value="lacrosse">Lacrosse</option>
+    <option value="motorbike">Motocross</option>
+    <option value="jogging">Running</option>
+    <option value="skateboard">Skateboarding</option>
+    <option value="soccer">Soccer</option>
+    <option value="swimming">Swimming</option>
+    <option value="frisbee">Ultimate Frisbee</option>
+    <option value="volleyball">Volleyball</option>
+    {{/select}}
+  </select>
+
+</div>
+<div id="sport{{id}}Box" class="input-group input-group-sm mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Position</span>
+  </div>
+  <input id="sport{{id}}Position" type="text" placeholder="{{positionPlaceholder}}" class="form-control"
+    aria-label="Small" aria-describedby="inputGroup-sizing-default" value="{{position}}">
+</div>
