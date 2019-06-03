@@ -34,6 +34,17 @@
 </form>
 
 <script>
+  document.addEventListener("DOMContentLoaded", event => {
+    $('#js_send').on('click', e => {
+      alert('Message sent!');
+      $('#subject').val('');
+      $('#message').val('');
+    })
+  });
+</script>
+
+{{!--
+<script>
 
   //update this with your js_form selector
   var form_id_js = "javascript_form";
@@ -105,10 +116,8 @@
     //    return response
     //})   
     //}
-
-
-
 </script>
+--}}
 
 {{!--
 <form class="container" action='/'>
