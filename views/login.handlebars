@@ -1,41 +1,124 @@
 <style>
-.custom-form {
-  padding: 40px;
-  max-width: 600px;
-  margin: 40px auto;
-  box-shadow: 0 0 2px 1px lightgray;  
-  text-align: center;
-}
+    .custom-form {
+        padding: 4rem;
+        max-width: 60rem;
+        margin: 4rem auto;
+        box-shadow: 0 0 0.2rem 0.1rem lightgray;
+        text-align: center;
+    }
+
+    .container {
+        margin-top: 8rem;
+    }
 </style>
 
-{{> navbar}}
+<div class="container">
+    <div class="text-center">
+        <img srcset="/images/logo-170w.png 170w,
+             /images/logo-280w.png 280w,
+             /images/logo-375w.png 375w" sizes="(min-width: 450px) 350px, 250px" src="/images/logo.png" alt="Logo">
+    </div>
 
-<div class="container mt-4">
+    <h2 id="loginBanner" class="mt-5 text-center">Log In</h2>
+    <h2 id="signupBanner" class="mt-5 text-center">Sign Up</h2>
 
-    <h1 class="text-center mb-5">Log In</h1>
-
-    <form class="custom-form" action="/">
+    <form id="loginForm" class="custom-form" action="/">
+        <div class="input-group mb-5">
+            <div class="input-group-prepend">
+                <span class="input-group-text custom-form__group-text">Username</span>
+            </div>
+            <input id="loginUsername" type="text" class="form-control" aria-label="Username"
+                aria-describedby="username">
+        </div>
 
         <div class="input-group mb-5">
             <div class="input-group-prepend">
-                <span class="input-group-text custom-form__group-text" id="username">Username</span>
+                <span class="input-group-text custom-form__group-text">Password</span>
             </div>
-            <input type="text" class="form-control" aria-label="Username" aria-describedby="username">
+            <input id="loginPassword" type="password" class="form-control" aria-label="Password"
+                aria-describedby="password">
+        </div>
+
+        <button id="loginButton" type="button" class="btn btn-primary loginButton">Log In</button>
+        <button id="signupButton" type="button" class="btn btn-outline-primary signupButton">Sign Up</button>
+    </form>
+
+    <form id="signupForm" class="custom-form" action="/">
+        <div class="input-group mb-5">
+            <div class="input-group-prepend">
+                <span class="input-group-text custom-form__group-text">Username</span>
+            </div>
+            <input id="username" type="text" class="form-control" aria-label="Username" aria-describedby="username">
         </div>
 
         <div class="input-group mb-5">
             <div class="input-group-prepend">
-                <span class="input-group-text custom-form__group-text" id="password">Password</span>
+                <span class="input-group-text custom-form__group-text">Password</span>
             </div>
-            <input type="password" class="form-control" aria-label="Password" aria-describedby="password">
+            <input id="password" name="password" type="password" class="form-control" aria-label="Password"
+                aria-describedby="password">
         </div>
 
-        <input type="submit" class="btn btn-primary mb-3" value="Sign In" />
-
-        <a href="">
-            <p>Forgot password?</p>
-        </a>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <span class="input-group-text">Confirm Password</span>
+            </div>
+            <input id="passwordConfirm" name="passwordConfirm" type="password" class="form-control"
+                aria-label="Password" aria-describedby="password">
         </div>
 
+        <div class="custom-form__message mb-5">
+            <div id="message"></div>
+        </div>
+
+        <button type="button" class="btn btn-outline-primary loginButton">Log In</button>
+        <button type="button" class="btn btn-primary signupButton">Sign Up</button>
     </form>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", event => {
+        $('#signupBanner').hide();
+        $('#signupForm').hide();
+        $('#alert').hide();
+
+        $('#loginForm .loginButton').click(() => {
+            if ($('#loginUsername').val() !== '' && $('#loginPassword').val() !== '') {
+                window.location.href = '/';
+            }
+            else {
+                alert('Please enter a username and password.');
+            }
+        });
+
+        $('#loginForm .signupButton').click(() => {
+            $('#loginBanner').hide();
+            $('#loginForm').hide();
+            $('#signupForm').show()
+            $('#signupBanner').show();
+        });
+
+        $('#signupForm .loginButton').click(() => {
+            $('#loginBanner').show();
+            $('#loginForm').show();
+            $('#signupForm').hide()
+            $('#signupBanner').hide();
+        })
+
+        $('#password, #passwordConfirm').on('keyup', function () {
+            if ($('#password').val() !== '' && $('#password').val() == $('#passwordConfirm').val()) {
+                $('#message').replaceWith("<p id='message' style='color: green;'>Passwords match.</p>");
+            } else
+                $('#message').replaceWith("<p id='message' style='color: red;'>Passwords do not match.</p>");
+        });
+
+        $('#signupForm .signupButton').click(() => {
+            if ($('#username').val() !== '' && $('#password').val() !== '' && $('#passwordConfirm').val() !== '') {
+                window.location.href = '/';
+            }
+            else {
+                alert('Please enter a username and password.');
+            }
+        });
+    });
+</script>

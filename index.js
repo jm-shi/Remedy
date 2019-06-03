@@ -8,6 +8,7 @@ const { Client } = require('pg');
 const doctorController = require('./controllers/doctor');
 const injuryLogController = require('./controllers/injuryLog');
 const injuryListController = require('./controllers/injuryList');
+const mapController = require('./controllers/map');
 
 // Routes
 const doctor = require('./routes/doctor');
@@ -20,12 +21,7 @@ const pharmacy = require('./routes/pharmacy');
 const profile = require('./routes/profile');
 const fetch = require('node-fetch');
 const yelp = require('yelp-fusion');
-
-const searchRequest = {
-  term: 'pharmacy',
-  location: 'La Jolla',
-  categories: 'pharmacy'
-};
+const help = require('./routes/help');
 
 require('dotenv').config();
 
@@ -37,7 +33,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const yelp_Client = yelp.client(process.env.YELP_API_KEY);
+const yelpClient = yelp.client(process.env.YELP_API_KEY);
 
 handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
@@ -49,6 +45,14 @@ handlebars.registerHelper('toLowerCase', function(x) {
 
 handlebars.registerHelper('ifEquals', function(x, y, options) {
   return x === y ? options.fn(this) : options.inverse(this);
+});
+
+// Set a selected select option in Handlebars template
+// Source: https://stackoverflow.com/questions/13046401/how-to-set-selected-select-option-in-handlebars-template
+handlebars.registerHelper('select', function(selected, options) {
+  return options
+    .fn(this)
+    .replace(new RegExp(' value="' + selected + '"'), '$& selected="selected"');
 });
 
 let client;
@@ -77,6 +81,9 @@ pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
 // app.get('/common-injuries', injuryInfo.viewCommonInjuries);
+
+app.get('/geodata/:address', mapController.getGeoData);
+
 app.get(
   '/common-injuries/:id',
   (req, res, next) => {
@@ -115,20 +122,34 @@ app.get(
   },
   pharmacy.viewPharmacyDetails
 );
+
 app.get('/pharmacy-data', (req, res) => {
-  yelp_Client
+  const location = req.query.address;
+  const latitude = req.query.lat;
+  const longitude = req.query.lng;
+  const sortByType = req.query.sortByType;
+  const searchRequest = {
+    term: 'pharmacy',
+    latitude,
+    longitude,
+    categories: 'pharmacy',
+    limit: 10,
+    sort_by: sortByType || 'best_match'
+  };
+  console.log('searchRequest', searchRequest);
+  yelpClient
     .search(searchRequest)
     .then(response => {
       res.send(response.body);
     })
     .catch(error => {
-      console.log(error);
+      console.log('Error with getting pharmacy data:', error);
     });
 });
 app.get('/pharmacy-data/:id', (req, res) => {
   const pharmacyId = req.params.id;
 
-  yelp_Client
+  yelpClient
     .business(pharmacyId)
     .then(response => {
       res.send(response.body);
@@ -142,6 +163,8 @@ app.get('/pharmacy-data/:id', (req, res) => {
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
 
+app.get('/help', help.view);
+
 app.get('/doctor-data', doctorController.getDoctorData);
 app.get('/doctor-data/:id', doctorController.getIndividualDoctorData);
 
@@ -150,6 +173,7 @@ app.post('/add-injury', injuryLogController.addInjury);
 app.post('/update-injury', injuryLogController.updateInjury);
 app.delete('/injury/:id', injuryLogController.deleteInjury);
 app.post('/complete-injury/:id', injuryLogController.completeInjury);
+app.post('/uncomplete-injury/:id', injuryLogController.uncompleteInjury);
 app.get('/view-logs/:injury_id', injuryLogController.viewLogs);
 app.post('/add-log', injuryLogController.addLog);
 app.post('/update-log', injuryLogController.updateLog);

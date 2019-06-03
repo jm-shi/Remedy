@@ -1,0 +1,34 @@
+// .profile {
+//   padding: 1rem;
+//   max-width: 70rem;
+//   margin: 1rem;
+//   box-shadow: 0 0 0 0.1rem lightgray;
+//   text-align: center;
+// }
+
+textarea:required:invalid,
+input:required:invalid {
+  background-color: lightyellow;
+}
+
+.profile-icon {
+  font-size: 10rem !important;
+  padding: 1rem !important;
+}
+
+.sport-icon {
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+}
+
+.sport-box {
+  margin-top: 0.5rem;
+}
+
+.invalid-input {
+  border: 0.1rem solid #a52c2c !important;
+}
+
+.error-message {
+  color: #a52c2c;
+}

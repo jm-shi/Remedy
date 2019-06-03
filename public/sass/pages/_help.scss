@@ -1,0 +1,18 @@
+.collapsible {
+  background-color: rgb(52, 58, 64);
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 0.1rem;
+}
+
+.content {
+  padding: 1rem 1rem 0 1rem;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}

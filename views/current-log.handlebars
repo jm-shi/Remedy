@@ -1,7 +1,7 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<h2 class="text-center mb-5">Current Injuries Log</h2>
+<h3 class="text-center mb-5">Current Injuries Log</h3>
 
 <div class="container mb-4">
   <ul class="nav nav-pills nav-fill">
@@ -130,10 +130,10 @@ saveInputType="button" saveInputClass="update-log-save" saveInputValue="Save"
                 ${timeString}
               </div>
               <div class="log-item__text">
-                  ${content}
+                ${content}
               </div>
               <div class="log-item__buttons">
-                <button class="btn btn-info update-log-icon" data-toggle="modal" data-log_id=${logId} data-injury_id=${injuryId} data-content=${content} data-target="#updateLogModal">
+                <button class="btn btn-info update-log-icon" data-toggle="modal" data-log_id=${logId} data-injury_id=${injuryId} data-content="${content}" data-target="#updateLogModal">
                   <i class="fa fa-edit" aria-hidden="true"></i>
                 </button>
                 <button class="btn btn-danger delete-log" data-id=${logId}>
@@ -305,5 +305,10 @@ saveInputType="button" saveInputClass="update-log-save" saveInputValue="Save"
         $('#update-expected-recovery-date').val(recover_date_formatted);
       }
     });
+
+    $('.add-log').on('click', function () {
+      $('#update-log').val($(this).data('log2'));
+    });
+
   });
 </script>

@@ -1,6 +1,9 @@
 .custom-form {
-  .custom-form__group-text {
-    width: 10rem;
+  &__group-text {
     text-align: center;
+  }
+  &__message {
+    text-align: left;
+    font-size: 1.4rem;
   }
 }

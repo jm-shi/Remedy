@@ -9,8 +9,10 @@ exports.getInjuries = (req, res) => {
 
 exports.addInjury = (req, res) => {
   this.client.query(
-    'INSERT INTO injury (name, is_current, description, log1) VALUES ($1, $2, $3, $4)',
-    [req.body.name, true, req.body.description, req.body.log1]
+    'INSERT INTO injury (name, is_current, description) VALUES ($1, $2, $3)',
+    [req.body.name, true, req.body.description],
+    'INSERT INTO log (content) VALUES ($1,$2)',
+    [req.body.content]
   );
   console.log('Adding injury...');
   res.redirect('/current-log');

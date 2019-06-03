@@ -12,7 +12,11 @@
     <div class="col-md-8">
       <div class="card-body">
         <h5 class="card-title">{{business-name}}</h5>
-        <img class="card__ratings" src="https://asset2.betterdoctor.com/assets/consumer/stars/stars-small-3.5.png">
+        {{#if rating}}
+        <img class="card__ratings" src="images/stars/{{rating}}.png">
+        {{else}}
+        <div class="mb-2">No rating</div>
+        {{/if}}
         {{#if is-doctor}}
         <p class="card-text">
           <strong>Specialties</strong><br>

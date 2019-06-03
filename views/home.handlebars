@@ -1,25 +1,28 @@
-{{> navbar}}
+{{> navbar no-logo="true"}}
 
 <div class="mt-4 text-center">
-  <h1>Welcome, {{name}}!</h1>
-  <h4>What would you like to do?</h4>
+  <img srcset="/images/logo-170w.png 170w,
+             /images/logo-280w.png 280w,
+             /images/logo-375w.png 375w" sizes="(min-width: 450px) 350px, 250px" src="/images/logo.png" alt="Logo">
+  <h2>Welcome, {{name}}!</h2>
+  <h5>What would you like to do?</h5>
 </div>
 
 <div class="container gallery">
   <div class="row">
-    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--fat-grey" href="/current-log">
-      <img src="/images/notebook.png" width="50px" height="50px">
-      Injury Logs
-    </a>
-    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--fat-grey" href="/injury-list">
+    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--grey" href="/injury-list">
       <img src="/images/list.png" width="50px" height="50px">
       Injury List
     </a>
-    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--fat-grey" href="/map">
+    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--grey" href="/current-log">
+      <img src="/images/notebook.png" width="50px" height="50px">
+      Injury Logs
+    </a>
+    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--grey" href="/map">
       <img src="/images/map-location.png" width="50px" height="50px">
       Map
     </a>
-    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--fat-grey" href="/contact-doctor">
+    <a class="col-xs-12 col-sm-5 gallery__item gallery__item--grey" href="/contact-doctor">
       <img src="/images/phone-book.png" width="50px" height="50px">
       Contact Doctor
     </a>

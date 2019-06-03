@@ -1,56 +1,316 @@
-<style>
-    .profile{
-        padding: 10px;
-        max-width: 700px;
-        margin: 10px;
-        box-shadow: 0 0 0 1px lightgray;  
-        text-align: center;
-    }
-</style>
-
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
 <div class="container">
-    <h5>User Profile</h5>
-    <div class="profile">
-        <div class="row">
-            <div class="col-sm-3" align="center">
-                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="125px"
-                    height="125px">
-            </div>
-            <div class="col-sm-3" align="center">
-                <br>
-                <h6>Johnny Appleseed</h6>
-                <p>jappleseed@email.com</p>
-                <p>San Diego, California</p>
-            </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-3">
-                <h5>Sports</h5>
-                <p><img src="/images/basketball.png" height="25px" width="25px"> - Center</p>
-                <p><img src="/images/baseball.png" height="25px" width="25px"> - Pitcher</p>
-                <p><img src="/images/swimming.png" height="25px" width="25px"> - 200m</p>
-            </div>
-        </div>
+    <h3 class="text-center">User Profile</h3>
+
+    <div class="mb-3" align="right">
+        <button id="edit" class="btn btn-primary">Edit Profile</button>
+        <button id="save" class="btn btn-success">Save Profile</button>
     </div>
-    <br>
-    <div class="profile">
-        <div class="row" align="center">
-            <div class="col-sm-3">
-                <h5>Your Doctor</h5>
-                <br>
-                <img src="https://paraklesiscounselling.com/wp-content/uploads/2017/04/My-Account-Icon.jpg" width="75"
-                    height="75">
+
+    <div class="error-message mb-3"></div>
+
+    <div class="card mb-3">
+        <h4 class="mt-3 ml-3">You</h4>
+
+        <div class="row no-gutters">
+            <div class="col-xs-12 col-md-auto align-self-center text-center">
+                <i class="fa fa-user-circle profile-icon"></i>
             </div>
-            <div class="col-sm-3" align="center">
-                <br><br>
-                <a href="/doctor/001f60172493d3546f7869f4b8bad742"><h6>Dr. Jason Snitzer</h6></a>
-                <p>(222) 733 8273</p>
-                <p>UCSD Hospital</p>
+            <div class="col align-self-center">
+                <div class="card-block p-3">
+                    <h5 class="card-title mb-3" id="name"></h5>
+                    <div id="nameBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Name</span>
+                        </div>
+                        <input id="nameInput" type="text" placeholder="John Appleseed" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="card-text mb-3" id="email"></div>
+                    <div id="emailBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Email</span></div>
+                        <input id="emailInput" type="text" placeholder="johnappleseed@gmail.com" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="card-text mb-3" id="location"></div>
+                    <div id="locationBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Location</span></div>
+                        <input id="locationInput" type="text" placeholder="San Digeo, California" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <!-- end card-block -->
             </div>
+            <!-- end col -->
         </div>
+        <!-- end row -->
+    </div>
+    <!-- end card -->
+</div>
+<!-- end container -->
+
+<div class="container mb-3">
+    <div class="card">
+        <h4 class="mt-3 ml-3">Your doctor</h4>
+        <div class="row no-gutters">
+            <div class="col-xs-12 col-md-auto align-self-center text-center">
+                <i class="fa fa-user-circle" style="font-size: 10rem; padding: 1rem;"></i>
+            </div>
+            <div class="col align-self-center">
+                <div class="card-block p-3">
+                    <h5 class="mb-3" id="doctorName">Dr. Jason Snitzer</h5>
+                    <div id="doctorBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Doctor Name</span>
+                        </div>
+                        <input id="doctorInput" type="text" placeholder="Dr. Jason Snitzer" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="mb-3" id="doctorPhone">222 733 8273</div>
+                    <div id="doctorPhoneBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Phone Number</span>
+                        </div>
+                        <input id="doctorPhoneInput" type="tel" placeholder="888 888 8888"
+                            pattern="[0-9]{3} [0-9]{3} [0-9]{4}" maxlength="12" title="Ten digits required" required
+                            class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+
+                    <div class="mb-3" id="doctorLocation">UCSD Hospital</div>
+                    <div id="doctorLocationBox" class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">Hospital</span>
+                        </div>
+                        <input id="doctorLocationInput" type="text" placeholder="Scripps Hospital" class="form-control"
+                            aria-label="Small" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end card -->
+</div>
+<!-- end container -->
+
+<div class="container mb-5">
+    <div class="card p-3">
+        <h4 class="mb-3">Your sports</h4>
+        {{> sport-box id="1" sport="basketball" position="Center" positionPlaceholder="Center"}}
+        {{> sport-box id="2" sport="baseball" position="Pitcher" positionPlaceholder="Pitcher"}}
+        {{> sport-box id="3" sport="swimming" position="200m" positionPlaceholder="200m"}}
     </div>
 </div>
+
+<script>
+    const displayUserInputData = () => {
+        const userName = document.getElementById('name');
+        const userNameValue = localStorage.getItem(`remedy__name`) || 'Johnny Appleseed';
+        userName.innerHTML = userNameValue;
+
+        const userEmail = document.getElementById('email');
+        const userEmailValue = localStorage.getItem(`remedy__email`) || 'jappleseed@gmail.com';
+        userEmail.innerHTML = userEmailValue;
+
+        const userLocation = document.getElementById('location');
+        const userLocationValue = localStorage.getItem(`remedy__location`) || 'San Diego, California';
+        userLocation.innerHTML = userLocationValue;
+
+        const doctorName = document.getElementById('doctorName');
+        const doctorNameValue = localStorage.getItem(`remedy__doctorName`) || 'Dr. Jason Snitzer';
+        doctorName.innerHTML = doctorNameValue;
+
+        const doctorPhone = document.getElementById('doctorPhone');
+        const doctorPhoneValue = localStorage.getItem(`remedy__doctorPhone`) || '222 777 8273';
+        doctorPhone.innerHTML = doctorPhoneValue;
+
+        const doctorLocation = document.getElementById('doctorLocation');
+        const doctorLocationValue = localStorage.getItem(`remedy__doctorLocation`) || 'UCSD Hospital';
+        doctorLocation.innerHTML = doctorLocationValue;
+    }
+
+    const displaySportsUserPlays = () => {
+        for (let i = 1; i <= 3; i++) {
+            const sport = document.getElementById(`sportSelect${i}`);
+            let userSport = localStorage.getItem(`remedy__sport${i}Name`) || sport.options[sport.selectedIndex].value;;
+            const sportInfo = document.getElementById(`sport${i}`);
+
+            if (sportInfo !== null) {
+                sportInfo.style.display = 'block';
+                if (userSport === 'none') {
+                    $(`#sport${i}`).html('<div></div>');
+                    sportInfo.innerHTML = '<div></div>';
+                } else {
+                    const sportPosition = document.getElementById(`sport${i}Position`);
+                    // First check if sport position info is stored on user's machine. If no info is saved to
+                    // localStorage, display the default sport position
+                    if (sportPosition) {
+                        let sportPositionValue = localStorage.getItem(`remedy__sport${i}PositionValue`);
+
+                        if (!sportPositionValue) {
+                            sportPositionValue = sportPosition.value;
+                        }
+                        if (sportPositionValue) {
+                            sportInfo.innerHTML = `
+                            <div id='sport${i}' class='sport-box'>
+                                <img src='/images/${userSport}.png' class='sport-icon'>
+                                - ${sportPositionValue} 
+                            </div>
+                        `;
+                        } else {
+                            sportInfo.innerHTML = `
+                            <div id='sport${i}' class='sport-box'>
+                                <img src='/images/${userSport}.png' class='sport-icon'>
+                            </div>
+                        `;
+                        }
+                    }
+                }
+                // end if (userSport === 'none')
+            } // end if (sportInfo)
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", event => {
+        displayUserInputData();
+        displaySportsUserPlays();
+
+        $('#save').hide();
+        $('#nameBox').hide();
+        $('#emailBox').hide();
+        $('#locationBox').hide();
+        $('#sport1Dropdown').hide();
+        $('#sport1Box').hide();
+        $('#sport2Dropdown').hide();
+        $('#sport2Box').hide();
+        $('#sport3Dropdown').hide();
+        $('#sport3Box').hide();
+        $('#doctorBox').hide();
+        $('#doctorPhoneBox').hide();
+        $('#doctorLocationBox').hide();
+
+        // Edit profile
+        $('#edit').click(() => {
+            $('#nameBox').show();
+            $('#nameInput').val($('#name').text()); // Show current name
+            $('#name').hide();
+
+            $('#emailBox').show();
+            $('#emailInput').val($('#email').text()); // Show current email
+            $('#email').hide();
+
+            $('#locationBox').show();
+            $('#locationInput').val($('#location').text()); // Show current location
+            $('#location').hide();
+
+            $('#sport1Dropdown').show();
+            const sport1Name = localStorage.getItem('remedy__sport1Name') || $('#sportSelect1').val();
+
+            $('#sportSelect1').val(sport1Name);
+            const sport1Position = localStorage.getItem('remedy__sport1PositionValue') || $('#sport1Position').val();
+            $('#sport1Position').val(sport1Position);
+            $('#sport1Box').show();
+            $('#sport1').hide();
+
+            $('#sport2Dropdown').show();
+            const sport2Name = localStorage.getItem('remedy__sport2Name') || $('#sportSelect2').val();
+            $('#sportSelect2').val(sport2Name);
+            const sport2Position = localStorage.getItem('remedy__sport2PositionValue') || $('#sport2Position').val();
+            $('#sport2Position').val(sport2Position);
+            $('#sport2Box').show();
+            $('#sport2').hide();
+
+            $('#sport3Dropdown').show();
+            const sport3Name = localStorage.getItem('remedy__sport3Name') || $('#sportSelect3').val();
+            $('#sportSelect3').val(sport3Name);
+            const sport3Position = localStorage.getItem('remedy__sport3PositionValue') || $('#sport3Position').val();
+            $('#sport3Position').val(sport3Position);
+            $('#sport3Box').show();
+            $('#sport3').hide();
+
+            $('#doctorInput').val($('#doctorName').text()); // Show current doctor name
+            $('#doctorBox').show();
+            $('#doctorName').hide();
+
+            $('#doctorPhoneBox').show();
+            $('#doctorPhoneInput').val($('#doctorPhone').text());
+            $('#doctorPhone').hide();
+
+            $('#doctorLocationBox').show();
+            $('#doctorLocationInput').val($('#doctorLocation').text());
+            $('#doctorLocation').hide();
+
+            $('#edit').hide();
+            $('#save').show();
+        });
+
+        // Save profile
+        $('#save').click(() => {
+            if ($('#nameInput').val() != '') {
+                $('.error-message').text('');
+                $('#nameInput').removeClass('invalid-input');
+
+                $('#nameBox').hide();
+                $('#name').show();
+                $('#name').text(`${$('#nameInput').val()}`);
+                localStorage.setItem('remedy__name', $('#nameInput').val());
+
+                $('#emailBox').hide();
+                $('#email').show();
+                $('#email').text(`${$('#emailInput').val()}`);
+                localStorage.setItem('remedy__email', $('#emailInput').val());
+
+                $('#locationBox').hide();
+                $('#location').show();
+                $('#location').text(`${$('#locationInput').val()} `);
+                localStorage.setItem('remedy__location', $('#locationInput').val());
+
+                $('#doctorName').show();
+                $('#doctorName').text(`${$('#doctorInput').val()}`);
+                $('#doctorBox').hide();
+                localStorage.setItem('remedy__doctorName', $('#doctorInput').val());
+
+                $('#doctorPhoneBox').hide();
+                $('#doctorPhone').show();
+                $('#doctorPhone').text(`${$('#doctorPhoneInput').val()} `);
+                localStorage.setItem('remedy__doctorPhone', $('#doctorPhoneInput').val());
+
+                $('#doctorLocationBox').hide();
+                $('#doctorLocation').show();
+                $('#doctorLocation').text(`${$('#doctorLocationInput').val()}`);
+                localStorage.setItem('remedy__doctorLocation', $('#doctorLocationInput').val());
+
+                $('#edit').show();
+                $('#save').hide();
+
+                $('#sport1Box').hide();
+                $('#sport1Dropdown').hide();
+                $('#sport2Box').hide();
+                $('#sport2Dropdown').hide();
+                $('#sport3Box').hide();
+                $('#sport3Dropdown').hide();
+                localStorage.setItem('remedy__sport1Name', $('#sportSelect1').val());
+                localStorage.setItem('remedy__sport2Name', $('#sportSelect2').val());
+                localStorage.setItem('remedy__sport3Name', $('#sportSelect3').val());
+                localStorage.setItem('remedy__sport1PositionValue', $('#sport1Position').val());
+                localStorage.setItem('remedy__sport2PositionValue', $('#sport2Position').val());
+                localStorage.setItem('remedy__sport3PositionValue', $('#sport3Position').val());
+
+                displaySportsUserPlays();
+            } else {
+                $('.error-message').text('Please enter your name');
+                $('#nameInput').addClass('invalid-input');
+            }
+        });
+
+    });
+
+</script>

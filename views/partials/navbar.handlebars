@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-sm navbar-light bg-light sticky-top">
-  <a class="navbar-brand" href="/">Remedy</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+  <a class="navbar-brand" href="/">
+    {{#if no-logo}}
+    {{else}}
+    <img src="/images/logo.png" width="170" alt="Remedy"
+      onerror="this.onerror=null; this.src='/images/logo.png'; this.width=170;">
+    {{/if}}
+  </a>
+  <button class=" navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -12,6 +18,9 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/profile">Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/help">Help</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/login">Logout</a>
