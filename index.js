@@ -8,6 +8,7 @@ const { Client } = require('pg');
 const doctorController = require('./controllers/doctor');
 const injuryLogController = require('./controllers/injuryLog');
 const injuryListController = require('./controllers/injuryList');
+const pharmacyController = require('./controllers/pharmacy');
 const mapController = require('./controllers/map');
 
 // Routes
@@ -19,8 +20,6 @@ const login = require('./routes/login');
 const map = require('./routes/map');
 const pharmacy = require('./routes/pharmacy');
 const profile = require('./routes/profile');
-const fetch = require('node-fetch');
-const yelp = require('yelp-fusion');
 const help = require('./routes/help');
 
 require('dotenv').config();
@@ -32,8 +31,6 @@ app.set('view engine', 'handlebars');
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
-const yelpClient = yelp.client(process.env.YELP_API_KEY);
 
 handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
@@ -123,43 +120,9 @@ app.get(
   pharmacy.viewPharmacyDetails
 );
 
-app.get('/pharmacy-data', (req, res) => {
-  const location = req.query.address;
-  const latitude = req.query.lat;
-  const longitude = req.query.lng;
-  const sortByType = req.query.sortByType;
-  const searchRequest = {
-    term: 'pharmacy',
-    latitude,
-    longitude,
-    categories: 'pharmacy',
-    limit: 10,
-    sort_by: sortByType || 'best_match'
-  };
-  console.log('searchRequest', searchRequest);
-  yelpClient
-    .search(searchRequest)
-    .then(response => {
-      res.send(response.body);
-    })
-    .catch(error => {
-      console.log('Error with getting pharmacy data:', error);
-    });
-});
-app.get('/pharmacy-data/:id', (req, res) => {
-  const pharmacyId = req.params.id;
+app.get('/pharmacy-data', pharmacyController.getPharmacyData);
+app.get('/pharmacy-data/:id', pharmacyController.getSinglePharmacyData);
 
-  yelpClient
-    .business(pharmacyId)
-    .then(response => {
-      res.send(response.body);
-    })
-    .catch(error => {
-      console.log(error);
-    });
-});
-
-//app.get('/pharmacy', pharmacy.view);
 app.get('/previous-log', injuryLog.viewPrevious);
 app.get('/profile', profile.view);
 
