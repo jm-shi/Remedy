@@ -16,9 +16,12 @@
       opacity: 0.5;
     }
 
-    &--fat-grey {
+    &--grey {
       background-color: rgba($grey, 0.7);
-      padding: 5rem;
+      padding: 1.5rem;
+      @media #{$large-screen} {
+        padding: 5rem;
+      }
       &:hover {
         text-decoration: none;
         background-color: darken(rgba($grey, 0.7), 80%);
