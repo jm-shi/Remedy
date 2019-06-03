@@ -1,7 +1,10 @@
 {{> navbar no-logo="true"}}
 
 <div class="mt-4 text-center">
-  <img src="/images/logo.png" alt="Remedy" height="100">
+  <!-- If viewport width >= 450px, show logo as 350px wide. Else show logo as 250px wide -->
+  <img srcset="/images/logo-170w.png 170w,
+             /images/logo-280w.png 280w,
+             /images/logo-375w.png 375w" sizes="(min-width: 450px) 350px, 250px" src="/images/logo.png" alt="Logo">
   <h1>Welcome, {{name}}!</h1>
   <h4>What would you like to do?</h4>
 </div>
