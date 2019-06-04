@@ -1,3 +1,9 @@
+/*
+ * pharmacy.js
+ * Fetches pharmacy data from the Yelp API. Used to display a list of pharmacies on the
+ * map screen, as well as to display individual pharmacies on the pharmacy details screen.
+ */
+
 const yelp = require('yelp-fusion');
 
 exports.getPharmacyData = (req, res) => {

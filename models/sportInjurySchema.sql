@@ -1,3 +1,9 @@
+/*
+ * injuryLogSchema.sql
+ * Specifies how popular sports and their associated injuries are 
+ * structured/linked in the Postgres database.
+ */
+
 CREATE TABLE sport (
   sport_id SERIAL PRIMARY KEY,
   sport_name TEXT NOT NULL,

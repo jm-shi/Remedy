@@ -1,3 +1,8 @@
+/*
+ * doctor.js
+ * Renders the contact doctor page and doctor details page.
+ */
+
 exports.viewContactDoctor = (req, res) => {
   res.render('contact-doctor', {
     title: 'Contact Doctor'

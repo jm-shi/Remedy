@@ -1,3 +1,9 @@
+/*
+ * doctor.js
+ * Fetches doctor data from the BetterDoctor API. Used to display a list of doctors on the
+ * map screen, as well as to display individual doctors on the doctor details screen.
+ */
+
 const fetch = require('node-fetch');
 
 exports.getDoctorData = (req, res) => {
@@ -24,7 +30,7 @@ exports.getDoctorData = (req, res) => {
   });
 };
 
-https: exports.getIndividualDoctorData = (req, res) => {
+exports.getIndividualDoctorData = (req, res) => {
   const doctorId = req.params.id;
   fetch(
     `https://api.betterdoctor.com/2016-03-01/doctors/${doctorId}?user_key=${

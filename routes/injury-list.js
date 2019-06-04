@@ -1,9 +1,14 @@
+/*
+ * injury-list.js
+ * Gets common injuries from Postgres and renders the page displaing list of common injuries.
+ * Also gets a specified injury from Postgres and renders the injury details page.
+ */
+
 exports.viewAll = (req, res) => {
   this.client.query('SELECT * FROM sport', (error, results) => {
     if (error) {
       return console.log('Error fetching injury list', error);
     }
-    // console.log('Current injury list results:', results.rows);
 
     res.render('injury-list', {
       title: 'Injury Information',

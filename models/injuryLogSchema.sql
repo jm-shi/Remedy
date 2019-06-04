@@ -1,3 +1,8 @@
+/*
+ * injuryLogSchema.sql
+ * Specifies how the injury log items are structured in the Postgres database.
+ */
+
 CREATE TABLE injury (
     injury_id SERIAL NOT NULL PRIMARY KEY,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -16,10 +21,3 @@ CREATE TABLE log (
     content TEXT NOT NULL,
     FOREIGN KEY (injury_id) REFERENCES injury(injury_id) ON DELETE CASCADE
 );
-
--- INSERT INTO injury (name, is_current, description)
--- VALUES ('Knee sprain', false, 'Knee sprain description');
-
--- GRANT ALL PRIVILEGES ON DATABASE remedy TO jamie;
--- GRANT ALL PRIVILEGES ON TABLE injury TO jamie;
--- GRANT ALL ON SEQUENCE injury_injury_id_seq TO jamie;

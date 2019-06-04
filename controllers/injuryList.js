@@ -1,6 +1,13 @@
+/*
+ * injuryList.js
+ * Retrieves information about sports and common injuries from the Postgres database.
+ * These functions are called when the user utilizes the search bar in the injury list screens.
+ */
+
 exports.searchSports = (req, res) => {
   const searchQuery = req.params.query;
 
+  // Autocomplete search for sports
   let sportsToSearch =
     searchQuery === undefined || searchQuery === ''
       ? `SELECT s.sport_id, s.sport_name, s.sport_image_url FROM sport s;`
@@ -18,6 +25,7 @@ exports.searchCommonInjuries = (req, res) => {
   const sportId = req.query.sportId;
   const searchQuery = req.query.searchQuery;
 
+  // Autocomplete search for common injuries
   let commonInjuriesToSearch =
     searchQuery === undefined || searchQuery === ''
       ? `SELECT 

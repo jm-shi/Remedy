@@ -1,3 +1,8 @@
+/*
+ * index.js
+ * Handles app startup and defines routes.
+ */
+
 const express = require('express');
 const exphbs = require('express-handlebars');
 const bodyParser = require('body-parser');
@@ -32,6 +37,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// Used to concatenate a string and a variable in a Handlebars partial
 handlebars.registerHelper('concat', function(x, y) {
   return `${x}/${y}`;
 });
@@ -73,8 +79,6 @@ injuryLogController.client = client;
 injuryListController.client = client;
 injuryLog.client = client;
 injuryInfo.client = client;
-
-pharmacy.yelp_api_key = process.env.YELP_API_KEY;
 
 app.get('/', home.view);
 // app.get('/common-injuries', injuryInfo.viewCommonInjuries);

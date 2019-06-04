@@ -1,3 +1,9 @@
+/*
+ * injuryLog.js
+ * Handles the create/read/update/delete functionality for injury logs.
+ * All changes are reflected in the Postgres database.
+ */
+
 exports.getInjuries = (req, res) => {
   this.client.query('SELECT * FROM injury', (error, results) => {
     if (error) {
@@ -42,6 +48,7 @@ exports.updateInjury = (req, res) => {
   res.redirect('/current-log');
 };
 
+// Move a current injury to the list of previous injuries
 exports.completeInjury = (req, res) => {
   this.client.query(
     'UPDATE injury SET is_current=$1, resolved_at=$2 WHERE injury_id = $3',
@@ -50,6 +57,7 @@ exports.completeInjury = (req, res) => {
   res.redirect('/current-log');
 };
 
+// Move a previous injury back to the list of current injuries
 exports.uncompleteInjury = (req, res) => {
   this.client.query('UPDATE injury SET is_current=$1 WHERE injury_id = $2', [
     true,
@@ -58,6 +66,7 @@ exports.uncompleteInjury = (req, res) => {
   res.redirect('/previous-log');
 };
 
+// Add a note to an injury's history log
 exports.addLog = (req, res) => {
   this.client.query('INSERT INTO log (injury_id, content) VALUES ($1, $2)', [
     req.body.injuryId,
