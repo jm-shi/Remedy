@@ -119,27 +119,27 @@
 <script>
     const displayUserInputData = () => {
         const userName = document.getElementById('name');
-        const userNameValue = localStorage.getItem(`remedy__name`) || 'Johnny Appleseed';
+        const userNameValue = localStorage.getItem('remedy__name') || 'Johnny Appleseed';
         userName.innerHTML = userNameValue;
 
         const userEmail = document.getElementById('email');
-        const userEmailValue = localStorage.getItem(`remedy__email`) || 'jappleseed@gmail.com';
+        const userEmailValue = localStorage.getItem('remedy__email') || 'jappleseed@gmail.com';
         userEmail.innerHTML = userEmailValue;
 
         const userLocation = document.getElementById('location');
-        const userLocationValue = localStorage.getItem(`remedy__location`) || 'San Diego, California';
+        const userLocationValue = localStorage.getItem('remedy__location') || 'San Diego, California';
         userLocation.innerHTML = userLocationValue;
 
         const doctorName = document.getElementById('doctorName');
-        const doctorNameValue = localStorage.getItem(`remedy__doctorName`) || 'Dr. Jason Snitzer';
+        const doctorNameValue = localStorage.getItem('remedy__doctorName') || 'Dr. Jason Snitzer';
         doctorName.innerHTML = doctorNameValue;
 
         const doctorPhone = document.getElementById('doctorPhone');
-        const doctorPhoneValue = localStorage.getItem(`remedy__doctorPhone`) || '222 777 8273';
+        const doctorPhoneValue = localStorage.getItem('remedy__doctorPhone') || '222 777 8273';
         doctorPhone.innerHTML = doctorPhoneValue;
 
         const doctorLocation = document.getElementById('doctorLocation');
-        const doctorLocationValue = localStorage.getItem(`remedy__doctorLocation`) || 'UCSD Hospital';
+        const doctorLocationValue = localStorage.getItem('remedy__doctorLocation') || 'UCSD Hospital';
         doctorLocation.innerHTML = doctorLocationValue;
     }
 

@@ -89,6 +89,7 @@
 
         $('#loginForm .loginButton').click(() => {
             if ($('#loginUsername').val() !== '' && $('#loginPassword').val() !== '') {
+                localStorage.setItem('remedy__name', $('#loginUsername').val());
                 window.location.href = '/';
             }
             else {
@@ -119,6 +120,7 @@
 
         $('#signupForm .signupButton').click(() => {
             if ($('#username').val() !== '' && $('#password').val() !== '' && $('#passwordConfirm').val() !== '') {
+                localStorage.setItem('remedy__name', $('#username').val());
                 window.location.href = '/';
             }
             else {
