@@ -9,4 +9,8 @@
   margin-right: auto;
   margin-top: 1em;
   margin-bottom: 1em;
+  width: 30rem;
+  @media #{$large-screen} {
+    width: 40rem;
+  }
 }
