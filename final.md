@@ -240,7 +240,7 @@ Partials
 <a name="slide"/>
 
 ## Slide
-[Click here to view Google Slide.](https://docs.google.com/presentation/d/1O0bDGLwvzQ7EPdX5Bpiz3kQ431-ZMfPBAP1BsJnuMvg/edit?usp=sharing)
+[Click here to view Google Slide.](https://docs.google.com/presentation/d/1Jx8RNLGhN-I7lizR2yX8RJP7WP79_LsDiCePFTf8Uiw/edit?usp=sharing)
 
 
 <img src="/images/slide.png">
