@@ -12,12 +12,16 @@
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
-<h3 class="text-center">Contact Doctor</h3>
+<h3 class="text-center mb-5">Contact Doctor</h3>
+
+<div class="container">
+  <div class="alert alert-success response-text" role="alert"></div>
+</div>
 
 <form id="javascript_form" class="container">
   <div class="form-group divider">
     <label for="doctorName">Doctor</label>
-    <select class="form-control" id="doctor">
+    <select class="form-control" id="doctor" name="doctor">
       <option>Jamie Lee</option>
       <option>Eric Wong</option>
       <option>Nikki Easyman</option>
@@ -42,9 +46,12 @@
 <script>
   document.addEventListener("DOMContentLoaded", event => {
     $('#js_send').on('click', e => {
-      alert('Message sent!');
+      e.preventDefault();
+      const doctorName = $('#doctor').val();
       $('#subject').val('');
       $('#message').val('');
+      $('.response-text').text(`Message successfully sent to doctor ${doctorName}!`);
+      $('.response-text').addClass('d-block');
     })
   });
 </script>

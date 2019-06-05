@@ -15,14 +15,16 @@
 
 {{> search-bar onCommonInjuryPage=this}}
 
-<div class="gallery">
-  <div class="row" id="commonInjuryList">
-    {{#each injuryList}}
-    <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/injury-details/{{injury_id}}">
-      <img height="90%" width="100%" src={{injury_image_url}} alt="{{injury_name}} image">
-      <h5 class="gallery__item__caption">{{injury_name}}</h5>
-    </a>
-    {{/each}}
+<div class="container">
+  <div class="gallery">
+    <div class="row" id="commonInjuryList">
+      {{#each injuryList}}
+      <a class="col-xs-12 col-sm-5 col-md-3 gallery__item" href="/injury-details/{{injury_id}}">
+        <img height="90%" width="100%" src={{injury_image_url}} alt="{{injury_name}} image">
+        <h5 class="gallery__item__caption">{{injury_name}}</h5>
+      </a>
+      {{/each}}
+    </div>
   </div>
 </div>
 
