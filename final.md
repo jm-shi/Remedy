@@ -19,7 +19,8 @@
   - [views](#views)
     - [views/layouts](#views-layouts)
     - [views/partials](#views-partials)
-- [To be determined...](#tbd)
+- [Slide](#slide)
+- [Demo Video](#demo)
 
 <a name="members"/>
 
@@ -234,6 +235,15 @@ Partials
 | search-bar.handlebars  | Displays a search bar                                                        |
 | sport-box.handlebars   | Displays a box containing the user’s sports played on their profile page     |
 
-<a name="tbd"/>
+<a name="slide"/>
 
-## To be determined...
+## Slide
+[Click here to view Google Slide.](https://docs.google.com/presentation/d/1O0bDGLwvzQ7EPdX5Bpiz3kQ431-ZMfPBAP1BsJnuMvg/edit?usp=sharing)
+
+
+<img src="/images/slide.png">
+
+<a name="demo"/>
+
+## Demo video
+[Click here to view demo video.](https://google.com)
