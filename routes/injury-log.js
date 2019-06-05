@@ -12,7 +12,7 @@ exports.viewCurrent = (req, res) => {
       if (error) {
         return console.log('Error fetching current injury', error);
       }
-      console.log('Current injury results:', results.rows);
+      // console.log('Current injury results:', results.rows);
 
       // Save the expected recovery date timestamp as a string
       // Used to help display the expected recovery date on the user's screen.
@@ -26,7 +26,6 @@ exports.viewCurrent = (req, res) => {
         }
       });
 
-      console.log('result.rows', results.rows);
       res.render('current-log', {
         title: 'Current Injury Log',
         currentInjury: results.rows
@@ -43,7 +42,7 @@ exports.viewPrevious = (req, res) => {
       if (error) {
         return console.log('Error fetching previous injury', error);
       }
-      console.log('Previous injury results:', results.rows);
+      // console.log('Previous injury results:', results.rows);
 
       // Save the expected recovery date timestamp as a string
       // Used to help display the expected recovery date on the user's screen.

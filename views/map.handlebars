@@ -1,3 +1,10 @@
+{{!-- 
+    map.handlebars
+    Utilizes the Yelp and BetterDoctor API alongside the Google Maps API to display nearby doctors/pharmacies 
+    in a user-specified location. Users can filter out either the doctors or pharmacies, and can sort the results
+    by either best matched or highest rated.
+--}}
+
 {{> navbar}}
 {{> back-button destinationURL="/" destinationName="Home"}}
 
@@ -7,20 +14,13 @@
     <!-- Searchbar and filter/sort dropdown menu -->
     <div class="mt-4 mb-4 ml-4 mr-4">
       <form class="input-group">
-        {{!-- <div class="input-group-prepend">
-          <span class="input-group-text">Find</span>
-        </div>
-        <input type="text" class="form-control w-45" id="search" placeholder="doctors/pharmacies">
-        <div class="input-group-prepend">
-          <span class="input-group-text">Near</span>
-        </div>
-        <input type="text" class="form-control" id="location" placeholder="San Diego, CA"> --}}
         <input type="text" class="form-control" id="address" placeholder="Enter a city to find nearby services">
         <button type="submit" class="btn btn-primary" id="searchButton"><i class="fa fa-search"></i></input></button>
       </form>
 
       <div class="option-details">Showing doctors and pharmacies, sorted by best match</div>
 
+      <!-- Display filter/sort dropdown menu -->
       <div class="dropdowns">
         <div class="d-none" id="mapOptions" data-show_doctors="true" data-show_pharmacies="true" data-lat="32.8801"
           data-lng="-117.234" data-address="La Jolla" data-sort_by="best_match"></div>
@@ -67,6 +67,7 @@
 </div>
 
 <script>
+  // Fetch doctors via the BetterDoctor API
   const fetchDoctors = (infowindow) => {
     const lat = $('#mapOptions').data('lat');
     const lng = $('#mapOptions').data('lng');
@@ -233,9 +234,6 @@
         `;
         const pos = { lat: parseFloat(lat), lng: parseFloat(long) };
 
-        // const infowindow = new google.maps.InfoWindow({
-        //   content: contentString
-        // });
         const marker = new google.maps.Marker({
           position: pos,
           map: map
@@ -250,6 +248,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", event => {
+    // Convert a user-entered city into geodata
     $('#searchButton').on('click', e => {
       e.preventDefault();
       const address = $('#address').val();
@@ -271,6 +270,7 @@
       })
     });
 
+    // Used for sorting
     $('#sortByBestMatchButton').on('click', e => {
       $('#mapOptions').data('sort_by', 'best_match');
       initMap();

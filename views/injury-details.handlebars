@@ -1,10 +1,10 @@
-<!--
+{{!-- 
+    injury-details.handlebars
+    This file displays the specific information for an injury (description about
+    the injury, image of the injury, possible symptoms, treatments, and a link to
+    the source page with more information about the injury). 
+--}}
 
-This file displays the specific information for an injury (description about
-the injury, image of the injury, possible symptoms, treatments, and a link to
-the source page with more information about the injury).
-
- -->
 {{> navbar}}
 {{> back-button destinationURL="javascript:history.back();" destinationName="Common Injuries"}}
 
@@ -20,7 +20,9 @@ the source page with more information about the injury).
   <p>{{injuryData.c_injury_symptoms}}</p>
 
   <h4>Treatment</h4>
-  {{injuryData.c_injury_treatment}}
+  <p>{{injuryData.c_injury_treatment}}</p>
 
-  <p><a href="{{injuryData.c_injury_source}}" target="_blank">Source</a></p>
+  <p>
+    <a href="{{injuryData.c_injury_source}}" target="_blank">Source</a>
+  </p>
 </div>

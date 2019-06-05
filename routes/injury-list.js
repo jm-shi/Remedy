@@ -60,7 +60,7 @@ exports.viewInjuryDetails = (req, res) => {
       if (error) {
         return console.log('Error fetching injury list', error);
       }
-      console.log('Current injury results:', results.rows);
+      // console.log('Current injury results:', results.rows);
 
       res.render('injury-details', {
         title: 'Injury Details',

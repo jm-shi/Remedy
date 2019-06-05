@@ -91,7 +91,7 @@ exports.viewLogs = (req, res) => {
       if (error) {
         return console.log('Error fetching current injury log', error);
       }
-      console.log('Current injury log results:', results.rows);
+      // console.log('Current injury log results:', results.rows);
       res.send(results.rows);
     }
   );

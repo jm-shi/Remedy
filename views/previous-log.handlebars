@@ -24,6 +24,7 @@
   </ul>
 </div>
 
+<!-- Display each of the previous injuries to the page -->
 <div class="container">
   {{#each previousInjury}}
   <div class="card">
@@ -80,6 +81,7 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", event => {
+    // Add a history log item to the DOM
     function appendLogItem(selector, injuryId, logId, dateString, timeString, content) {
       $(selector).append(`
             <div class="log-item log-item${logId}">
@@ -96,6 +98,7 @@
             `);
     };
 
+    // Fetch the history log associated with a specific injury from the Postgres database
     function displayLogItems(injuryId) {
       $.ajax({
         url: `/view-logs/${injuryId}`,

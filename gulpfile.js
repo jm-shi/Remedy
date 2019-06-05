@@ -1,3 +1,8 @@
+/*
+ * gulpfile.js
+ * In this particular app, primarily used to compile SCSS to CSS.
+ */
+
 let gulp = require('gulp');
 let autoprefixer = require('gulp-autoprefixer');
 let cleanCSS = require('gulp-clean-css');

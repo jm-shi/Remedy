@@ -99,6 +99,7 @@
       const bio = `${doctor.profile.bio}`
       const image_url = `${doctor.profile.image_url}`;
 
+      // Get all the medical areas that this doctor specializes in
       let specialtiesArr = [];
       doctor.specialties.forEach(specialty => specialtiesArr.push(specialty.name));
       const specialties = specialtiesArr.join(", ");
@@ -108,24 +109,23 @@
       const website = doctor.practices[0].website;
       const phone = `${doctor.practices[0].phones[0].number}`;
       const ratings = doctor.ratings;
+      // Check if there is a source that includes this doctor's ratings
       const doctorObjectWithRating = ratings.find(({ rating }) => {
         return rating !== undefined;
       });
       let rating;
+      // Used to make it easier to display an image of the doctor's rating
       if (doctorObjectWithRating) {
         rating = doctorObjectWithRating.rating.toString();
         rating = rating.replace(".", "_");
 
       }
-      // Display doctor cards
+      // Display the ratings image only if the doctor has been rated
       if (rating) {
         $("#rating").attr("src", `${(rating && `images/stars/${rating}.png`)}`);
       }
       else {
         $("#rating").remove();
-        // let textRating = document.createElement("div");
-        // textRating.innerHTML = "No Rating";
-        // document.body.appendChild(textRating);
       }
 
       $("#name").html(name);
