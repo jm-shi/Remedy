@@ -1,5 +1,7 @@
 # Remedy
 
+Remediate your injuries.
+
 # Table of Contents
 
 - [Team Members](#members)
@@ -245,5 +247,5 @@ Partials
 
 <a name="demo"/>
 
-## Demo video
+## Demo Video
 [Click here to view demo video.](https://google.com)
