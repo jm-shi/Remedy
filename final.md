@@ -248,4 +248,4 @@ Partials
 <a name="demo"/>
 
 ## Demo Video
-[Click here to view demo video.](https://google.com)
+[Click here to view demo video.](https://youtu.be/fOVXIwlzwn0)
