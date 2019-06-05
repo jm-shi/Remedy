@@ -67,10 +67,10 @@ Eric Yang, Nikki Hardiman, Jamie Shi, Lawrence Ngo
 <a name="public-css"/>
 
 ### CSS
-| File name        | Description                                                 | 
-| :--------------- |:------------------------------------------------------------| 
-| style.css        | All Sass files are compiled into this single CSS file       |
-| style.min.css    | Minified version of style.css                               |  
+| File name        | Description                                                                                                    | 
+| :--------------- |:---------------------------------------------------------------------------------------------------------------| 
+| style.css        | Whenever you save a .scss file, Gulp will automatically compile all Sass files into this single CSS file       |
+| style.min.css    | Minified version of style.css                                                                                  |  
 
 <a name="public-sass"/>
 
@@ -93,7 +93,7 @@ Base
 
 | File name        | Description                                                    | 
 | :--------------- |:---------------------------------------------------------------| 
-| _base.scss       | Sets default default margin, padding, and font size in browser |
+| _base.scss       | Sets default default margin, padding, and font size in browser 
 
 <a name="public-sass-components"/>
 
@@ -151,19 +151,19 @@ Pages
 
 | File name                      | Description                                                                                           | 
 | :----------------------------- |:------------------------------------------------------------------------------------------------------| 
-| common-injuries.handlebars     | Describes the structure of the common injuries page                                                   |
-| contact-doctor.handlebars      | Describes the structure of the contact doctor page                                                    |
-| current-log.handlebars         | Describes the structure of the current log page                                                       |
-| doctor.handlebars              | Describes the structure of the doctor details page                                                    |
-| help.handlebars                | Describes the structure of the help page                                                              |
-| home.handlebars                | Describes the structure of the home page                                                              |
-| injury-details.handlebars      | Describes the structure of the injury details page                                                    |
-| injury-list.handlebars         | Describes the structure of the injury list page                                                       |
-| login.handlebars               | Describes the structure of the login/signup page                                                      |
-| map.handlebars                 | Describes the structure of the map page (also dynamically fetches doctor/pharmacy and location data)  |
-| pharmacy.handlebars            | Describes the structure of the pharmacy details page                                                  |
-| previous-log.handlebars        | Describes the structure of the previous log page                                                      |
-| profile.handlebars             | Describes the structure of the profile page                                                           |
+| common-injuries.handlebars     | This file displays the common injuries for a specific sport. A description of the sport, along with the name will be shown at the top of the page. This page also is able to filter the injuries based on what the user types into the search bar.                                                     |
+| contact-doctor.handlebars      | The contact page is what users will use to send emails to their doctors for use. The user can enter which doctor to send to, the subject of the message, and the message itself. Within the message, the user's entire injury log is attached. As of the deadline for the final, the email function does not work as it did originally. We originally used a service called PostMail, but it has recently stopped working. So we have wizard of oz'd the function. For us, making it functional in the beginning was of somewhat low priority.   |
+| current-log.handlebars         | The current injury logs page is what the users will use to see their injuries that have newly occurred or are still in process of recovery. The user can add an injury to the page by clicking on the "Add new injury" button, and filling the name of the injury, description, expected recovery date, and treatment plan. On the page, the users will see their current injuries in order of most recently created. Each injury lists the name, description, creation date, expected recovery date, and treatement plan. In addition, each injury has a log history, where you can see and add progress logs of the recovery. Also, the user has the ability to edit, delete, and archive the injury to the past injuries log page.                                                     |
+| doctor.handlebars              | The doctor page is used as the information page for the specific doctors found and clicked on in the map function of our app. The page provides the information of the specified doctors, such as, their picture, name, rating, address, phone number, biography, specialties, and the accepted insurance at their hospital. You also have the ability to view their website if they have one.                                                    |
+| help.handlebars                | Contains a list of potential questions user may ask and provided answers to help users navigate the app if they are lost or confused.                                                            |
+| home.handlebars                | The home page is the main page users see. They can navigate to the inury list page, injury log page, map page, and the contact doctor page.                                                            |
+| injury-details.handlebars      | This file displays the specific information for an injury (description about the injury, image of the injury, possible symptoms, treatments, and a link to the source page with more information about the injury).  |
+| injury-list.handlebars         | This file displays different sports in which the user can then go into to find the common injuries for that specific sport. This page also is able to filter the sports based on what the user types into the search bar.    |
+| login.handlebars               | Serves as the login/signup page for users opening the app.          |
+| map.handlebars                 | Utilizes the Yelp and BetterDoctor API alongside the Google Maps API to display nearby doctors/pharmacies in a user-specified location. Users can filter out either the doctors or pharmacies, and can sort the results by either best matched or highest rated.  |
+| pharmacy.handlebars            | The pharmacy page is used as the information page for the specific pharmacies found and clicked on in the map function of our app. The page provides the information of the specified pharmacies, such as, an image of the pharmacy, name, rating, address, phone number, pricing, and the hours. You also have the ability to view their Yelp website if they have one. |
+| previous-log.handlebars        | The previous injury logs page is what the users will use to see their injuries that have recovered. The user can add an recovered injury to the page by clicking on the injury's "I have recovered" button in the current injuries log page.  On the page, the users will see their past injuries in order of most recently resolved. Each injury lists the name, description, creation date, expected recovery date, resolved date, and treatement plan. In addition, each injury has a log history, where you can see progress logs of the recovery. Also, the user has the ability to delete and put the injury back into to the current injuries log page. |
+| profile.handlebars             | The profile page contains personal user information (email, phone, name, location, sports, doctor). Allows user to edit their profile and change their information.  |
 
 <a name="views-layouts"/>
 
