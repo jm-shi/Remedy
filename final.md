@@ -40,8 +40,7 @@ Eric Yang, Nikki Hardiman, Jamie Shi, Lawrence Ngo
   <li>Created common injuries page</li>
   <li>Created injury list/details page</li>
   <li>Added markers to the map displaying pharmacy and doctor locations</li>
-  <li>Added information (address, phone number, price, rating) to pharmacy and doctor pages
-    Connected Yelp API with app</li>
+  <li>Added information (address, phone number, price, rating) to pharmacy and doctor pages</li>
   <li>Connected Yelp API with app</li>
   <li>Collected data about popular sports and their commonly associated injuries</li>
 </ul>
